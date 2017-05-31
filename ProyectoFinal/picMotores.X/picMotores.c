@@ -25,6 +25,36 @@ char giro=0;
 char pos=20; //de 20 a 78
 char vel=100; //velocidad
 char accion; //accion transmitida
+char presion_zero = 0; //alamacena valor cuando no hay objetos por entregar
+
+
+unsigned char medicion_presion(void) {
+    char numero=0;              //variable
+    char objeto=0; 
+    ADCON0bits.GO=1;            //se activa la conversion analogica
+    while(PIR1bits.ADIF==0){    //se espera a que termine la conversion
+        __delay_us(1);
+    }
+    PIR1bits.ADIF=0;
+    numero=ADRESH;              //guardamos el valor   
+    if (numero > (presion_zero+3)){ //se compara de que haya algo
+        objeto = 1;       //indicador que ya hay algo
+    }
+    return objeto;
+}
+
+void calibracion_presion(void) {    //se utiliza para calibrar cuando se enciende la maquina, necesita de la variable colocada afuera
+    char numero=0;              
+    ADCON0bits.GO=1;            //se activa la conversion analogica
+    while(PIR1bits.ADIF==0){    //se espera a que termine la conversion
+        __delay_us(1);
+    }
+    PIR1bits.ADIF=0;
+    numero=ADRESH;              //guardamos el valor   
+    presion_zero=numero;        //se envia la medicion
+    PORTD=numero;
+    return;                     //no devuelve nada, solo guarda el valor en la variable global
+}
 
 void stepper(void){
     char i=3;
@@ -68,7 +98,8 @@ void move_pwmDC(void){
     CCP1CONbits.DC1B0=(vel)&(0b1);
     CCP1CONbits.DC1B1=(vel>>1)&(0b1);
     CCPR1L=(vel>>2);
-    __delay_ms(1000);
+    while (medicion_presion()!=1){ //mientras no haya objeto, gire hasta que caiga
+        __delay_ms(500);}
     CCP1CON=0;
     PORTCbits.RC2=0;
     return;
@@ -103,6 +134,7 @@ void move_servo(void){
     return;
 }
 
+
 void interrupt ISR(){
     if (PIR1bits.ADIF==1){
         PIR1bits.ADIF=0;
@@ -118,16 +150,19 @@ void main(void) {
     //CONFIGURANDO OSCILADOR (500kHz)
     OSCCON = 0b00111100;
     
-    //ENTRADAS DIGITALES
+    //ENTRADAS DIGITALES Y ANALÓGICAS
     ANSEL=0;
     ANSELH=0;
+    ANSELbits.ANS0; //RA0 es ADC
     
     //ENTRADAS Y SALIDAS
+    TRISA=0b00000001;
     TRISB=0b11110000;
     TRISC=0b11011001;
     TRISD=0;
     
     //POSICION INICIAL
+    PORTA=0;
     PORTB=0b1001;
     PORTCbits.RC2=0;
     PORTCbits.RC1=0;
@@ -146,30 +181,23 @@ void main(void) {
     //ESCLAVO
     SSPCON=0b00110100;
     
-    //CONFIGURANDO ADC
-    /*
-    ADCON1bits.VCFG1=0;     //REF VSS
-    ADCON1bits.VCFG0=0;     //REF VDD
-    ADCON1bits.ADFM=0;      //JUSTIFICADO IZQUIERDA
-    PIE1bits.ADIE=1;        //HABILITAR INTERRUPCION
-    
-    TRISAbits.TRISA0=1;
-    ANSELbits.ANS0=1;       //RA0 ANALOGICA
-    
-    ADCON0bits.ADCS=0b10;    //FOSC 1/32
-    ADCON0bits.CHS=0;
-    
-    ADRESL=0;
-    ADRESH=0;   //PRIMERA LECTURA 0
-    ADCON0bits.ADON=1;    //ENCENDEMOS
-    */
     //HABILITAR INTERRUPCIONES
-    //INTCONbits.GIE=1;   //INTERRUPCIONES GLOBALES
-    //INTCONbits.PEIE=1;  //INTERRUPCIONES PERIFERICAS
+    INTCONbits.GIE=1;   //Interrupciones globales
+    INTCONbits.PEIE=1;  //Interrupciones perifericas
+    PIE1bits.ADIE=1; ;  //Interruppcion ADC
+    
+    //CONFIGURANDO ADC
+    ADCON1=0b00000000; //ADFM left justified, VCFG1=VSS, VCFG0=VDD
+    ADCON0=0b11000001; //clk interno=500KHz, AN0=RA0,GO=no, ADCON=1
+    __delay_ms(1);     // espera
+    ADRESL=0;          //valores ADC=0
+    ADRESH=0;
     
     giro=0;
     
     while(1){
+        //CALIBRAR EL SENSOR DE FUERZA
+        calibracion_presion();
         //MOVER STEPPER
         if (PORTBbits.RB4==1|accion==1){
             while (PORTBbits.RB4==1){
@@ -197,8 +225,13 @@ void main(void) {
             if (accion==3){accion=0;}
         }
         //MOVER SERVO
-        if (giro==1|giro==2){
-            move_servo();
+        if (giro==1){
+            while(medicion_presion()==1){} //verifica si hay algo despachado
+            __delay_ms(4000); //recogieron el producto, espera 3 seg.
+            move_servo(); //cierra la puerta
+        }
+        if (giro==2){
+            move_servo(); //abre la puerta
         }
         //RECIBIR ACCIONES
         if (SSPSTATbits.BF==1){
