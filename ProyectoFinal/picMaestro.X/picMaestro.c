@@ -31,6 +31,7 @@ int cont=0;
 char n_mensaje=0;
 int dinero=0;
 char temperatura=0;
+int noControl=0;
 
 
 void LCD_t(char c){
@@ -208,6 +209,24 @@ void check_mensajes(){
 void check_transmisiones(){
 
 }
+//Control
+void IRcontrol(){
+    if(PORTCbits.RC0==0){
+        T1CONbits.TMR1ON=1;
+        __delay_ms(200);
+        T1CONbits.TMR1ON=0;
+        if(TMR1L==noControl){
+            noControl=0;
+        }
+        else{
+            noControl=TMR1L;
+        }
+        PORTD=noControl;
+        TMR1L=0;
+        T1CONbits.TMR1ON=1;   
+    }
+}
+
 
 void interrupt ISR(){
     if (INTCONbits.RBIF==1){
@@ -291,7 +310,10 @@ void main(void) {
     INTCONbits.RBIF=0;
     INTCONbits.RBIE=1;
     OPTION_REGbits.nRBPU=0;
-    
+    //TIMER1
+    TMR1L=0;        //LIMPIAR CONTADOR
+    TMR1H=0;
+    T1CON= 0B00000111; //TMR1  PRESCALER 1:1,EXTERNAL CLOCK, OFF
     //TIMER2
     PR2=155;
     T2CON = 0b01111111;     //PRESCALER 16 Y ENCENDER
@@ -311,5 +333,6 @@ void main(void) {
     char dato=0;
     while(1){
         check_mensajes();
+        IRcontrol();
     }
 }
