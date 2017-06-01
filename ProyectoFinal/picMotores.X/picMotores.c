@@ -26,7 +26,7 @@ char pos=20; //de 20 a 78
 char vel=100; //velocidad
 char accion; //accion transmitida
 char presion_zero = 0; //alamacena valor cuando no hay objetos por entregar
-
+char presion=0;
 
 unsigned char medicion_presion(void) {
     char numero=0;              //variable
@@ -98,6 +98,7 @@ void move_pwmDC(void){
     CCP1CONbits.DC1B0=(vel)&(0b1);
     CCP1CONbits.DC1B1=(vel>>1)&(0b1);
     CCPR1L=(vel>>2);
+    calibracion_presion();
     while (medicion_presion()!=1){ //mientras no haya objeto, gire hasta que caiga
         __delay_ms(500);}
     CCP1CON=0;
@@ -198,6 +199,8 @@ void main(void) {
     while(1){
         //CALIBRAR EL SENSOR DE FUERZA
         calibracion_presion();
+        presion = medicion_presion();
+        
         //MOVER STEPPER
         if (PORTBbits.RB4==1|accion==1){
             while (PORTBbits.RB4==1){
@@ -213,24 +216,24 @@ void main(void) {
             if (accion==2){accion=0;}
         }
         //CERRAR PUERTA
-        if (PORTBbits.RB5==1| (accion==3&pos==20)){
+        if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
             while (PORTBbits.RB5==1){}
             giro=1;
             if (accion==3){accion=0;}
         }
         //ABRRIR PUERTA
-        if (PORTBbits.RB6==1| (accion==3&pos==77)){
+        if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
             while (PORTBbits.RB6==1){}
             giro=2;
             if (accion==3){accion=0;}
         }
         //MOVER SERVO
-        if (giro==1){
-            while(medicion_presion()==1){} //verifica si hay algo despachado
+        if (giro==1){ //Cierra puerta
+            //while(medicion_presion()==1){} //verifica si hay algo despachado
             __delay_ms(4000); //recogieron el producto, espera 3 seg.
             move_servo(); //cierra la puerta
         }
-        if (giro==2){
+        if (giro==2){ //abre la puerta
             move_servo(); //abre la puerta
         }
         //RECIBIR ACCIONES
