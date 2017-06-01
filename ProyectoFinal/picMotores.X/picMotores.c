@@ -23,7 +23,7 @@ char puerta=0;
 char ADC=0;
 char giro=0;
 char pos=20; //de 20 a 78
-char vel=100; //velocidad
+char vel=200; //velocidad
 char accion; //accion transmitida
 char presion_zero = 0; //alamacena valor cuando no hay objetos por entregar
 char presion=0;
@@ -40,6 +40,9 @@ unsigned char medicion_presion(void) {
     if (numero > (presion_zero+3)){ //se compara de que haya algo
         objeto = 1;       //indicador que ya hay algo
     }
+    if (numero < (presion_zero-6)){
+        objeto=2;
+    }
     return objeto;
 }
 
@@ -52,7 +55,7 @@ void calibracion_presion(void) {    //se utiliza para calibrar cuando se enciend
     PIR1bits.ADIF=0;
     numero=ADRESH;              //guardamos el valor   
     presion_zero=numero;        //se envia la medicion
-    PORTD=numero;
+    //PORTD=numero;
     return;                     //no devuelve nada, solo guarda el valor en la variable global
 }
 
@@ -93,19 +96,6 @@ void stepper2(void){
     return;
 }
 
-void move_pwmDC(void){
-    CCP1CON=0b00001100;
-    CCP1CONbits.DC1B0=(vel)&(0b1);
-    CCP1CONbits.DC1B1=(vel>>1)&(0b1);
-    CCPR1L=(vel>>2);
-    calibracion_presion();
-    while (medicion_presion()!=1){ //mientras no haya objeto, gire hasta que caiga
-        __delay_ms(500);}
-    CCP1CON=0;
-    PORTCbits.RC2=0;
-    return;
-}
-
 void servo(void){
     CCP2CONbits.DC2B0=(pos)&(0b1);
     CCP2CONbits.DC2B1=(pos>>1)&(0b1);
@@ -135,16 +125,30 @@ void move_servo(void){
     return;
 }
 
+void move_pwmDC(void){
+    CCP1CON=0b00001100;
+    CCP1CONbits.DC1B0=(vel)&(0b1);
+    CCP1CONbits.DC1B1=(vel>>1)&(0b1);
+    CCPR1L=(vel>>2);
+    while (medicion_presion()!=1){ //mientras no haya objeto, gire hasta que caiga
+        __delay_ms(50);
+    }
+    CCP1CON=0;
+    PORTCbits.RC2=0;
+    return;
+}
+
+
 
 void interrupt ISR(){
-    if (PIR1bits.ADIF==1){
+    /*if (PIR1bits.ADIF==1){
         PIR1bits.ADIF=0;
         //PORTC=ADRESH;
         ADC=ADRESH;
         __delay_ms(2);
         ADCON0bits.GO=1;
     }
-    return;
+    return;*/
 }
 
 void main(void) {
@@ -157,7 +161,7 @@ void main(void) {
     ANSELbits.ANS0; //RA0 es ADC
     
     //ENTRADAS Y SALIDAS
-    TRISA=0b00000001;
+    TRISA=0b00100001;
     TRISB=0b11110000;
     TRISC=0b11011001;
     TRISD=0;
@@ -183,9 +187,9 @@ void main(void) {
     SSPCON=0b00110100;
     
     //HABILITAR INTERRUPCIONES
-    INTCONbits.GIE=1;   //Interrupciones globales
+    /*INTCONbits.GIE=1;   //Interrupciones globales
     INTCONbits.PEIE=1;  //Interrupciones perifericas
-    PIE1bits.ADIE=1; ;  //Interruppcion ADC
+    PIE1bits.ADIE=1; ;  //Interruppcion ADC*/
     
     //CONFIGURANDO ADC
     ADCON1=0b00000000; //ADFM left justified, VCFG1=VSS, VCFG0=VDD
@@ -199,33 +203,45 @@ void main(void) {
     while(1){
         //CALIBRAR EL SENSOR DE FUERZA
         calibracion_presion();
-        presion = medicion_presion();
-        
+        //presion = medicion_presion();
+
         //MOVER STEPPER
         if (accion==1){
-            /*while (PORTBbits.RB4==1){
-            PORTBbits.RB4==1;
-            }*/
             stepper();
             if (accion==1){accion=0;}
         }
+        
         //MOVER MOTOR DC
         if (accion==2){
-            //while (PORTBbits.RB7==1){}
             move_pwmDC();
+            
+            
+            giro=1; 
+            while(giro==1){
+                move_servo(); 
+            }  //abre la compuerta
+            calibracion_presion();
+            
+            while(medicion_presion()!=2){PORTD=3;} //verifica si sacó el producto
+            PORTD=1;
+            __delay_ms(2000);
+            giro=2;
+            while(giro==2){
+                move_servo(); 
+            }
+            PORTD=2;
             if (accion==2){accion=0;}
         }
         //CERRAR PUERTA
-        if ((accion==4&pos==20)|(presion!=1)){
-            //while (PORTBbits.RB5==1){}
-            __delay_ms(6000); //recogieron el producto, espera 6 seg.
-            giro=1;
-            if (accion==3){accion=0;}
+        if ((accion==4&pos==20)){
+            //__delay_ms(6000); //recogieron el producto, espera 3 seg.
+            giro=2;
+            
+            if (accion==4){accion=0;}
         }
         //ABRRIR PUERTA
-        if ((accion==3&pos==77)|(presion==1)){
-            //while (PORTBbits.RB6==1){}
-            giro=2;
+        if ((accion==3&pos==77)){
+            giro=1;
             if (accion==3){accion=0;}
         }
         //MOVER SERVO
@@ -237,7 +253,7 @@ void main(void) {
         //RECIBIR ACCIONES
         if (SSPSTATbits.BF==1){
             accion=SSPBUF;
-            PORTD=accion;  
+            //PORTD=accion;  
         }
         
     }

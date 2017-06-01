@@ -30,10 +30,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PIR1bits `VS18 ~T0 @X0 0 e@12 ]
 "1202
 [v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
-"341
-[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
 "219
 [v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"1139
+[s S42 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S42 . CCP2M DC2B0 DC2B1 ]
+"1144
+[s S43 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S43 . CCP2M0 CCP2M1 CCP2M2 CCP2M3 CCP2Y CCP2X ]
+"1138
+[u S41 `S42 1 `S43 1 ]
+[n S41 . . . ]
+"1153
+[v _CCP2CONbits `VS41 ~T0 @X0 0 e@29 ]
+"1121
+[v _CCPR2L `Vuc ~T0 @X0 0 e@27 ]
 "913
 [v _CCP1CON `Vuc ~T0 @X0 0 e@23 ]
 "919
@@ -60,19 +71,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S9 . . ]
 "297
 [v _PORTCbits `VS9 ~T0 @X0 0 e@7 ]
-"1139
-[s S42 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S42 . CCP2M DC2B0 DC2B1 ]
-"1144
-[s S43 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S43 . CCP2M0 CCP2M1 CCP2M2 CCP2M3 CCP2Y CCP2X ]
-"1138
-[u S41 `S42 1 `S43 1 ]
-[n S41 . . . ]
-"1153
-[v _CCP2CONbits `VS41 ~T0 @X0 0 e@29 ]
-"1121
-[v _CCPR2L `Vuc ~T0 @X0 0 e@27 ]
 [p mainexit ]
 "1815
 [v _OSCCON `Vuc ~T0 @X0 0 e@143 ]
@@ -108,39 +106,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SSPSTAT `Vuc ~T0 @X0 0 e@148 ]
 "826
 [v _SSPCON `Vuc ~T0 @X0 0 e@20 ]
-"451
-[s S16 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S16 . RBIF INTF T0IF RBIE INTE T0IE PEIE GIE ]
-"461
-[s S17 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
-[n S17 . . TMR0IF . TMR0IE ]
-"450
-[u S15 `S16 1 `S17 1 ]
-[n S15 . . . ]
-"468
-[v _INTCONbits `VS15 ~T0 @X0 0 e@11 ]
-"1664
-[s S63 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S63 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE ]
-"1663
-[u S62 `S63 1 ]
-[n S62 . . ]
-"1674
-[v _PIE1bits `VS62 ~T0 @X0 0 e@140 ]
 "2913
 [v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
 "1208
 [v _ADCON0 `Vuc ~T0 @X0 0 e@31 ]
 "2907
 [v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
-"225
-[s S8 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S8 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"224
-[u S7 `S8 1 ]
-[n S7 . . ]
-"236
-[v _PORTBbits `VS7 ~T0 @X0 0 e@6 ]
+"341
+[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
 "2130
 [s S82 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S82 . BF UA R_nW S P D_nA CKE SMP ]
@@ -1704,9 +1677,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "26
 [v _vel `uc ~T0 @X0 1 e ]
 [i _vel
--> -> 100 `i `uc
+-> -> 200 `i `uc
 ]
-[; ;picMotores.c: 26: char vel=100;
+[; ;picMotores.c: 26: char vel=200;
 "27
 [v _accion `uc ~T0 @X0 1 e ]
 [; ;picMotores.c: 27: char accion;
@@ -1771,617 +1744,588 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 142 ]
 [; ;picMotores.c: 42: }
-[; ;picMotores.c: 43: return objeto;
+[; ;picMotores.c: 43: if (numero < (presion_zero-6)){
 "43
+[e $ ! < -> _numero `i - -> _presion_zero `i -> 6 `i 143  ]
+{
+[; ;picMotores.c: 44: objeto=2;
+"44
+[e = _objeto -> -> 2 `i `uc ]
+"45
+}
+[e :U 143 ]
+[; ;picMotores.c: 45: }
+[; ;picMotores.c: 46: return objeto;
+"46
 [e ) _objeto ]
 [e $UE 138  ]
-[; ;picMotores.c: 44: }
-"44
+[; ;picMotores.c: 47: }
+"47
 [e :UE 138 ]
 }
-"46
+"49
 [v _calibracion_presion `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 46: void calibracion_presion(void) {
+[; ;picMotores.c: 49: void calibracion_presion(void) {
 [e :U _calibracion_presion ]
 [f ]
-"47
-[v _numero `uc ~T0 @X0 1 a ]
-[; ;picMotores.c: 47: char numero=0;
-[e = _numero -> -> 0 `i `uc ]
-[; ;picMotores.c: 48: ADCON0bits.GO=1;
-"48
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;picMotores.c: 49: while(PIR1bits.ADIF==0){
-"49
-[e $U 144  ]
-[e :U 145 ]
-{
-[; ;picMotores.c: 50: _delay((unsigned long)((1)*(500000/4000000.0)));
 "50
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 500000 `l `d .4000000.0 `ul ]
+[v _numero `uc ~T0 @X0 1 a ]
+[; ;picMotores.c: 50: char numero=0;
+[e = _numero -> -> 0 `i `uc ]
+[; ;picMotores.c: 51: ADCON0bits.GO=1;
 "51
-}
-[e :U 144 ]
-"49
-[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 145  ]
-[e :U 146 ]
-[; ;picMotores.c: 51: }
-[; ;picMotores.c: 52: PIR1bits.ADIF=0;
+[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
+[; ;picMotores.c: 52: while(PIR1bits.ADIF==0){
 "52
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;picMotores.c: 53: numero=ADRESH;
+[e $U 145  ]
+[e :U 146 ]
+{
+[; ;picMotores.c: 53: _delay((unsigned long)((1)*(500000/4000000.0)));
 "53
-[e = _numero _ADRESH ]
-[; ;picMotores.c: 54: presion_zero=numero;
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 500000 `l `d .4000000.0 `ul ]
 "54
-[e = _presion_zero _numero ]
-[; ;picMotores.c: 55: PORTD=numero;
-"55
-[e = _PORTD _numero ]
-[; ;picMotores.c: 56: return;
-"56
-[e $UE 143  ]
-[; ;picMotores.c: 57: }
-"57
-[e :UE 143 ]
 }
+[e :U 145 ]
+"52
+[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 146  ]
+[e :U 147 ]
+[; ;picMotores.c: 54: }
+[; ;picMotores.c: 55: PIR1bits.ADIF=0;
+"55
+[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
+[; ;picMotores.c: 56: numero=ADRESH;
+"56
+[e = _numero _ADRESH ]
+[; ;picMotores.c: 57: presion_zero=numero;
+"57
+[e = _presion_zero _numero ]
+[; ;picMotores.c: 59: return;
 "59
+[e $UE 144  ]
+[; ;picMotores.c: 60: }
+"60
+[e :UE 144 ]
+}
+"62
 [v _stepper `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 59: void stepper(void){
+[; ;picMotores.c: 62: void stepper(void){
 [e :U _stepper ]
 [f ]
-"60
-[v _i `uc ~T0 @X0 1 a ]
-[; ;picMotores.c: 60: char i=3;
-[e = _i -> -> 3 `i `uc ]
-[; ;picMotores.c: 61: while (i!=0){
-"61
-[e $U 148  ]
-[e :U 149 ]
-{
-[; ;picMotores.c: 62: PORTB=0b0011;
-"62
-[e = _PORTB -> -> 3 `i `uc ]
-[; ;picMotores.c: 63: _delay((unsigned long)((200)*(500000/4000.0)));
 "63
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 64: PORTB=0b0110;
+[v _i `uc ~T0 @X0 1 a ]
+[; ;picMotores.c: 63: char i=3;
+[e = _i -> -> 3 `i `uc ]
+[; ;picMotores.c: 64: while (i!=0){
 "64
-[e = _PORTB -> -> 6 `i `uc ]
-[; ;picMotores.c: 65: _delay((unsigned long)((200)*(500000/4000.0)));
-"65
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 66: PORTB=0b1100;
-"66
-[e = _PORTB -> -> 12 `i `uc ]
-[; ;picMotores.c: 67: _delay((unsigned long)((200)*(500000/4000.0)));
-"67
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 68: PORTB=0b1001;
-"68
-[e = _PORTB -> -> 9 `i `uc ]
-[; ;picMotores.c: 69: _delay((unsigned long)((200)*(500000/4000.0)));
-"69
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 70: i--;
-"70
-[e -- _i -> -> 1 `i `uc ]
-"71
-}
-[e :U 148 ]
-"61
-[e $ != -> _i `i -> 0 `i 149  ]
+[e $U 149  ]
 [e :U 150 ]
-[; ;picMotores.c: 71: }
-[; ;picMotores.c: 73: return;
+{
+[; ;picMotores.c: 65: PORTB=0b0011;
+"65
+[e = _PORTB -> -> 3 `i `uc ]
+[; ;picMotores.c: 66: _delay((unsigned long)((200)*(500000/4000.0)));
+"66
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 67: PORTB=0b0110;
+"67
+[e = _PORTB -> -> 6 `i `uc ]
+[; ;picMotores.c: 68: _delay((unsigned long)((200)*(500000/4000.0)));
+"68
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 69: PORTB=0b1100;
+"69
+[e = _PORTB -> -> 12 `i `uc ]
+[; ;picMotores.c: 70: _delay((unsigned long)((200)*(500000/4000.0)));
+"70
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 71: PORTB=0b1001;
+"71
+[e = _PORTB -> -> 9 `i `uc ]
+[; ;picMotores.c: 72: _delay((unsigned long)((200)*(500000/4000.0)));
+"72
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 73: i--;
 "73
-[e $UE 147  ]
-[; ;picMotores.c: 74: }
+[e -- _i -> -> 1 `i `uc ]
 "74
-[e :UE 147 ]
 }
+[e :U 149 ]
+"64
+[e $ != -> _i `i -> 0 `i 150  ]
+[e :U 151 ]
+[; ;picMotores.c: 74: }
+[; ;picMotores.c: 76: return;
 "76
+[e $UE 148  ]
+[; ;picMotores.c: 77: }
+"77
+[e :UE 148 ]
+}
+"79
 [v _stepper2 `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 76: void stepper2(void){
+[; ;picMotores.c: 79: void stepper2(void){
 [e :U _stepper2 ]
 [f ]
-[; ;picMotores.c: 77: PORTB=0b0001;
-"77
-[e = _PORTB -> -> 1 `i `uc ]
-[; ;picMotores.c: 78: _delay((unsigned long)((500)*(500000/4000.0)));
-"78
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 79: PORTB=0b0011;
-"79
-[e = _PORTB -> -> 3 `i `uc ]
-[; ;picMotores.c: 80: _delay((unsigned long)((500)*(500000/4000.0)));
+[; ;picMotores.c: 80: PORTB=0b0001;
 "80
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 81: PORTB=0b0010;
+[e = _PORTB -> -> 1 `i `uc ]
+[; ;picMotores.c: 81: _delay((unsigned long)((500)*(500000/4000.0)));
 "81
-[e = _PORTB -> -> 2 `i `uc ]
-[; ;picMotores.c: 82: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 82: PORTB=0b0011;
 "82
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 83: PORTB=0b0110;
+[e = _PORTB -> -> 3 `i `uc ]
+[; ;picMotores.c: 83: _delay((unsigned long)((500)*(500000/4000.0)));
 "83
-[e = _PORTB -> -> 6 `i `uc ]
-[; ;picMotores.c: 84: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 84: PORTB=0b0010;
 "84
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 85: PORTB=0b0100;
+[e = _PORTB -> -> 2 `i `uc ]
+[; ;picMotores.c: 85: _delay((unsigned long)((500)*(500000/4000.0)));
 "85
-[e = _PORTB -> -> 4 `i `uc ]
-[; ;picMotores.c: 86: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 86: PORTB=0b0110;
 "86
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 87: PORTB=0b1100;
+[e = _PORTB -> -> 6 `i `uc ]
+[; ;picMotores.c: 87: _delay((unsigned long)((500)*(500000/4000.0)));
 "87
-[e = _PORTB -> -> 12 `i `uc ]
-[; ;picMotores.c: 88: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 88: PORTB=0b0100;
 "88
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 89: PORTB=0b1000;
+[e = _PORTB -> -> 4 `i `uc ]
+[; ;picMotores.c: 89: _delay((unsigned long)((500)*(500000/4000.0)));
 "89
-[e = _PORTB -> -> 8 `i `uc ]
-[; ;picMotores.c: 90: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 90: PORTB=0b1100;
 "90
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 91: PORTB=0b1001;
+[e = _PORTB -> -> 12 `i `uc ]
+[; ;picMotores.c: 91: _delay((unsigned long)((500)*(500000/4000.0)));
 "91
-[e = _PORTB -> -> 9 `i `uc ]
-[; ;picMotores.c: 92: _delay((unsigned long)((500)*(500000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 92: PORTB=0b1000;
 "92
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 93: return;
+[e = _PORTB -> -> 8 `i `uc ]
+[; ;picMotores.c: 93: _delay((unsigned long)((500)*(500000/4000.0)));
 "93
-[e $UE 151  ]
-[; ;picMotores.c: 94: }
-"94
-[e :UE 151 ]
-}
-"96
-[v _move_pwmDC `(v ~T0 @X0 1 ef ]
-{
-[; ;picMotores.c: 96: void move_pwmDC(void){
-[e :U _move_pwmDC ]
-[f ]
-[; ;picMotores.c: 97: CCP1CON=0b00001100;
-"97
-[e = _CCP1CON -> -> 12 `i `uc ]
-[; ;picMotores.c: 98: CCP1CONbits.DC1B0=(vel)&(0b1);
-"98
-[e = . . _CCP1CONbits 1 4 -> & -> _vel `i -> 1 `i `uc ]
-[; ;picMotores.c: 99: CCP1CONbits.DC1B1=(vel>>1)&(0b1);
-"99
-[e = . . _CCP1CONbits 1 5 -> & >> -> _vel `i -> 1 `i -> 1 `i `uc ]
-[; ;picMotores.c: 100: CCPR1L=(vel>>2);
-"100
-[e = _CCPR1L -> >> -> _vel `i -> 2 `i `uc ]
-[; ;picMotores.c: 101: calibracion_presion();
-"101
-[e ( _calibracion_presion ..  ]
-[; ;picMotores.c: 102: while (medicion_presion()!=1){
-"102
-[e $U 153  ]
-[e :U 154 ]
-{
-[; ;picMotores.c: 103: _delay((unsigned long)((500)*(500000/4000.0)));}
-"103
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-}
-[e :U 153 ]
-"102
-[e $ != -> ( _medicion_presion ..  `i -> 1 `i 154  ]
-[e :U 155 ]
-[; ;picMotores.c: 104: CCP1CON=0;
-"104
-[e = _CCP1CON -> -> 0 `i `uc ]
-[; ;picMotores.c: 105: PORTCbits.RC2=0;
-"105
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;picMotores.c: 106: return;
-"106
+[; ;picMotores.c: 94: PORTB=0b1001;
+"94
+[e = _PORTB -> -> 9 `i `uc ]
+[; ;picMotores.c: 95: _delay((unsigned long)((500)*(500000/4000.0)));
+"95
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 96: return;
+"96
 [e $UE 152  ]
-[; ;picMotores.c: 107: }
-"107
+[; ;picMotores.c: 97: }
+"97
 [e :UE 152 ]
 }
-"109
+"99
 [v _servo `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 109: void servo(void){
+[; ;picMotores.c: 99: void servo(void){
 [e :U _servo ]
 [f ]
-[; ;picMotores.c: 110: CCP2CONbits.DC2B0=(pos)&(0b1);
-"110
+[; ;picMotores.c: 100: CCP2CONbits.DC2B0=(pos)&(0b1);
+"100
 [e = . . _CCP2CONbits 0 1 -> & -> _pos `i -> 1 `i `uc ]
-[; ;picMotores.c: 111: CCP2CONbits.DC2B1=(pos>>1)&(0b1);
-"111
+[; ;picMotores.c: 101: CCP2CONbits.DC2B1=(pos>>1)&(0b1);
+"101
 [e = . . _CCP2CONbits 0 2 -> & >> -> _pos `i -> 1 `i -> 1 `i `uc ]
-[; ;picMotores.c: 112: CCPR2L=(pos>>2);
-"112
+[; ;picMotores.c: 102: CCPR2L=(pos>>2);
+"102
 [e = _CCPR2L -> >> -> _pos `i -> 2 `i `uc ]
-[; ;picMotores.c: 113: return;
-"113
-[e $UE 156  ]
-[; ;picMotores.c: 114: }
-"114
-[e :UE 156 ]
+[; ;picMotores.c: 103: return;
+"103
+[e $UE 153  ]
+[; ;picMotores.c: 104: }
+"104
+[e :UE 153 ]
 }
-"116
+"106
 [v _move_servo `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 116: void move_servo(void){
+[; ;picMotores.c: 106: void move_servo(void){
 [e :U _move_servo ]
 [f ]
-[; ;picMotores.c: 117: if (giro==1){
-"117
-[e $ ! == -> _giro `i -> 1 `i 158  ]
+[; ;picMotores.c: 107: if (giro==1){
+"107
+[e $ ! == -> _giro `i -> 1 `i 155  ]
 {
-[; ;picMotores.c: 118: pos++;
-"118
+[; ;picMotores.c: 108: pos++;
+"108
 [e ++ _pos -> -> 1 `i `uc ]
-[; ;picMotores.c: 119: servo();
-"119
+[; ;picMotores.c: 109: servo();
+"109
 [e ( _servo ..  ]
-[; ;picMotores.c: 120: _delay((unsigned long)((100)*(500000/4000.0)));
-"120
+[; ;picMotores.c: 110: _delay((unsigned long)((100)*(500000/4000.0)));
+"110
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 121: if(pos==78){
-"121
-[e $ ! == -> _pos `i -> 78 `i 159  ]
+[; ;picMotores.c: 111: if(pos==78){
+"111
+[e $ ! == -> _pos `i -> 78 `i 156  ]
 {
-[; ;picMotores.c: 122: giro=0;
-"122
+[; ;picMotores.c: 112: giro=0;
+"112
 [e = _giro -> -> 0 `i `uc ]
-[; ;picMotores.c: 123: pos=77;
-"123
+[; ;picMotores.c: 113: pos=77;
+"113
 [e = _pos -> -> 77 `i `uc ]
-"124
+"114
 }
-[e :U 159 ]
-"125
+[e :U 156 ]
+"115
+}
+[e :U 155 ]
+[; ;picMotores.c: 114: }
+[; ;picMotores.c: 115: }
+[; ;picMotores.c: 116: if (giro==2){
+"116
+[e $ ! == -> _giro `i -> 2 `i 157  ]
+{
+[; ;picMotores.c: 117: pos--;
+"117
+[e -- _pos -> -> 1 `i `uc ]
+[; ;picMotores.c: 118: servo();
+"118
+[e ( _servo ..  ]
+[; ;picMotores.c: 119: _delay((unsigned long)((100)*(500000/4000.0)));
+"119
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 120: if(pos==19){
+"120
+[e $ ! == -> _pos `i -> 19 `i 158  ]
+{
+[; ;picMotores.c: 121: giro=0;
+"121
+[e = _giro -> -> 0 `i `uc ]
+[; ;picMotores.c: 122: pos=20;
+"122
+[e = _pos -> -> 20 `i `uc ]
+"123
 }
 [e :U 158 ]
-[; ;picMotores.c: 124: }
-[; ;picMotores.c: 125: }
-[; ;picMotores.c: 126: if (giro==2){
-"126
-[e $ ! == -> _giro `i -> 2 `i 160  ]
-{
-[; ;picMotores.c: 127: pos--;
-"127
-[e -- _pos -> -> 1 `i `uc ]
-[; ;picMotores.c: 128: servo();
-"128
-[e ( _servo ..  ]
-[; ;picMotores.c: 129: _delay((unsigned long)((100)*(500000/4000.0)));
-"129
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 130: if(pos==19){
-"130
-[e $ ! == -> _pos `i -> 19 `i 161  ]
-{
-[; ;picMotores.c: 131: giro=0;
-"131
-[e = _giro -> -> 0 `i `uc ]
-[; ;picMotores.c: 132: pos=20;
-"132
-[e = _pos -> -> 20 `i `uc ]
-"133
+"124
 }
+[e :U 157 ]
+[; ;picMotores.c: 123: }
+[; ;picMotores.c: 124: }
+[; ;picMotores.c: 125: return;
+"125
+[e $UE 154  ]
+[; ;picMotores.c: 126: }
+"126
+[e :UE 154 ]
+}
+"128
+[v _move_pwmDC `(v ~T0 @X0 1 ef ]
+{
+[; ;picMotores.c: 128: void move_pwmDC(void){
+[e :U _move_pwmDC ]
+[f ]
+[; ;picMotores.c: 129: CCP1CON=0b00001100;
+"129
+[e = _CCP1CON -> -> 12 `i `uc ]
+[; ;picMotores.c: 130: CCP1CONbits.DC1B0=(vel)&(0b1);
+"130
+[e = . . _CCP1CONbits 1 4 -> & -> _vel `i -> 1 `i `uc ]
+[; ;picMotores.c: 131: CCP1CONbits.DC1B1=(vel>>1)&(0b1);
+"131
+[e = . . _CCP1CONbits 1 5 -> & >> -> _vel `i -> 1 `i -> 1 `i `uc ]
+[; ;picMotores.c: 132: CCPR1L=(vel>>2);
+"132
+[e = _CCPR1L -> >> -> _vel `i -> 2 `i `uc ]
+[; ;picMotores.c: 133: while (medicion_presion()!=1){
+"133
+[e $U 160  ]
 [e :U 161 ]
+{
+[; ;picMotores.c: 134: _delay((unsigned long)((50)*(500000/4000.0)));
 "134
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+"135
 }
 [e :U 160 ]
-[; ;picMotores.c: 133: }
-[; ;picMotores.c: 134: }
-[; ;picMotores.c: 135: return;
-"135
-[e $UE 157  ]
-[; ;picMotores.c: 136: }
+"133
+[e $ != -> ( _medicion_presion ..  `i -> 1 `i 161  ]
+[e :U 162 ]
+[; ;picMotores.c: 135: }
+[; ;picMotores.c: 136: CCP1CON=0;
 "136
-[e :UE 157 ]
+[e = _CCP1CON -> -> 0 `i `uc ]
+[; ;picMotores.c: 137: PORTCbits.RC2=0;
+"137
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;picMotores.c: 138: return;
+"138
+[e $UE 159  ]
+[; ;picMotores.c: 139: }
+"139
+[e :UE 159 ]
 }
 [v F1688 `(v ~T0 @X0 1 tf ]
-"139
+"143
 [v _ISR `IF1688 ~T0 @X0 1 e ]
 {
-[; ;picMotores.c: 139: void interrupt ISR(){
+[; ;picMotores.c: 143: void interrupt ISR(){
 [e :U _ISR ]
 [f ]
-[; ;picMotores.c: 140: if (PIR1bits.ADIF==1){
-"140
-[e $ ! == -> . . _PIR1bits 0 6 `i -> 1 `i 163  ]
-{
-[; ;picMotores.c: 141: PIR1bits.ADIF=0;
-"141
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;picMotores.c: 143: ADC=ADRESH;
-"143
-[e = _ADC _ADRESH ]
-[; ;picMotores.c: 144: _delay((unsigned long)((2)*(500000/4000.0)));
-"144
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 145: ADCON0bits.GO=1;
-"145
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-"146
+[; ;picMotores.c: 152: }
+"152
+[e :UE 163 ]
 }
-[e :U 163 ]
-[; ;picMotores.c: 146: }
-[; ;picMotores.c: 147: return;
-"147
-[e $UE 162  ]
-[; ;picMotores.c: 148: }
-"148
-[e :UE 162 ]
-}
-"150
+"154
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;picMotores.c: 150: void main(void) {
+[; ;picMotores.c: 154: void main(void) {
 [e :U _main ]
 [f ]
-[; ;picMotores.c: 152: OSCCON = 0b00111100;
-"152
-[e = _OSCCON -> -> 60 `i `uc ]
-[; ;picMotores.c: 155: ANSEL=0;
-"155
-[e = _ANSEL -> -> 0 `i `uc ]
-[; ;picMotores.c: 156: ANSELH=0;
+[; ;picMotores.c: 156: OSCCON = 0b00111100;
 "156
-[e = _ANSELH -> -> 0 `i `uc ]
-[; ;picMotores.c: 157: ANSELbits.ANS0;
-"157
-[e . . _ANSELbits 0 0 ]
-[; ;picMotores.c: 160: TRISA=0b00000001;
+[e = _OSCCON -> -> 60 `i `uc ]
+[; ;picMotores.c: 159: ANSEL=0;
+"159
+[e = _ANSEL -> -> 0 `i `uc ]
+[; ;picMotores.c: 160: ANSELH=0;
 "160
-[e = _TRISA -> -> 1 `i `uc ]
-[; ;picMotores.c: 161: TRISB=0b11110000;
+[e = _ANSELH -> -> 0 `i `uc ]
+[; ;picMotores.c: 161: ANSELbits.ANS0;
 "161
+[e . . _ANSELbits 0 0 ]
+[; ;picMotores.c: 164: TRISA=0b00100001;
+"164
+[e = _TRISA -> -> 33 `i `uc ]
+[; ;picMotores.c: 165: TRISB=0b11110000;
+"165
 [e = _TRISB -> -> 240 `i `uc ]
-[; ;picMotores.c: 162: TRISC=0b11011001;
-"162
-[e = _TRISC -> -> 217 `i `uc ]
-[; ;picMotores.c: 163: TRISD=0;
-"163
-[e = _TRISD -> -> 0 `i `uc ]
-[; ;picMotores.c: 166: PORTA=0;
+[; ;picMotores.c: 166: TRISC=0b11011001;
 "166
-[e = _PORTA -> -> 0 `i `uc ]
-[; ;picMotores.c: 167: PORTB=0b1001;
+[e = _TRISC -> -> 217 `i `uc ]
+[; ;picMotores.c: 167: TRISD=0;
 "167
+[e = _TRISD -> -> 0 `i `uc ]
+[; ;picMotores.c: 170: PORTA=0;
+"170
+[e = _PORTA -> -> 0 `i `uc ]
+[; ;picMotores.c: 171: PORTB=0b1001;
+"171
 [e = _PORTB -> -> 9 `i `uc ]
-[; ;picMotores.c: 168: PORTCbits.RC2=0;
-"168
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;picMotores.c: 169: PORTCbits.RC1=0;
-"169
-[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;picMotores.c: 172: CCP2CON=0b00001111;
+[; ;picMotores.c: 172: PORTCbits.RC2=0;
 "172
-[e = _CCP2CON -> -> 15 `i `uc ]
-[; ;picMotores.c: 173: servo();
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;picMotores.c: 173: PORTCbits.RC1=0;
 "173
-[e ( _servo ..  ]
-[; ;picMotores.c: 175: PR2=155;
-"175
-[e = _PR2 -> -> 155 `i `uc ]
-[; ;picMotores.c: 176: T2CON = 0b00000111;
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;picMotores.c: 176: CCP2CON=0b00001111;
 "176
-[e = _T2CON -> -> 7 `i `uc ]
-[; ;picMotores.c: 177: PIR1bits.TMR2IF = 0;
+[e = _CCP2CON -> -> 15 `i `uc ]
+[; ;picMotores.c: 177: servo();
 "177
-[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;picMotores.c: 181: SSPSTAT=0b01000000;
+[e ( _servo ..  ]
+[; ;picMotores.c: 179: PR2=155;
+"179
+[e = _PR2 -> -> 155 `i `uc ]
+[; ;picMotores.c: 180: T2CON = 0b00000111;
+"180
+[e = _T2CON -> -> 7 `i `uc ]
+[; ;picMotores.c: 181: PIR1bits.TMR2IF = 0;
 "181
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;picMotores.c: 185: SSPSTAT=0b01000000;
+"185
 [e = _SSPSTAT -> -> 64 `i `uc ]
-[; ;picMotores.c: 183: SSPCON=0b00110100;
-"183
-[e = _SSPCON -> -> 52 `i `uc ]
-[; ;picMotores.c: 186: INTCONbits.GIE=1;
-"186
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;picMotores.c: 187: INTCONbits.PEIE=1;
+[; ;picMotores.c: 187: SSPCON=0b00110100;
 "187
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;picMotores.c: 188: PIE1bits.ADIE=1; ;
-"188
-[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
-[; ;picMotores.c: 191: ADCON1=0b00000000;
-"191
-[e = _ADCON1 -> -> 0 `i `uc ]
-[; ;picMotores.c: 192: ADCON0=0b11000001;
-"192
-[e = _ADCON0 -> -> 193 `i `uc ]
-[; ;picMotores.c: 193: _delay((unsigned long)((1)*(500000/4000.0)));
-"193
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 194: ADRESL=0;
-"194
-[e = _ADRESL -> -> 0 `i `uc ]
-[; ;picMotores.c: 195: ADRESH=0;
+[e = _SSPCON -> -> 52 `i `uc ]
+[; ;picMotores.c: 195: ADCON1=0b00000000;
 "195
-[e = _ADRESH -> -> 0 `i `uc ]
-[; ;picMotores.c: 197: giro=0;
+[e = _ADCON1 -> -> 0 `i `uc ]
+[; ;picMotores.c: 196: ADCON0=0b11000001;
+"196
+[e = _ADCON0 -> -> 193 `i `uc ]
+[; ;picMotores.c: 197: _delay((unsigned long)((1)*(500000/4000.0)));
 "197
-[e = _giro -> -> 0 `i `uc ]
-[; ;picMotores.c: 199: while(1){
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 198: ADRESL=0;
+"198
+[e = _ADRESL -> -> 0 `i `uc ]
+[; ;picMotores.c: 199: ADRESH=0;
 "199
+[e = _ADRESH -> -> 0 `i `uc ]
+[; ;picMotores.c: 201: giro=0;
+"201
+[e = _giro -> -> 0 `i `uc ]
+[; ;picMotores.c: 203: while(1){
+"203
 [e :U 166 ]
 {
-[; ;picMotores.c: 201: calibracion_presion();
-"201
-[e ( _calibracion_presion ..  ]
-[; ;picMotores.c: 202: presion = medicion_presion();
-"202
-[e = _presion ( _medicion_presion ..  ]
-[; ;picMotores.c: 205: if (PORTBbits.RB4==1|accion==1){
+[; ;picMotores.c: 205: calibracion_presion();
 "205
-[e $ ! | == -> . . _PORTBbits 0 4 `i -> 1 `i == -> _accion `i -> 1 `i 168  ]
-{
-[; ;picMotores.c: 206: while (PORTBbits.RB4==1){
-"206
-[e $U 169  ]
-[e :U 170 ]
-{
-[; ;picMotores.c: 207: PORTBbits.RB4==1;
-"207
-[e == -> . . _PORTBbits 0 4 `i -> 1 `i ]
-"208
-}
-[e :U 169 ]
-"206
-[e $ == -> . . _PORTBbits 0 4 `i -> 1 `i 170  ]
-[e :U 171 ]
-[; ;picMotores.c: 208: }
-[; ;picMotores.c: 209: stepper();
+[e ( _calibracion_presion ..  ]
+[; ;picMotores.c: 209: if (accion==1){
 "209
-[e ( _stepper ..  ]
-[; ;picMotores.c: 210: if (accion==1){accion=0;}
+[e $ ! == -> _accion `i -> 1 `i 168  ]
+{
+[; ;picMotores.c: 210: stepper();
 "210
-[e $ ! == -> _accion `i -> 1 `i 172  ]
+[e ( _stepper ..  ]
+[; ;picMotores.c: 211: if (accion==1){accion=0;}
+"211
+[e $ ! == -> _accion `i -> 1 `i 169  ]
 {
 [e = _accion -> -> 0 `i `uc ]
 }
-[e :U 172 ]
-"211
+[e :U 169 ]
+"212
 }
 [e :U 168 ]
-[; ;picMotores.c: 211: }
-[; ;picMotores.c: 213: if (PORTBbits.RB7==1|accion==2){
-"213
-[e $ ! | == -> . . _PORTBbits 0 7 `i -> 1 `i == -> _accion `i -> 2 `i 173  ]
+[; ;picMotores.c: 212: }
+[; ;picMotores.c: 215: if (accion==2){
+"215
+[e $ ! == -> _accion `i -> 2 `i 170  ]
 {
-[; ;picMotores.c: 214: while (PORTBbits.RB7==1){}
-"214
+[; ;picMotores.c: 216: move_pwmDC();
+"216
+[e ( _move_pwmDC ..  ]
+[; ;picMotores.c: 219: giro=1;
+"219
+[e = _giro -> -> 1 `i `uc ]
+[; ;picMotores.c: 220: while(giro==1){
+"220
+[e $U 171  ]
+[e :U 172 ]
+{
+[; ;picMotores.c: 221: move_servo();
+"221
+[e ( _move_servo ..  ]
+"222
+}
+[e :U 171 ]
+"220
+[e $ == -> _giro `i -> 1 `i 172  ]
+[e :U 173 ]
+[; ;picMotores.c: 222: }
+[; ;picMotores.c: 223: calibracion_presion();
+"223
+[e ( _calibracion_presion ..  ]
+[; ;picMotores.c: 225: while(medicion_presion()!=2){PORTD=3;}
+"225
 [e $U 174  ]
 [e :U 175 ]
 {
+[e = _PORTD -> -> 3 `i `uc ]
 }
 [e :U 174 ]
-[e $ == -> . . _PORTBbits 0 7 `i -> 1 `i 175  ]
+[e $ != -> ( _medicion_presion ..  `i -> 2 `i 175  ]
 [e :U 176 ]
-[; ;picMotores.c: 215: move_pwmDC();
-"215
-[e ( _move_pwmDC ..  ]
-[; ;picMotores.c: 216: if (accion==2){accion=0;}
-"216
-[e $ ! == -> _accion `i -> 2 `i 177  ]
+[; ;picMotores.c: 226: PORTD=1;
+"226
+[e = _PORTD -> -> 1 `i `uc ]
+[; ;picMotores.c: 227: _delay((unsigned long)((2000)*(500000/4000.0)));
+"227
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
+[; ;picMotores.c: 228: giro=2;
+"228
+[e = _giro -> -> 2 `i `uc ]
+[; ;picMotores.c: 229: while(giro==2){
+"229
+[e $U 177  ]
+[e :U 178 ]
+{
+[; ;picMotores.c: 230: move_servo();
+"230
+[e ( _move_servo ..  ]
+"231
+}
+[e :U 177 ]
+"229
+[e $ == -> _giro `i -> 2 `i 178  ]
+[e :U 179 ]
+[; ;picMotores.c: 231: }
+[; ;picMotores.c: 232: PORTD=2;
+"232
+[e = _PORTD -> -> 2 `i `uc ]
+[; ;picMotores.c: 233: if (accion==2){accion=0;}
+"233
+[e $ ! == -> _accion `i -> 2 `i 180  ]
 {
 [e = _accion -> -> 0 `i `uc ]
 }
-[e :U 177 ]
-"217
-}
-[e :U 173 ]
-[; ;picMotores.c: 217: }
-[; ;picMotores.c: 219: if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
-"219
-[e $ ! | | == -> . . _PORTBbits 0 5 `i -> 1 `i & == -> _accion `i -> 3 `i == -> _pos `i -> 20 `i != -> _presion `i -> 1 `i 178  ]
-{
-[; ;picMotores.c: 220: while (PORTBbits.RB5==1){}
-"220
-[e $U 179  ]
 [e :U 180 ]
-{
+"234
 }
-[e :U 179 ]
-[e $ == -> . . _PORTBbits 0 5 `i -> 1 `i 180  ]
-[e :U 181 ]
-[; ;picMotores.c: 221: giro=1;
-"221
-[e = _giro -> -> 1 `i `uc ]
-[; ;picMotores.c: 222: if (accion==3){accion=0;}
-"222
-[e $ ! == -> _accion `i -> 3 `i 182  ]
+[e :U 170 ]
+[; ;picMotores.c: 234: }
+[; ;picMotores.c: 236: if ((accion==4&pos==20)){
+"236
+[e $ ! & == -> _accion `i -> 4 `i == -> _pos `i -> 20 `i 181  ]
+{
+[; ;picMotores.c: 238: giro=2;
+"238
+[e = _giro -> -> 2 `i `uc ]
+[; ;picMotores.c: 240: if (accion==4){accion=0;}
+"240
+[e $ ! == -> _accion `i -> 4 `i 182  ]
 {
 [e = _accion -> -> 0 `i `uc ]
 }
 [e :U 182 ]
-"223
+"241
 }
-[e :U 178 ]
-[; ;picMotores.c: 223: }
-[; ;picMotores.c: 225: if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
-"225
-[e $ ! | | == -> . . _PORTBbits 0 6 `i -> 1 `i & == -> _accion `i -> 3 `i == -> _pos `i -> 77 `i == -> _presion `i -> 1 `i 183  ]
+[e :U 181 ]
+[; ;picMotores.c: 241: }
+[; ;picMotores.c: 243: if ((accion==3&pos==77)){
+"243
+[e $ ! & == -> _accion `i -> 3 `i == -> _pos `i -> 77 `i 183  ]
 {
-[; ;picMotores.c: 226: while (PORTBbits.RB6==1){}
-"226
-[e $U 184  ]
-[e :U 185 ]
-{
-}
-[e :U 184 ]
-[e $ == -> . . _PORTBbits 0 6 `i -> 1 `i 185  ]
-[e :U 186 ]
-[; ;picMotores.c: 227: giro=2;
-"227
-[e = _giro -> -> 2 `i `uc ]
-[; ;picMotores.c: 228: if (accion==3){accion=0;}
-"228
-[e $ ! == -> _accion `i -> 3 `i 187  ]
+[; ;picMotores.c: 244: giro=1;
+"244
+[e = _giro -> -> 1 `i `uc ]
+[; ;picMotores.c: 245: if (accion==3){accion=0;}
+"245
+[e $ ! == -> _accion `i -> 3 `i 184  ]
 {
 [e = _accion -> -> 0 `i `uc ]
 }
-[e :U 187 ]
-"229
+[e :U 184 ]
+"246
 }
 [e :U 183 ]
-[; ;picMotores.c: 229: }
-[; ;picMotores.c: 231: if (giro==1){
-"231
-[e $ ! == -> _giro `i -> 1 `i 188  ]
+[; ;picMotores.c: 246: }
+[; ;picMotores.c: 248: if (giro==1|giro==2){
+"248
+[e $ ! | == -> _giro `i -> 1 `i == -> _giro `i -> 2 `i 185  ]
 {
-[; ;picMotores.c: 233: _delay((unsigned long)((4000)*(500000/4000.0)));
-"233
-[e ( __delay (1 -> * -> -> 4000 `i `d / -> -> 500000 `l `d .4000.0 `ul ]
-[; ;picMotores.c: 234: move_servo();
-"234
+[; ;picMotores.c: 250: move_servo();
+"250
 [e ( _move_servo ..  ]
-"235
+"251
 }
-[e :U 188 ]
-[; ;picMotores.c: 235: }
-[; ;picMotores.c: 236: if (giro==2){
-"236
-[e $ ! == -> _giro `i -> 2 `i 189  ]
+[e :U 185 ]
+[; ;picMotores.c: 251: }
+[; ;picMotores.c: 254: if (SSPSTATbits.BF==1){
+"254
+[e $ ! == -> . . _SSPSTATbits 0 0 `i -> 1 `i 186  ]
 {
-[; ;picMotores.c: 237: move_servo();
-"237
-[e ( _move_servo ..  ]
-"238
-}
-[e :U 189 ]
-[; ;picMotores.c: 238: }
-[; ;picMotores.c: 240: if (SSPSTATbits.BF==1){
-"240
-[e $ ! == -> . . _SSPSTATbits 0 0 `i -> 1 `i 190  ]
-{
-[; ;picMotores.c: 241: accion=SSPBUF;
-"241
+[; ;picMotores.c: 255: accion=SSPBUF;
+"255
 [e = _accion _SSPBUF ]
-[; ;picMotores.c: 242: PORTD=accion;
-"242
-[e = _PORTD _accion ]
-"243
+"257
 }
-[e :U 190 ]
-"245
+[e :U 186 ]
+"259
 }
 [e :U 165 ]
-"199
+"203
 [e $U 166  ]
 [e :U 167 ]
-[; ;picMotores.c: 243: }
-[; ;picMotores.c: 245: }
-[; ;picMotores.c: 246: }
-"246
+[; ;picMotores.c: 257: }
+[; ;picMotores.c: 259: }
+[; ;picMotores.c: 260: }
+"260
 [e :UE 164 ]
 }

@@ -2111,7 +2111,7 @@ char puerta=0;
 char ADC=0;
 char giro=0;
 char pos=20;
-char vel=100;
+char vel=200;
 char accion;
 char presion_zero = 0;
 char presion=0;
@@ -2128,6 +2128,9 @@ numero=ADRESH;
 if (numero > (presion_zero+3)){
 objeto = 1;
 }
+if (numero < (presion_zero-6)){
+objeto=2;
+}
 return objeto;
 }
 
@@ -2140,7 +2143,7 @@ _delay((unsigned long)((1)*(500000/4000000.0)));
 PIR1bits.ADIF=0;
 numero=ADRESH;
 presion_zero=numero;
-PORTD=numero;
+
 return;
 }
 
@@ -2181,19 +2184,6 @@ _delay((unsigned long)((500)*(500000/4000.0)));
 return;
 }
 
-void move_pwmDC(void){
-CCP1CON=0b00001100;
-CCP1CONbits.DC1B0=(vel)&(0b1);
-CCP1CONbits.DC1B1=(vel>>1)&(0b1);
-CCPR1L=(vel>>2);
-calibracion_presion();
-while (medicion_presion()!=1){
-_delay((unsigned long)((500)*(500000/4000.0)));}
-CCP1CON=0;
-PORTCbits.RC2=0;
-return;
-}
-
 void servo(void){
 CCP2CONbits.DC2B0=(pos)&(0b1);
 CCP2CONbits.DC2B1=(pos>>1)&(0b1);
@@ -2223,16 +2213,24 @@ pos=20;
 return;
 }
 
+void move_pwmDC(void){
+CCP1CON=0b00001100;
+CCP1CONbits.DC1B0=(vel)&(0b1);
+CCP1CONbits.DC1B1=(vel>>1)&(0b1);
+CCPR1L=(vel>>2);
+while (medicion_presion()!=1){
+_delay((unsigned long)((50)*(500000/4000.0)));
+}
+CCP1CON=0;
+PORTCbits.RC2=0;
+return;
+}
+
+
 
 void interrupt ISR(){
-if (PIR1bits.ADIF==1){
-PIR1bits.ADIF=0;
 
-ADC=ADRESH;
-_delay((unsigned long)((2)*(500000/4000.0)));
-ADCON0bits.GO=1;
-}
-return;
+# 152
 }
 
 void main(void) {
@@ -2245,7 +2243,7 @@ ANSELH=0;
 ANSELbits.ANS0;
 
 
-TRISA=0b00000001;
+TRISA=0b00100001;
 TRISB=0b11110000;
 TRISC=0b11011001;
 TRISD=0;
@@ -2270,12 +2268,7 @@ SSPSTAT=0b01000000;
 
 SSPCON=0b00110100;
 
-
-INTCONbits.GIE=1;
-INTCONbits.PEIE=1;
-PIE1bits.ADIE=1; ;
-
-
+# 195
 ADCON1=0b00000000;
 ADCON0=0b11000001;
 _delay((unsigned long)((1)*(500000/4000.0)));
@@ -2287,47 +2280,57 @@ giro=0;
 while(1){
 
 calibracion_presion();
-presion = medicion_presion();
 
 
-if (PORTBbits.RB4==1|accion==1){
-while (PORTBbits.RB4==1){
-PORTBbits.RB4==1;
-}
+
+if (accion==1){
 stepper();
 if (accion==1){accion=0;}
 }
 
-if (PORTBbits.RB7==1|accion==2){
-while (PORTBbits.RB7==1){}
+
+if (accion==2){
 move_pwmDC();
+
+
+giro=1;
+while(giro==1){
+move_servo();
+}
+calibracion_presion();
+
+while(medicion_presion()!=2){PORTD=3;}
+PORTD=1;
+_delay((unsigned long)((2000)*(500000/4000.0)));
+giro=2;
+while(giro==2){
+move_servo();
+}
+PORTD=2;
 if (accion==2){accion=0;}
 }
 
-if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
-while (PORTBbits.RB5==1){}
+if ((accion==4&pos==20)){
+
+giro=2;
+
+if (accion==4){accion=0;}
+}
+
+if ((accion==3&pos==77)){
 giro=1;
 if (accion==3){accion=0;}
 }
 
-if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
-while (PORTBbits.RB6==1){}
-giro=2;
-if (accion==3){accion=0;}
-}
+if (giro==1|giro==2){
 
-if (giro==1){
-
-_delay((unsigned long)((4000)*(500000/4000.0)));
 move_servo();
 }
-if (giro==2){
-move_servo();
-}
+
 
 if (SSPSTATbits.BF==1){
 accion=SSPBUF;
-PORTD=accion;
+
 }
 
 }
