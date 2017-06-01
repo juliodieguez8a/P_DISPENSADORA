@@ -2168,22 +2168,29 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 39 "esclavo 2.c"
-char presion_zero = 0;
+# 40 "esclavo 2.c"
+char accion;
+char leds=0b111;
+char distancia;
+char temperatura;
+char presencia=0;
+int cont=0;
 
+char ColorLed(char);
 char medicion_ultrasonico(void);
 char medicion_temperatura(void);
-void calibracion_presion(void);
-char medicion_presion(void);
+
+
 
 
 void interrupt ISR(){
 
-
+# 64
 }
 
 
 void main(void){
+
 OSCCONbits.HTS = 1;
 OSCCONbits.IRCF0 = 1;
 OSCCONbits.IRCF1 = 1;
@@ -2191,8 +2198,10 @@ OSCCONbits.IRCF2 = 1;
 OSCCONbits.OSTS = 0;
 OSCCONbits.SCS = 1;
 
+
 TRISA=0B00000010;
-TRISB=0B00000001;
+TRISB=0B00111001;
+TRISC=0b00011001;
 TRISD=0B00000000;
 
 ANSEL=0;
@@ -2201,6 +2210,7 @@ ANSELH=0B00000001;
 PORTD=0;
 PORTA=0;
 PORTB=0;
+
 
 ADCON1bits.VCFG1 = 0;
 ADCON1bits.VCFG0 = 0;
@@ -2218,13 +2228,59 @@ ADRESH = 0;
 ADCON0bits.ADON = 1;
 _delay((unsigned long)((1)*(8000000/4000.0)));
 
-# 93
+
+SSPSTAT=0b01000000;
+
+SSPCON=0b00110100;
+
+# 121
 while (1){
 
+
+medicion_ultrasonico();
+
+medicion_temperatura();
+
+if (SSPSTATbits.BF==1){
+accion=SSPBUF;
+PORTD=accion;
+}
+
+if (accion==1){
+SSPBUF=medicion_ultrasonico();
+
+}
+
+if (accion==2){
+SSPBUF=medicion_temperatura();
+
+}
+if (accion==3){
+while (SSPSTATbits.BF==0){}
+leds=SSPBUF;
+ColorLed(leds);
+}
 }
 
 }
 
+char ColorLed(char binario){
+if((binario)&(0b1)==1){
+PORTAbits.RA3=1;
+}
+else {PORTAbits.RA3=0;}
+
+if((binario)&(0b10)==2){
+PORTAbits.RA2=1;
+}
+else {PORTAbits.RA2=0;}
+
+if((binario)&(0b100)==4){
+PORTAbits.RA4=1;
+}
+else{PORTAbits.RA4=0;}
+return;
+}
 
 char medicion_ultrasonico(void){
 unsigned int tiempo=0;
@@ -2244,11 +2300,13 @@ tiempo=tiempo+1;
 tiempo=tiempo/11;
 if (tiempo<=75){
 objeto=1;
+ColorLed(0b111);
+
 }
 else {
 objeto=0;
+ColorLed(0b0000);
 }
-_delay((unsigned long)((1000)*(8000000/4000.0)));
 return objeto;
 }
 }
@@ -2264,33 +2322,5 @@ PIR1bits.ADIF=0;
 numero=ADRESH;
 numero=numero-115;
 return numero;
-}
-
-char medicion_presion(void) {
-char numero=0;
-char objeto=0;
-ADCON0bits.GO=1;
-while(PIR1bits.ADIF==0){
-_delay((unsigned long)((1)*(8000000/4000000.0)));
-}
-PIR1bits.ADIF=0;
-numero=ADRESH;
-if (numero > (presion_zero+3)){
-objeto = 1;
-}
-return objeto;
-}
-
-void calibracion_presion(void) {
-char numero=0;
-ADCON0bits.GO=1;
-while(PIR1bits.ADIF==0){
-_delay((unsigned long)((1)*(8000000/4000000.0)));
-}
-PIR1bits.ADIF=0;
-numero=ADRESH;
-presion_zero=numero;
-PORTD=numero;
-return;
 }
 

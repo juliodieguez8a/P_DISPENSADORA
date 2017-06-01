@@ -15,6 +15,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TRISA `Vuc ~T0 @X0 0 e@133 ]
 "1438
 [v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"1499
+[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
 "1560
 [v _TRISD `Vuc ~T0 @X0 0 e@136 ]
 "3312
@@ -76,6 +78,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 "152 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic.h
 [v __delay `JF1637 ~T0 @X0 0 e ]
 [p i __delay ]
+"2124 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
+[v _SSPSTAT `Vuc ~T0 @X0 0 e@148 ]
+"826
+[v _SSPCON `Vuc ~T0 @X0 0 e@20 ]
+"48 esclavo 2.c
+[v _medicion_ultrasonico `(uc ~T0 @X0 0 ef ]
+"49
+[v _medicion_temperatura `(uc ~T0 @X0 0 ef ]
+"2130 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
+[s S82 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S82 . BF UA R_nW S P D_nA CKE SMP ]
+"2140
+[s S83 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S83 . . R . D ]
+"2146
+[s S84 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S84 . . I2C_READ I2C_START I2C_STOP I2C_DATA ]
+"2153
+[s S85 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S85 . . nW . nA ]
+"2159
+[s S86 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S86 . . nWRITE . nADDRESS ]
+"2165
+[s S87 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S87 . . R_W . D_A ]
+"2171
+[s S88 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S88 . . READ_WRITE . DATA_ADDRESS ]
+"2129
+[u S81 `S82 1 `S83 1 `S84 1 `S85 1 `S86 1 `S87 1 `S88 1 ]
+[n S81 . . . . . . . . ]
+"2178
+[v _SSPSTATbits `VS81 ~T0 @X0 0 e@148 ]
+"820
+[v _SSPBUF `Vuc ~T0 @X0 0 e@19 ]
+"47 esclavo 2.c
+[v _ColorLed `(uc ~T0 @X0 0 ef1`uc ]
 "164 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
 [s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S6 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 RA7 ]
@@ -1630,386 +1670,447 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-"39 esclavo 2.c
-[v _presion_zero `uc ~T0 @X0 1 e ]
-[i _presion_zero
+"40 esclavo 2.c
+[v _accion `uc ~T0 @X0 1 e ]
+[; ;esclavo 2.c: 40: char accion;
+"41
+[v _leds `uc ~T0 @X0 1 e ]
+[i _leds
+-> -> 7 `i `uc
+]
+[; ;esclavo 2.c: 41: char leds=0b111;
+"42
+[v _distancia `uc ~T0 @X0 1 e ]
+[; ;esclavo 2.c: 42: char distancia;
+"43
+[v _temperatura `uc ~T0 @X0 1 e ]
+[; ;esclavo 2.c: 43: char temperatura;
+"44
+[v _presencia `uc ~T0 @X0 1 e ]
+[i _presencia
 -> -> 0 `i `uc
 ]
-[; ;esclavo 2.c: 39: char presion_zero = 0;
-[; ;esclavo 2.c: 41: char medicion_ultrasonico(void);
-[; ;esclavo 2.c: 42: char medicion_temperatura(void);
-[; ;esclavo 2.c: 43: void calibracion_presion(void);
-[; ;esclavo 2.c: 44: char medicion_presion(void);
-[v F1716 `(v ~T0 @X0 1 tf ]
-"47
-[v _ISR `IF1716 ~T0 @X0 1 e ]
+[; ;esclavo 2.c: 44: char presencia=0;
+"45
+[v _cont `i ~T0 @X0 1 e ]
+[i _cont
+-> 0 `i
+]
+[; ;esclavo 2.c: 45: int cont=0;
+[; ;esclavo 2.c: 47: char ColorLed(char);
+[; ;esclavo 2.c: 48: char medicion_ultrasonico(void);
+[; ;esclavo 2.c: 49: char medicion_temperatura(void);
+[v F1719 `(v ~T0 @X0 1 tf ]
+"54
+[v _ISR `IF1719 ~T0 @X0 1 e ]
 {
-[; ;esclavo 2.c: 47: void interrupt ISR(){
+[; ;esclavo 2.c: 54: void interrupt ISR(){
 [e :U _ISR ]
 [f ]
-[; ;esclavo 2.c: 50: }
-"50
+[; ;esclavo 2.c: 64: }
+"64
 [e :UE 139 ]
 }
-"53
+"67
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;esclavo 2.c: 53: void main(void){
+[; ;esclavo 2.c: 67: void main(void){
 [e :U _main ]
 [f ]
-[; ;esclavo 2.c: 54: OSCCONbits.HTS = 1;
-"54
-[e = . . _OSCCONbits 0 2 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 55: OSCCONbits.IRCF0 = 1;
-"55
-[e = . . _OSCCONbits 1 1 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 56: OSCCONbits.IRCF1 = 1;
-"56
-[e = . . _OSCCONbits 1 2 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 57: OSCCONbits.IRCF2 = 1;
-"57
-[e = . . _OSCCONbits 1 3 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 58: OSCCONbits.OSTS = 0;
-"58
-[e = . . _OSCCONbits 0 3 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 59: OSCCONbits.SCS = 1;
-"59
-[e = . . _OSCCONbits 0 0 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 61: TRISA=0B00000010;
-"61
-[e = _TRISA -> -> 2 `i `uc ]
-[; ;esclavo 2.c: 62: TRISB=0B00000001;
-"62
-[e = _TRISB -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 63: TRISD=0B00000000;
-"63
-[e = _TRISD -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 65: ANSEL=0;
-"65
-[e = _ANSEL -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 66: ANSELH=0B00000001;
-"66
-[e = _ANSELH -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 68: PORTD=0;
-"68
-[e = _PORTD -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 69: PORTA=0;
+[; ;esclavo 2.c: 69: OSCCONbits.HTS = 1;
 "69
-[e = _PORTA -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 70: PORTB=0;
+[e = . . _OSCCONbits 0 2 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 70: OSCCONbits.IRCF0 = 1;
 "70
-[e = _PORTB -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 72: ADCON1bits.VCFG1 = 0;
+[e = . . _OSCCONbits 1 1 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 71: OSCCONbits.IRCF1 = 1;
+"71
+[e = . . _OSCCONbits 1 2 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 72: OSCCONbits.IRCF2 = 1;
 "72
-[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 73: ADCON1bits.VCFG0 = 0;
+[e = . . _OSCCONbits 1 3 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 73: OSCCONbits.OSTS = 0;
 "73
-[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 74: ADCON1bits.ADFM = 0;
+[e = . . _OSCCONbits 0 3 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 74: OSCCONbits.SCS = 1;
 "74
-[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 75: PIE1bits.ADIE = 1;
-"75
-[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 76: ANSELHbits.ANS12 = 1;
-"76
-[e = . . _ANSELHbits 0 4 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 77: ADCON0bits.ADCS1 = 1;
+[e = . . _OSCCONbits 0 0 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 77: TRISA=0B00000010;
 "77
-[e = . . _ADCON0bits 1 7 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 78: ADCON0bits.ADCS0 = 0;
+[e = _TRISA -> -> 2 `i `uc ]
+[; ;esclavo 2.c: 78: TRISB=0B00111001;
 "78
-[e = . . _ADCON0bits 1 6 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 79: ADCON0bits.CHS3 = 1;
+[e = _TRISB -> -> 57 `i `uc ]
+[; ;esclavo 2.c: 79: TRISC=0b00011001;
 "79
-[e = . . _ADCON0bits 1 5 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 80: ADCON0bits.CHS2 = 1;
+[e = _TRISC -> -> 25 `i `uc ]
+[; ;esclavo 2.c: 80: TRISD=0B00000000;
 "80
-[e = . . _ADCON0bits 1 4 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 81: ADCON0bits.CHS1 = 0;
-"81
-[e = . . _ADCON0bits 1 3 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 82: ADCON0bits.CHS0 = 0;
+[e = _TRISD -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 82: ANSEL=0;
 "82
-[e = . . _ADCON0bits 1 2 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 83: ADRESL = 0;
+[e = _ANSEL -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 83: ANSELH=0B00000001;
 "83
-[e = _ADRESL -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 84: ADRESH = 0;
-"84
-[e = _ADRESH -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 85: ADCON0bits.ADON = 1;
+[e = _ANSELH -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 85: PORTD=0;
 "85
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 86: _delay((unsigned long)((1)*(8000000/4000.0)));
+[e = _PORTD -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 86: PORTA=0;
 "86
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;esclavo 2.c: 93: while (1){
+[e = _PORTA -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 87: PORTB=0;
+"87
+[e = _PORTB -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 90: ADCON1bits.VCFG1 = 0;
+"90
+[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 91: ADCON1bits.VCFG0 = 0;
+"91
+[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 92: ADCON1bits.ADFM = 0;
+"92
+[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 93: PIE1bits.ADIE = 1;
 "93
+[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 94: ANSELHbits.ANS12 = 1;
+"94
+[e = . . _ANSELHbits 0 4 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 95: ADCON0bits.ADCS1 = 1;
+"95
+[e = . . _ADCON0bits 1 7 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 96: ADCON0bits.ADCS0 = 0;
+"96
+[e = . . _ADCON0bits 1 6 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 97: ADCON0bits.CHS3 = 1;
+"97
+[e = . . _ADCON0bits 1 5 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 98: ADCON0bits.CHS2 = 1;
+"98
+[e = . . _ADCON0bits 1 4 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 99: ADCON0bits.CHS1 = 0;
+"99
+[e = . . _ADCON0bits 1 3 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 100: ADCON0bits.CHS0 = 0;
+"100
+[e = . . _ADCON0bits 1 2 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 101: ADRESL = 0;
+"101
+[e = _ADRESL -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 102: ADRESH = 0;
+"102
+[e = _ADRESH -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 103: ADCON0bits.ADON = 1;
+"103
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 104: _delay((unsigned long)((1)*(8000000/4000.0)));
+"104
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;esclavo 2.c: 107: SSPSTAT=0b01000000;
+"107
+[e = _SSPSTAT -> -> 64 `i `uc ]
+[; ;esclavo 2.c: 109: SSPCON=0b00110100;
+"109
+[e = _SSPCON -> -> 52 `i `uc ]
+[; ;esclavo 2.c: 121: while (1){
+"121
 [e :U 142 ]
 {
-"95
-}
-[e :U 141 ]
-"93
-[e $U 142  ]
-[e :U 143 ]
-[; ;esclavo 2.c: 95: }
-[; ;esclavo 2.c: 97: }
-"97
-[e :UE 140 ]
-}
-"100
-[v _medicion_ultrasonico `(uc ~T0 @X0 1 ef ]
-{
-[; ;esclavo 2.c: 100: char medicion_ultrasonico(void){
-[e :U _medicion_ultrasonico ]
-[f ]
-"101
-[v _tiempo `ui ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 101: unsigned int tiempo=0;
-[e = _tiempo -> -> 0 `i `ui ]
-"102
-[v _objeto `uc ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 102: char objeto = 0;
-[e = _objeto -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 103: PORTAbits.RA0 = 0;
-"103
-[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 104: _delay((unsigned long)((10)*(8000000/4000000.0)));
-"104
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-[; ;esclavo 2.c: 105: PORTAbits.RA0 = 1;
-"105
-[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 106: _delay((unsigned long)((10)*(8000000/4000000.0)));
-"106
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-[; ;esclavo 2.c: 107: PORTAbits.RA0 = 0;
-"107
-[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 108: while (1){
-"108
-[e :U 146 ]
-{
-[; ;esclavo 2.c: 109: tiempo=0;
-"109
-[e = _tiempo -> -> 0 `i `ui ]
-[; ;esclavo 2.c: 110: if (PORTAbits.RA1==1){
-"110
-[e $ ! == -> . . _PORTAbits 0 1 `i -> 1 `i 148  ]
-{
-[; ;esclavo 2.c: 111: while (PORTAbits.RA1==1){
-"111
-[e $U 149  ]
-[e :U 150 ]
-{
-[; ;esclavo 2.c: 112: _delay((unsigned long)((1)*(8000000/4000000.0)));
-"112
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-[; ;esclavo 2.c: 113: tiempo=tiempo+1;
-"113
-[e = _tiempo + _tiempo -> -> 1 `i `ui ]
-"114
-}
-[e :U 149 ]
-"111
-[e $ == -> . . _PORTAbits 0 1 `i -> 1 `i 150  ]
-[e :U 151 ]
-[; ;esclavo 2.c: 114: }
-[; ;esclavo 2.c: 115: tiempo=tiempo/11;
-"115
-[e = _tiempo / _tiempo -> -> 11 `i `ui ]
-[; ;esclavo 2.c: 116: if (tiempo<=75){
-"116
-[e $ ! <= _tiempo -> -> 75 `i `ui 152  ]
-{
-[; ;esclavo 2.c: 117: objeto=1;
-"117
-[e = _objeto -> -> 1 `i `uc ]
-"118
-}
-[; ;esclavo 2.c: 118: }
-[e $U 153  ]
-"119
-[e :U 152 ]
-[; ;esclavo 2.c: 119: else {
-{
-[; ;esclavo 2.c: 120: objeto=0;
-"120
-[e = _objeto -> -> 0 `i `uc ]
-"121
-}
-[e :U 153 ]
-[; ;esclavo 2.c: 121: }
-[; ;esclavo 2.c: 122: _delay((unsigned long)((1000)*(8000000/4000.0)));
-"122
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;esclavo 2.c: 123: return objeto;
-"123
-[e ) _objeto ]
-[e $UE 144  ]
+[; ;esclavo 2.c: 124: medicion_ultrasonico();
 "124
+[e ( _medicion_ultrasonico ..  ]
+[; ;esclavo 2.c: 126: medicion_temperatura();
+"126
+[e ( _medicion_temperatura ..  ]
+[; ;esclavo 2.c: 128: if (SSPSTATbits.BF==1){
+"128
+[e $ ! == -> . . _SSPSTATbits 0 0 `i -> 1 `i 144  ]
+{
+[; ;esclavo 2.c: 129: accion=SSPBUF;
+"129
+[e = _accion _SSPBUF ]
+[; ;esclavo 2.c: 130: PORTD=accion;
+"130
+[e = _PORTD _accion ]
+"131
 }
-[e :U 148 ]
-"125
+[e :U 144 ]
+[; ;esclavo 2.c: 131: }
+[; ;esclavo 2.c: 133: if (accion==1){
+"133
+[e $ ! == -> _accion `i -> 1 `i 145  ]
+{
+[; ;esclavo 2.c: 134: SSPBUF=medicion_ultrasonico();
+"134
+[e = _SSPBUF ( _medicion_ultrasonico ..  ]
+"136
 }
 [e :U 145 ]
-"108
-[e $U 146  ]
-[e :U 147 ]
-[; ;esclavo 2.c: 124: }
-[; ;esclavo 2.c: 125: }
-[; ;esclavo 2.c: 126: }
-"126
-[e :UE 144 ]
-}
-"128
-[v _medicion_temperatura `(uc ~T0 @X0 1 ef ]
-{
-[; ;esclavo 2.c: 128: char medicion_temperatura(void){
-[e :U _medicion_temperatura ]
-[f ]
-"129
-[v _numero `uc ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 129: char numero=0;
-[e = _numero -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 130: ADCON0bits.GO=1;
-"130
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 131: while(PIR1bits.ADIF==0){
-"131
-[e $U 155  ]
-[e :U 156 ]
-{
-[; ;esclavo 2.c: 132: _delay((unsigned long)((1)*(8000000/4000000.0)));
-"132
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"133
-}
-[e :U 155 ]
-"131
-[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 156  ]
-[e :U 157 ]
-[; ;esclavo 2.c: 133: }
-[; ;esclavo 2.c: 134: PIR1bits.ADIF=0;
-"134
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 135: numero=ADRESH;
-"135
-[e = _numero _ADRESH ]
-[; ;esclavo 2.c: 136: numero=numero-115;
-"136
-[e = _numero -> - -> _numero `i -> 115 `i `uc ]
-[; ;esclavo 2.c: 137: return numero;
-"137
-[e ) _numero ]
-[e $UE 154  ]
-[; ;esclavo 2.c: 138: }
+[; ;esclavo 2.c: 136: }
+[; ;esclavo 2.c: 138: if (accion==2){
 "138
-[e :UE 154 ]
-}
-"140
-[v _medicion_presion `(uc ~T0 @X0 1 ef ]
+[e $ ! == -> _accion `i -> 2 `i 146  ]
 {
-[; ;esclavo 2.c: 140: char medicion_presion(void) {
-[e :U _medicion_presion ]
-[f ]
+[; ;esclavo 2.c: 139: SSPBUF=medicion_temperatura();
+"139
+[e = _SSPBUF ( _medicion_temperatura ..  ]
 "141
-[v _numero `uc ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 141: char numero=0;
-[e = _numero -> -> 0 `i `uc ]
+}
+[e :U 146 ]
+[; ;esclavo 2.c: 141: }
+[; ;esclavo 2.c: 142: if (accion==3){
 "142
-[v _objeto `uc ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 142: char objeto=0;
-[e = _objeto -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 143: ADCON0bits.GO=1;
-"143
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 144: while(PIR1bits.ADIF==0){
-"144
-[e $U 159  ]
-[e :U 160 ]
+[e $ ! == -> _accion `i -> 3 `i 147  ]
 {
-[; ;esclavo 2.c: 145: _delay((unsigned long)((1)*(8000000/4000000.0)));
+[; ;esclavo 2.c: 143: while (SSPSTATbits.BF==0){}
+"143
+[e $U 148  ]
+[e :U 149 ]
+{
+}
+[e :U 148 ]
+[e $ == -> . . _SSPSTATbits 0 0 `i -> 0 `i 149  ]
+[e :U 150 ]
+[; ;esclavo 2.c: 144: leds=SSPBUF;
+"144
+[e = _leds _SSPBUF ]
+[; ;esclavo 2.c: 145: ColorLed(leds);
 "145
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[e ( _ColorLed (1 _leds ]
 "146
 }
-[e :U 159 ]
-"144
-[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 160  ]
-[e :U 161 ]
-[; ;esclavo 2.c: 146: }
-[; ;esclavo 2.c: 147: PIR1bits.ADIF=0;
+[e :U 147 ]
 "147
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 148: numero=ADRESH;
-"148
-[e = _numero _ADRESH ]
-[; ;esclavo 2.c: 149: if (numero > (presion_zero+3)){
-"149
-[e $ ! > -> _numero `i + -> _presion_zero `i -> 3 `i 162  ]
-{
-[; ;esclavo 2.c: 150: objeto = 1;
-"150
-[e = _objeto -> -> 1 `i `uc ]
-"151
 }
-[e :U 162 ]
-[; ;esclavo 2.c: 151: }
-[; ;esclavo 2.c: 152: return objeto;
+[e :U 141 ]
+"121
+[e $U 142  ]
+[e :U 143 ]
+[; ;esclavo 2.c: 146: }
+[; ;esclavo 2.c: 147: }
+[; ;esclavo 2.c: 149: }
+"149
+[e :UE 140 ]
+}
+"151
+[v _ColorLed `(uc ~T0 @X0 1 ef1`uc ]
+{
+[; ;esclavo 2.c: 151: char ColorLed(char binario){
+[e :U _ColorLed ]
+[v _binario `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;esclavo 2.c: 152: if((binario)&(0b1)==1){
 "152
+[e $ ! != & -> _binario `i -> == -> 1 `i -> 1 `i `i -> 0 `i 152  ]
+{
+[; ;esclavo 2.c: 153: PORTAbits.RA3=1;
+"153
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+"154
+}
+[; ;esclavo 2.c: 154: }
+[e $U 153  ]
+"155
+[e :U 152 ]
+[; ;esclavo 2.c: 155: else {PORTAbits.RA3=0;}
+{
+[e = . . _PORTAbits 0 3 -> -> 0 `i `uc ]
+}
+[e :U 153 ]
+[; ;esclavo 2.c: 157: if((binario)&(0b10)==2){
+"157
+[e $ ! != & -> _binario `i -> == -> 2 `i -> 2 `i `i -> 0 `i 154  ]
+{
+[; ;esclavo 2.c: 158: PORTAbits.RA2=1;
+"158
+[e = . . _PORTAbits 0 2 -> -> 1 `i `uc ]
+"159
+}
+[; ;esclavo 2.c: 159: }
+[e $U 155  ]
+"160
+[e :U 154 ]
+[; ;esclavo 2.c: 160: else {PORTAbits.RA2=0;}
+{
+[e = . . _PORTAbits 0 2 -> -> 0 `i `uc ]
+}
+[e :U 155 ]
+[; ;esclavo 2.c: 162: if((binario)&(0b100)==4){
+"162
+[e $ ! != & -> _binario `i -> == -> 4 `i -> 4 `i `i -> 0 `i 156  ]
+{
+[; ;esclavo 2.c: 163: PORTAbits.RA4=1;
+"163
+[e = . . _PORTAbits 0 4 -> -> 1 `i `uc ]
+"164
+}
+[; ;esclavo 2.c: 164: }
+[e $U 157  ]
+"165
+[e :U 156 ]
+[; ;esclavo 2.c: 165: else{PORTAbits.RA4=0;}
+{
+[e = . . _PORTAbits 0 4 -> -> 0 `i `uc ]
+}
+[e :U 157 ]
+[; ;esclavo 2.c: 166: return;
+"166
+[e $UE 151  ]
+[; ;esclavo 2.c: 167: }
+"167
+[e :UE 151 ]
+}
+"169
+[v _medicion_ultrasonico `(uc ~T0 @X0 1 ef ]
+{
+[; ;esclavo 2.c: 169: char medicion_ultrasonico(void){
+[e :U _medicion_ultrasonico ]
+[f ]
+"170
+[v _tiempo `ui ~T0 @X0 1 a ]
+[; ;esclavo 2.c: 170: unsigned int tiempo=0;
+[e = _tiempo -> -> 0 `i `ui ]
+"171
+[v _objeto `uc ~T0 @X0 1 a ]
+[; ;esclavo 2.c: 171: char objeto = 0;
+[e = _objeto -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 172: PORTAbits.RA0 = 0;
+"172
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 173: _delay((unsigned long)((10)*(8000000/4000000.0)));
+"173
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;esclavo 2.c: 174: PORTAbits.RA0 = 1;
+"174
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 175: _delay((unsigned long)((10)*(8000000/4000000.0)));
+"175
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;esclavo 2.c: 176: PORTAbits.RA0 = 0;
+"176
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 177: while (1){
+"177
+[e :U 160 ]
+{
+[; ;esclavo 2.c: 178: tiempo=0;
+"178
+[e = _tiempo -> -> 0 `i `ui ]
+[; ;esclavo 2.c: 179: if (PORTAbits.RA1==1){
+"179
+[e $ ! == -> . . _PORTAbits 0 1 `i -> 1 `i 162  ]
+{
+[; ;esclavo 2.c: 180: while (PORTAbits.RA1==1){
+"180
+[e $U 163  ]
+[e :U 164 ]
+{
+[; ;esclavo 2.c: 181: _delay((unsigned long)((1)*(8000000/4000000.0)));
+"181
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;esclavo 2.c: 182: tiempo=tiempo+1;
+"182
+[e = _tiempo + _tiempo -> -> 1 `i `ui ]
+"183
+}
+[e :U 163 ]
+"180
+[e $ == -> . . _PORTAbits 0 1 `i -> 1 `i 164  ]
+[e :U 165 ]
+[; ;esclavo 2.c: 183: }
+[; ;esclavo 2.c: 184: tiempo=tiempo/11;
+"184
+[e = _tiempo / _tiempo -> -> 11 `i `ui ]
+[; ;esclavo 2.c: 185: if (tiempo<=75){
+"185
+[e $ ! <= _tiempo -> -> 75 `i `ui 166  ]
+{
+[; ;esclavo 2.c: 186: objeto=1;
+"186
+[e = _objeto -> -> 1 `i `uc ]
+[; ;esclavo 2.c: 187: ColorLed(0b111);
+"187
+[e ( _ColorLed (1 -> -> 7 `i `uc ]
+"189
+}
+[; ;esclavo 2.c: 189: }
+[e $U 167  ]
+"190
+[e :U 166 ]
+[; ;esclavo 2.c: 190: else {
+{
+[; ;esclavo 2.c: 191: objeto=0;
+"191
+[e = _objeto -> -> 0 `i `uc ]
+[; ;esclavo 2.c: 192: ColorLed(0b0000);
+"192
+[e ( _ColorLed (1 -> -> 0 `i `uc ]
+"193
+}
+[e :U 167 ]
+[; ;esclavo 2.c: 193: }
+[; ;esclavo 2.c: 194: return objeto;
+"194
 [e ) _objeto ]
 [e $UE 158  ]
-[; ;esclavo 2.c: 153: }
-"153
+"195
+}
+[e :U 162 ]
+"196
+}
+[e :U 159 ]
+"177
+[e $U 160  ]
+[e :U 161 ]
+[; ;esclavo 2.c: 195: }
+[; ;esclavo 2.c: 196: }
+[; ;esclavo 2.c: 197: }
+"197
 [e :UE 158 ]
 }
-"155
-[v _calibracion_presion `(v ~T0 @X0 1 ef ]
+"199
+[v _medicion_temperatura `(uc ~T0 @X0 1 ef ]
 {
-[; ;esclavo 2.c: 155: void calibracion_presion(void) {
-[e :U _calibracion_presion ]
+[; ;esclavo 2.c: 199: char medicion_temperatura(void){
+[e :U _medicion_temperatura ]
 [f ]
-"156
+"200
 [v _numero `uc ~T0 @X0 1 a ]
-[; ;esclavo 2.c: 156: char numero=0;
+[; ;esclavo 2.c: 200: char numero=0;
 [e = _numero -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 157: ADCON0bits.GO=1;
-"157
+[; ;esclavo 2.c: 201: ADCON0bits.GO=1;
+"201
 [e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;esclavo 2.c: 158: while(PIR1bits.ADIF==0){
-"158
-[e $U 164  ]
-[e :U 165 ]
+[; ;esclavo 2.c: 202: while(PIR1bits.ADIF==0){
+"202
+[e $U 169  ]
+[e :U 170 ]
 {
-[; ;esclavo 2.c: 159: _delay((unsigned long)((1)*(8000000/4000000.0)));
-"159
+[; ;esclavo 2.c: 203: _delay((unsigned long)((1)*(8000000/4000000.0)));
+"203
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"160
+"204
 }
-[e :U 164 ]
-"158
-[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 165  ]
-[e :U 166 ]
-[; ;esclavo 2.c: 160: }
-[; ;esclavo 2.c: 161: PIR1bits.ADIF=0;
-"161
+[e :U 169 ]
+"202
+[e $ == -> . . _PIR1bits 0 6 `i -> 0 `i 170  ]
+[e :U 171 ]
+[; ;esclavo 2.c: 204: }
+[; ;esclavo 2.c: 205: PIR1bits.ADIF=0;
+"205
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;esclavo 2.c: 162: numero=ADRESH;
-"162
+[; ;esclavo 2.c: 206: numero=ADRESH;
+"206
 [e = _numero _ADRESH ]
-[; ;esclavo 2.c: 163: presion_zero=numero;
-"163
-[e = _presion_zero _numero ]
-[; ;esclavo 2.c: 164: PORTD=numero;
-"164
-[e = _PORTD _numero ]
-[; ;esclavo 2.c: 165: return;
-"165
-[e $UE 163  ]
-[; ;esclavo 2.c: 166: }
-"166
-[e :UE 163 ]
+[; ;esclavo 2.c: 207: numero=numero-115;
+"207
+[e = _numero -> - -> _numero `i -> 115 `i `uc ]
+[; ;esclavo 2.c: 208: return numero;
+"208
+[e ) _numero ]
+[e $UE 168  ]
+[; ;esclavo 2.c: 209: }
+"209
+[e :UE 168 ]
 }

@@ -1,438 +1,1097 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V1.41 build -162212810 
-                                                                                               Tue May 30 20:10:56 2017
+                                                                                               Thu Jun 01 00:38:04 2017
 
 Microchip Technology Omniscient Code Generator v1.41 (Free mode) build 201701250102
      1                           	processor	16F887
      2                           	opt	pw 120
      3                           	opt	lm
-     4                           	psect	cinit,global,class=CODE,merge=1,delta=2
-     5                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
-     6                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
-     7                           	psect	maintext,global,class=CODE,split=1,delta=2
-     8                           	psect	text1,local,class=CODE,merge=1,delta=2
-     9                           	psect	intentry,global,class=CODE,delta=2
-    10                           	dabs	1,0x7E,2
-    11  0000                     
-    12                           ; Version 1.41
-    13                           ; Generated 25/01/2017 GMT
-    14                           ; 
-    15                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
-    16                           ; All rights reserved.
-    17                           ; 
-    18                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
-      +                          ip").
-    19                           ; 
-    20                           ; Redistribution and use in source and binary forms, with or without modification, are
-    21                           ; permitted provided that the following conditions are met:
+     4                           	psect	idataBANK0,global,class=CODE,delta=2
+     5                           	psect	cinit,global,class=CODE,merge=1,delta=2
+     6                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
+     7                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+     8                           	psect	dataBANK0,global,class=BANK0,space=1,delta=1
+     9                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
+    10                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
+    11                           	psect	maintext,global,class=CODE,split=1,delta=2
+    12                           	psect	text1,local,class=CODE,merge=1,delta=2
+    13                           	psect	text2,local,class=CODE,merge=1,delta=2,group=2
+    14                           	psect	text3,local,class=CODE,merge=1,delta=2
+    15                           	psect	text4,local,class=CODE,merge=1,delta=2
+    16                           	psect	text5,local,class=CODE,merge=1,delta=2
+    17                           	psect	intentry,global,class=CODE,delta=2
+    18                           	dabs	1,0x7E,2
+    19  0000                     
+    20                           ; Version 1.41
+    21                           ; Generated 25/01/2017 GMT
     22                           ; 
-    23                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
-      +                          t of
-    24                           ;        conditions and the following disclaimer.
+    23                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    24                           ; All rights reserved.
     25                           ; 
-    26                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+    26                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    27                           ; 
+    28                           ; Redistribution and use in source and binary forms, with or without modification, are
+    29                           ; permitted provided that the following conditions are met:
+    30                           ; 
+    31                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    32                           ;        conditions and the following disclaimer.
+    33                           ; 
+    34                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
       +                          list
-    27                           ;        of conditions and the following disclaimer in the documentation and/or other
-    28                           ;        materials provided with the distribution.
-    29                           ; 
-    30                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+    35                           ;        of conditions and the following disclaimer in the documentation and/or other
+    36                           ;        materials provided with the distribution.
+    37                           ; 
+    38                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
       +                          is
-    31                           ;        software without specific prior written permission.
-    32                           ; 
-    33                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    34                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+    39                           ;        software without specific prior written permission.
+    40                           ; 
+    41                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    42                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
       +                          OR
-    35                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+    43                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
       +                          T,
-    36                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
-    37                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
-    38                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+    44                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    45                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    46                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
       +                          RICT
-    39                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+    47                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
       +                          SE OF
-    40                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    41                           ; 
-    42                           ; 
-    43                           ; Code-generator required, PIC16F887 Definitions
-    44                           ; 
-    45                           ; SFR Addresses
-    46  0000                     	;# 
-    47  0001                     	;# 
-    48  0002                     	;# 
-    49  0003                     	;# 
-    50  0004                     	;# 
-    51  0005                     	;# 
-    52  0006                     	;# 
-    53  0007                     	;# 
-    54  0008                     	;# 
-    55  0009                     	;# 
-    56  000A                     	;# 
-    57  000B                     	;# 
-    58  000C                     	;# 
-    59  000D                     	;# 
-    60  000E                     	;# 
-    61  000E                     	;# 
-    62  000F                     	;# 
-    63  0010                     	;# 
-    64  0011                     	;# 
-    65  0012                     	;# 
-    66  0013                     	;# 
-    67  0014                     	;# 
-    68  0015                     	;# 
-    69  0015                     	;# 
-    70  0016                     	;# 
-    71  0017                     	;# 
-    72  0018                     	;# 
-    73  0019                     	;# 
-    74  001A                     	;# 
-    75  001B                     	;# 
-    76  001B                     	;# 
-    77  001C                     	;# 
-    78  001D                     	;# 
-    79  001E                     	;# 
-    80  001F                     	;# 
-    81  0081                     	;# 
-    82  0085                     	;# 
-    83  0086                     	;# 
-    84  0087                     	;# 
-    85  0088                     	;# 
-    86  0089                     	;# 
-    87  008C                     	;# 
-    88  008D                     	;# 
-    89  008E                     	;# 
-    90  008F                     	;# 
-    91  0090                     	;# 
-    92  0091                     	;# 
-    93  0092                     	;# 
-    94  0093                     	;# 
-    95  0093                     	;# 
-    96  0093                     	;# 
-    97  0094                     	;# 
-    98  0095                     	;# 
-    99  0096                     	;# 
-   100  0097                     	;# 
-   101  0098                     	;# 
-   102  0099                     	;# 
-   103  009A                     	;# 
-   104  009B                     	;# 
-   105  009C                     	;# 
-   106  009D                     	;# 
-   107  009E                     	;# 
-   108  009F                     	;# 
-   109  0105                     	;# 
-   110  0107                     	;# 
-   111  0108                     	;# 
-   112  0109                     	;# 
-   113  010C                     	;# 
-   114  010C                     	;# 
-   115  010D                     	;# 
-   116  010E                     	;# 
-   117  010F                     	;# 
-   118  0185                     	;# 
-   119  0187                     	;# 
-   120  0188                     	;# 
-   121  0189                     	;# 
-   122  018C                     	;# 
-   123  018D                     	;# 
-   124  000C                     _PIR1bits	set	12
-   125  0005                     _PORTAbits	set	5
-   126  001E                     _ADRESH	set	30
-   127  001F                     _ADCON0bits	set	31
-   128  0006                     _PORTB	set	6
-   129  0005                     _PORTA	set	5
-   130  0008                     _PORTD	set	8
-   131  009E                     _ADRESL	set	158
-   132  008C                     _PIE1bits	set	140
-   133  009F                     _ADCON1bits	set	159
-   134  0088                     _TRISD	set	136
-   135  0086                     _TRISB	set	134
-   136  0085                     _TRISA	set	133
-   137  008F                     _OSCCONbits	set	143
-   138  0189                     _ANSELHbits	set	393
-   139  0189                     _ANSELH	set	393
-   140  0188                     _ANSEL	set	392
-   141                           
-   142                           ; #config settings
-   143  0000                     
-   144                           	psect	cinit
-   145  0015                     start_initialization:	
-   146  0015                     __initialization:	
-   147                           
-   148                           ; Clear objects allocated to COMMON
-   149  0015  01F6               	clrf	__pbssCOMMON& (0+127)
-   150  0016                     end_of_initialization:	
-   151                           ;End of C runtime variable initialization code
-   152                           
-   153  0016                     __end_of__initialization:	
-   154  0016  0183               	clrf	3
-   155  0017  120A  118A  281A   	ljmp	_main	;jump to C main() function
-   156                           
-   157                           	psect	bssCOMMON
-   158  0076                     __pbssCOMMON:	
-   159  0076                     _presion_zero:	
-   160  0076                     	ds	1
-   161                           
-   162                           	psect	cstackCOMMON
-   163  0070                     __pcstackCOMMON:	
-   164  0070                     ?_ISR:	
-   165  0070                     ??_ISR:	
-   166                           ; 1 bytes @ 0x0
-   167                           
-   168  0070                     ?_main:	
-   169                           ; 1 bytes @ 0x0
+    48                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    49                           ; 
+    50                           ; 
+    51                           ; Code-generator required, PIC16F887 Definitions
+    52                           ; 
+    53                           ; SFR Addresses
+    54  0000                     	;# 
+    55  0001                     	;# 
+    56  0002                     	;# 
+    57  0003                     	;# 
+    58  0004                     	;# 
+    59  0005                     	;# 
+    60  0006                     	;# 
+    61  0007                     	;# 
+    62  0008                     	;# 
+    63  0009                     	;# 
+    64  000A                     	;# 
+    65  000B                     	;# 
+    66  000C                     	;# 
+    67  000D                     	;# 
+    68  000E                     	;# 
+    69  000E                     	;# 
+    70  000F                     	;# 
+    71  0010                     	;# 
+    72  0011                     	;# 
+    73  0012                     	;# 
+    74  0013                     	;# 
+    75  0014                     	;# 
+    76  0015                     	;# 
+    77  0015                     	;# 
+    78  0016                     	;# 
+    79  0017                     	;# 
+    80  0018                     	;# 
+    81  0019                     	;# 
+    82  001A                     	;# 
+    83  001B                     	;# 
+    84  001B                     	;# 
+    85  001C                     	;# 
+    86  001D                     	;# 
+    87  001E                     	;# 
+    88  001F                     	;# 
+    89  0081                     	;# 
+    90  0085                     	;# 
+    91  0086                     	;# 
+    92  0087                     	;# 
+    93  0088                     	;# 
+    94  0089                     	;# 
+    95  008C                     	;# 
+    96  008D                     	;# 
+    97  008E                     	;# 
+    98  008F                     	;# 
+    99  0090                     	;# 
+   100  0091                     	;# 
+   101  0092                     	;# 
+   102  0093                     	;# 
+   103  0093                     	;# 
+   104  0093                     	;# 
+   105  0094                     	;# 
+   106  0095                     	;# 
+   107  0096                     	;# 
+   108  0097                     	;# 
+   109  0098                     	;# 
+   110  0099                     	;# 
+   111  009A                     	;# 
+   112  009B                     	;# 
+   113  009C                     	;# 
+   114  009D                     	;# 
+   115  009E                     	;# 
+   116  009F                     	;# 
+   117  0105                     	;# 
+   118  0107                     	;# 
+   119  0108                     	;# 
+   120  0109                     	;# 
+   121  010C                     	;# 
+   122  010C                     	;# 
+   123  010D                     	;# 
+   124  010E                     	;# 
+   125  010F                     	;# 
+   126  0185                     	;# 
+   127  0187                     	;# 
+   128  0188                     	;# 
+   129  0189                     	;# 
+   130  018C                     	;# 
+   131  018D                     	;# 
+   132                           
+   133                           	psect	idataBANK0
+   134  016E                     __pidataBANK0:	
+   135                           
+   136                           ;initializer for _leds
+   137  016E  3407               	retlw	7
+   138  000C                     _PIR1bits	set	12
+   139  0005                     _PORTAbits	set	5
+   140  0013                     _SSPBUF	set	19
+   141  0014                     _SSPCON	set	20
+   142  001E                     _ADRESH	set	30
+   143  001F                     _ADCON0bits	set	31
+   144  0006                     _PORTB	set	6
+   145  0005                     _PORTA	set	5
+   146  0008                     _PORTD	set	8
+   147  0094                     _SSPSTATbits	set	148
+   148  0094                     _SSPSTAT	set	148
+   149  009E                     _ADRESL	set	158
+   150  008C                     _PIE1bits	set	140
+   151  009F                     _ADCON1bits	set	159
+   152  0088                     _TRISD	set	136
+   153  0087                     _TRISC	set	135
+   154  0086                     _TRISB	set	134
+   155  0085                     _TRISA	set	133
+   156  008F                     _OSCCONbits	set	143
+   157  0189                     _ANSELHbits	set	393
+   158  0189                     _ANSELH	set	393
+   159  0188                     _ANSEL	set	392
+   160                           
+   161                           ; #config settings
+   162  0000                     
+   163                           	psect	cinit
+   164  0015                     start_initialization:	
+   165  0015                     __initialization:	
+   166                           
+   167                           ; Initialize objects allocated to BANK0
+   168  0015  120A  118A  216E   	fcall	__pidataBANK0	;fetch initializer
+   169  0018  00AF               	movwf	__pdataBANK0& (0+127)
    170                           
-   171                           
-   172                           ; 1 bytes @ 0x0
-   173  0070                     	ds	4
-   174  0074                     ??_main:	
+   171                           ; Clear objects allocated to BANK0
+   172  0019  01AC               	clrf	__pbssBANK0& (0+127)
+   173  001A  01AD               	clrf	(__pbssBANK0+1)& (0+127)
+   174  001B  01AE               	clrf	(__pbssBANK0+2)& (0+127)
    175                           
-   176                           ; 1 bytes @ 0x4
-   177  0074                     	ds	2
-   178                           
-   179                           	psect	maintext
-   180  001A                     __pmaintext:	
-   181 ;;
-   182 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
-   183 ;;
-   184 ;; *************** function _main *****************
-   185 ;; Defined at:
-   186 ;;		line 53 in file "esclavo 2.c"
-   187 ;; Parameters:    Size  Location     Type
-   188 ;;		None
-   189 ;; Auto vars:     Size  Location     Type
-   190 ;;		None
-   191 ;; Return value:  Size  Location     Type
-   192 ;;                  1    wreg      void 
-   193 ;; Registers used:
-   194 ;;		wreg, status,2
-   195 ;; Tracked objects:
-   196 ;;		On entry : B00/0
-   197 ;;		On exit  : 0/0
-   198 ;;		Unchanged: 0/0
-   199 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   200 ;;      Params:         0       0       0       0       0
-   201 ;;      Locals:         0       0       0       0       0
-   202 ;;      Temps:          2       0       0       0       0
-   203 ;;      Totals:         2       0       0       0       0
-   204 ;;Total ram usage:        2 bytes
-   205 ;; Hardware stack levels required when called:    1
-   206 ;; This function calls:
-   207 ;;		Nothing
-   208 ;; This function is called by:
-   209 ;;		Startup code after reset
-   210 ;; This function uses a non-reentrant model
-   211 ;;
-   212                           
+   176                           ; Clear objects allocated to COMMON
+   177  001C  01F6               	clrf	__pbssCOMMON& (0+127)
+   178  001D  01F7               	clrf	(__pbssCOMMON+1)& (0+127)
+   179  001E  01F8               	clrf	(__pbssCOMMON+2)& (0+127)
+   180  001F                     end_of_initialization:	
+   181                           ;End of C runtime variable initialization code
+   182                           
+   183  001F                     __end_of__initialization:	
+   184  001F  0183               	clrf	3
+   185  0020  120A  118A  2823   	ljmp	_main	;jump to C main() function
+   186                           
+   187                           	psect	bssCOMMON
+   188  0076                     __pbssCOMMON:	
+   189  0076                     _presencia:	
+   190  0076                     	ds	1
+   191  0077                     _temperatura:	
+   192  0077                     	ds	1
+   193  0078                     _distancia:	
+   194  0078                     	ds	1
+   195                           
+   196                           	psect	bssBANK0
+   197  002C                     __pbssBANK0:	
+   198  002C                     _cont:	
+   199  002C                     	ds	2
+   200  002E                     _accion:	
+   201  002E                     	ds	1
+   202                           
+   203                           	psect	dataBANK0
+   204  002F                     __pdataBANK0:	
+   205  002F                     _leds:	
+   206  002F                     	ds	1
+   207                           
+   208                           	psect	cstackCOMMON
+   209  0070                     __pcstackCOMMON:	
+   210  0070                     ?_medicion_ultrasonico:	
+   211  0070                     ?_medicion_temperatura:	
+   212                           ; 1 bytes @ 0x0
    213                           
-   214                           ;psect for function _main
-   215  001A                     _main:	
+   214  0070                     ?_ColorLed:	
+   215                           ; 1 bytes @ 0x0
    216                           
-   217                           ;esclavo 2.c: 54: OSCCONbits.HTS = 1;
-   218                           
-   219                           ;incstack = 0
-   220                           ; Regs used in _main: [wreg+status,2]
-   221  001A  1683               	bsf	3,5	;RP0=1, select bank1
-   222  001B  1303               	bcf	3,6	;RP1=0, select bank1
-   223  001C  150F               	bsf	15,2	;volatile
-   224                           
-   225                           ;esclavo 2.c: 55: OSCCONbits.IRCF0 = 1;
-   226  001D  160F               	bsf	15,4	;volatile
-   227                           
-   228                           ;esclavo 2.c: 56: OSCCONbits.IRCF1 = 1;
-   229  001E  168F               	bsf	15,5	;volatile
-   230                           
-   231                           ;esclavo 2.c: 57: OSCCONbits.IRCF2 = 1;
-   232  001F  170F               	bsf	15,6	;volatile
-   233                           
-   234                           ;esclavo 2.c: 58: OSCCONbits.OSTS = 0;
-   235  0020  118F               	bcf	15,3	;volatile
-   236                           
-   237                           ;esclavo 2.c: 59: OSCCONbits.SCS = 1;
-   238  0021  140F               	bsf	15,0	;volatile
+   217  0070                     ?_ISR:	
+   218                           ; 1 bytes @ 0x0
+   219                           
+   220  0070                     ??_ISR:	
+   221                           ; 1 bytes @ 0x0
+   222                           
+   223  0070                     ?_main:	
+   224                           ; 1 bytes @ 0x0
+   225                           
+   226                           
+   227                           ; 1 bytes @ 0x0
+   228  0070                     	ds	4
+   229  0074                     ??_medicion_temperatura:	
+   230  0074                     ??_ColorLed:	
+   231                           ; 1 bytes @ 0x4
+   232                           
+   233  0074                     ??___lwdiv:	
+   234                           ; 1 bytes @ 0x4
+   235                           
+   236  0074                     ColorLed@binario:	
+   237                           ; 1 bytes @ 0x4
+   238                           
    239                           
-   240                           ;esclavo 2.c: 61: TRISA=0B00000010;
-   241  0022  3002               	movlw	2
-   242  0023  0085               	movwf	5	;volatile
-   243                           
-   244                           ;esclavo 2.c: 62: TRISB=0B00000001;
-   245  0024  3001               	movlw	1
-   246  0025  0086               	movwf	6	;volatile
-   247                           
-   248                           ;esclavo 2.c: 63: TRISD=0B00000000;
-   249  0026  0188               	clrf	8	;volatile
-   250                           
-   251                           ;esclavo 2.c: 65: ANSEL=0;
-   252  0027  1683               	bsf	3,5	;RP0=1, select bank3
-   253  0028  1703               	bsf	3,6	;RP1=1, select bank3
-   254  0029  0188               	clrf	8	;volatile
+   240                           ; 1 bytes @ 0x4
+   241  0074                     	ds	1
+   242  0075                     ??_medicion_ultrasonico:	
+   243  0075                     medicion_temperatura@numero:	
+   244                           ; 1 bytes @ 0x5
+   245                           
+   246                           
+   247                           ; 1 bytes @ 0x5
+   248  0075                     	ds	1
+   249                           
+   250                           	psect	cstackBANK0
+   251  0020                     __pcstackBANK0:	
+   252  0020                     ?___lwdiv:	
+   253  0020                     ___lwdiv@divisor:	
+   254                           ; 2 bytes @ 0x0
    255                           
-   256                           ;esclavo 2.c: 66: ANSELH=0B00000001;
-   257  002A  3001               	movlw	1
-   258  002B  0089               	movwf	9	;volatile
-   259                           
-   260                           ;esclavo 2.c: 68: PORTD=0;
-   261  002C  1283               	bcf	3,5	;RP0=0, select bank0
-   262  002D  1303               	bcf	3,6	;RP1=0, select bank0
-   263  002E  0188               	clrf	8	;volatile
+   256                           
+   257                           ; 2 bytes @ 0x0
+   258  0020                     	ds	2
+   259  0022                     ___lwdiv@dividend:	
+   260                           
+   261                           ; 2 bytes @ 0x2
+   262  0022                     	ds	2
+   263  0024                     ___lwdiv@counter:	
    264                           
-   265                           ;esclavo 2.c: 69: PORTA=0;
-   266  002F  0185               	clrf	5	;volatile
-   267                           
-   268                           ;esclavo 2.c: 70: PORTB=0;
-   269  0030  0186               	clrf	6	;volatile
-   270                           
-   271                           ;esclavo 2.c: 72: ADCON1bits.VCFG1 = 0;
-   272  0031  1683               	bsf	3,5	;RP0=1, select bank1
-   273  0032  1303               	bcf	3,6	;RP1=0, select bank1
-   274  0033  129F               	bcf	31,5	;volatile
-   275                           
-   276                           ;esclavo 2.c: 73: ADCON1bits.VCFG0 = 0;
-   277  0034  121F               	bcf	31,4	;volatile
-   278                           
-   279                           ;esclavo 2.c: 74: ADCON1bits.ADFM = 0;
-   280  0035  139F               	bcf	31,7	;volatile
-   281                           
-   282                           ;esclavo 2.c: 75: PIE1bits.ADIE = 1;
-   283  0036  170C               	bsf	12,6	;volatile
-   284                           
-   285                           ;esclavo 2.c: 76: ANSELHbits.ANS12 = 1;
-   286  0037  1683               	bsf	3,5	;RP0=1, select bank3
-   287  0038  1703               	bsf	3,6	;RP1=1, select bank3
-   288  0039  1609               	bsf	9,4	;volatile
-   289                           
-   290                           ;esclavo 2.c: 77: ADCON0bits.ADCS1 = 1;
-   291  003A  1283               	bcf	3,5	;RP0=0, select bank0
-   292  003B  1303               	bcf	3,6	;RP1=0, select bank0
-   293  003C  179F               	bsf	31,7	;volatile
-   294                           
-   295                           ;esclavo 2.c: 78: ADCON0bits.ADCS0 = 0;
-   296  003D  131F               	bcf	31,6	;volatile
-   297                           
-   298                           ;esclavo 2.c: 79: ADCON0bits.CHS3 = 1;
-   299  003E  169F               	bsf	31,5	;volatile
-   300                           
-   301                           ;esclavo 2.c: 80: ADCON0bits.CHS2 = 1;
-   302  003F  161F               	bsf	31,4	;volatile
-   303                           
-   304                           ;esclavo 2.c: 81: ADCON0bits.CHS1 = 0;
-   305  0040  119F               	bcf	31,3	;volatile
-   306                           
-   307                           ;esclavo 2.c: 82: ADCON0bits.CHS0 = 0;
-   308  0041  111F               	bcf	31,2	;volatile
-   309                           
-   310                           ;esclavo 2.c: 83: ADRESL = 0;
-   311  0042  1683               	bsf	3,5	;RP0=1, select bank1
-   312  0043  1303               	bcf	3,6	;RP1=0, select bank1
-   313  0044  019E               	clrf	30	;volatile
-   314                           
-   315                           ;esclavo 2.c: 84: ADRESH = 0;
-   316  0045  1283               	bcf	3,5	;RP0=0, select bank0
-   317  0046  1303               	bcf	3,6	;RP1=0, select bank0
-   318  0047  019E               	clrf	30	;volatile
+   265                           ; 1 bytes @ 0x4
+   266  0024                     	ds	1
+   267  0025                     ___lwdiv@quotient:	
+   268                           
+   269                           ; 2 bytes @ 0x5
+   270  0025                     	ds	2
+   271  0027                     medicion_ultrasonico@objeto:	
+   272                           
+   273                           ; 1 bytes @ 0x7
+   274  0027                     	ds	1
+   275  0028                     medicion_ultrasonico@tiempo:	
+   276                           
+   277                           ; 2 bytes @ 0x8
+   278  0028                     	ds	2
+   279  002A                     ??_main:	
+   280                           
+   281                           ; 1 bytes @ 0xA
+   282  002A                     	ds	2
+   283                           
+   284                           	psect	maintext
+   285  0023                     __pmaintext:	
+   286 ;;
+   287 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   288 ;;
+   289 ;; *************** function _main *****************
+   290 ;; Defined at:
+   291 ;;		line 67 in file "esclavo 2.c"
+   292 ;; Parameters:    Size  Location     Type
+   293 ;;		None
+   294 ;; Auto vars:     Size  Location     Type
+   295 ;;		None
+   296 ;; Return value:  Size  Location     Type
+   297 ;;                  1    wreg      void 
+   298 ;; Registers used:
+   299 ;;		wreg, status,2, status,0, pclath, cstack
+   300 ;; Tracked objects:
+   301 ;;		On entry : B00/0
+   302 ;;		On exit  : 0/0
+   303 ;;		Unchanged: 0/0
+   304 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   305 ;;      Params:         0       0       0       0       0
+   306 ;;      Locals:         0       0       0       0       0
+   307 ;;      Temps:          0       2       0       0       0
+   308 ;;      Totals:         0       2       0       0       0
+   309 ;;Total ram usage:        2 bytes
+   310 ;; Hardware stack levels required when called:    3
+   311 ;; This function calls:
+   312 ;;		_ColorLed
+   313 ;;		_medicion_temperatura
+   314 ;;		_medicion_ultrasonico
+   315 ;; This function is called by:
+   316 ;;		Startup code after reset
+   317 ;; This function uses a non-reentrant model
+   318 ;;
    319                           
-   320                           ;esclavo 2.c: 85: ADCON0bits.ADON = 1;
-   321  0048  141F               	bsf	31,0	;volatile
-   322                           
-   323                           ;esclavo 2.c: 86: _delay((unsigned long)((1)*(8000000/4000.0)));
-   324  0049  3003               	movlw	3
-   325  004A  00F5               	movwf	??_main+1
-   326  004B  3097               	movlw	151
-   327  004C  00F4               	movwf	??_main
-   328  004D                     u87:	
-   329  004D  0BF4               	decfsz	??_main,f
-   330  004E  284D               	goto	u87
-   331  004F  0BF5               	decfsz	??_main+1,f
-   332  0050  284D               	goto	u87
-   333  0051  2852               	nop2
-   334  0052                     l44:	
-   335                           ;esclavo 2.c: 93: while (1){
-   336                           
-   337  0052  2852               	goto	l44
-   338  0053                     __end_of_main:	
-   339                           
-   340                           	psect	text1
-   341  0053                     __ptext1:	
-   342 ;; *************** function _ISR *****************
-   343 ;; Defined at:
-   344 ;;		line 47 in file "esclavo 2.c"
-   345 ;; Parameters:    Size  Location     Type
-   346 ;;		None
-   347 ;; Auto vars:     Size  Location     Type
-   348 ;;		None
-   349 ;; Return value:  Size  Location     Type
-   350 ;;                  1    wreg      void 
-   351 ;; Registers used:
-   352 ;;		None
-   353 ;; Tracked objects:
-   354 ;;		On entry : 0/0
-   355 ;;		On exit  : 0/0
-   356 ;;		Unchanged: 0/0
-   357 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   358 ;;      Params:         0       0       0       0       0
-   359 ;;      Locals:         0       0       0       0       0
-   360 ;;      Temps:          4       0       0       0       0
-   361 ;;      Totals:         4       0       0       0       0
-   362 ;;Total ram usage:        4 bytes
-   363 ;; Hardware stack levels used:    1
-   364 ;; This function calls:
-   365 ;;		Nothing
-   366 ;; This function is called by:
-   367 ;;		Interrupt level 1
-   368 ;; This function uses a non-reentrant model
-   369 ;;
+   320                           
+   321                           ;psect for function _main
+   322  0023                     _main:	
+   323                           
+   324                           ;esclavo 2.c: 69: OSCCONbits.HTS = 1;
+   325                           
+   326                           ;incstack = 0
+   327                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   328  0023  1683               	bsf	3,5	;RP0=1, select bank1
+   329  0024  1303               	bcf	3,6	;RP1=0, select bank1
+   330  0025  150F               	bsf	15,2	;volatile
+   331                           
+   332                           ;esclavo 2.c: 70: OSCCONbits.IRCF0 = 1;
+   333  0026  160F               	bsf	15,4	;volatile
+   334                           
+   335                           ;esclavo 2.c: 71: OSCCONbits.IRCF1 = 1;
+   336  0027  168F               	bsf	15,5	;volatile
+   337                           
+   338                           ;esclavo 2.c: 72: OSCCONbits.IRCF2 = 1;
+   339  0028  170F               	bsf	15,6	;volatile
+   340                           
+   341                           ;esclavo 2.c: 73: OSCCONbits.OSTS = 0;
+   342  0029  118F               	bcf	15,3	;volatile
+   343                           
+   344                           ;esclavo 2.c: 74: OSCCONbits.SCS = 1;
+   345  002A  140F               	bsf	15,0	;volatile
+   346                           
+   347                           ;esclavo 2.c: 77: TRISA=0B00000010;
+   348  002B  3002               	movlw	2
+   349  002C  0085               	movwf	5	;volatile
+   350                           
+   351                           ;esclavo 2.c: 78: TRISB=0B00111001;
+   352  002D  3039               	movlw	57
+   353  002E  0086               	movwf	6	;volatile
+   354                           
+   355                           ;esclavo 2.c: 79: TRISC=0b00011001;
+   356  002F  3019               	movlw	25
+   357  0030  0087               	movwf	7	;volatile
+   358                           
+   359                           ;esclavo 2.c: 80: TRISD=0B00000000;
+   360  0031  0188               	clrf	8	;volatile
+   361                           
+   362                           ;esclavo 2.c: 82: ANSEL=0;
+   363  0032  1683               	bsf	3,5	;RP0=1, select bank3
+   364  0033  1703               	bsf	3,6	;RP1=1, select bank3
+   365  0034  0188               	clrf	8	;volatile
+   366                           
+   367                           ;esclavo 2.c: 83: ANSELH=0B00000001;
+   368  0035  3001               	movlw	1
+   369  0036  0089               	movwf	9	;volatile
    370                           
-   371                           
-   372                           ;psect for function _ISR
-   373  0053                     _ISR:	
-   374  0053  0873               	movf	??_ISR+3,w
-   375  0054  00FF               	movwf	127
-   376  0055  0872               	movf	??_ISR+2,w
-   377  0056  008A               	movwf	10
-   378  0057  0871               	movf	??_ISR+1,w
-   379  0058  0084               	movwf	4
-   380  0059  0E70               	swapf	??_ISR^(0+-128),w
-   381  005A  0083               	movwf	3
-   382  005B  0EFE               	swapf	126,f
-   383  005C  0E7E               	swapf	126,w
-   384  005D  0009               	retfie
-   385  005E                     __end_of_ISR:	
-   386  007E                     btemp	set	126	;btemp
-   387  007E                     wtemp0	set	126
-   388                           
-   389                           	psect	intentry
-   390  0004                     __pintentry:	
-   391                           ;incstack = 0
-   392                           ; Regs used in _ISR: []
-   393                           
-   394  0004                     interrupt_function:	
-   395  007E                     saved_w	set	btemp
-   396  0004  00FE               	movwf	btemp
-   397  0005  0E03               	swapf	3,w
-   398  0006  00F0               	movwf	??_ISR
-   399  0007  0804               	movf	4,w
-   400  0008  00F1               	movwf	??_ISR+1
-   401  0009  080A               	movf	10,w
-   402  000A  00F2               	movwf	??_ISR+2
-   403  000B  1283               	bcf	3,5	;RP0=0, select bank0
-   404  000C  1303               	bcf	3,6	;RP1=0, select bank0
-   405  000D  087F               	movf	btemp+1,w
-   406  000E  00F3               	movwf	??_ISR+3
-   407  000F  120A  118A  2853   	ljmp	_ISR
+   371                           ;esclavo 2.c: 85: PORTD=0;
+   372  0037  1283               	bcf	3,5	;RP0=0, select bank0
+   373  0038  1303               	bcf	3,6	;RP1=0, select bank0
+   374  0039  0188               	clrf	8	;volatile
+   375                           
+   376                           ;esclavo 2.c: 86: PORTA=0;
+   377  003A  0185               	clrf	5	;volatile
+   378                           
+   379                           ;esclavo 2.c: 87: PORTB=0;
+   380  003B  0186               	clrf	6	;volatile
+   381                           
+   382                           ;esclavo 2.c: 90: ADCON1bits.VCFG1 = 0;
+   383  003C  1683               	bsf	3,5	;RP0=1, select bank1
+   384  003D  1303               	bcf	3,6	;RP1=0, select bank1
+   385  003E  129F               	bcf	31,5	;volatile
+   386                           
+   387                           ;esclavo 2.c: 91: ADCON1bits.VCFG0 = 0;
+   388  003F  121F               	bcf	31,4	;volatile
+   389                           
+   390                           ;esclavo 2.c: 92: ADCON1bits.ADFM = 0;
+   391  0040  139F               	bcf	31,7	;volatile
+   392                           
+   393                           ;esclavo 2.c: 93: PIE1bits.ADIE = 1;
+   394  0041  170C               	bsf	12,6	;volatile
+   395                           
+   396                           ;esclavo 2.c: 94: ANSELHbits.ANS12 = 1;
+   397  0042  1683               	bsf	3,5	;RP0=1, select bank3
+   398  0043  1703               	bsf	3,6	;RP1=1, select bank3
+   399  0044  1609               	bsf	9,4	;volatile
+   400                           
+   401                           ;esclavo 2.c: 95: ADCON0bits.ADCS1 = 1;
+   402  0045  1283               	bcf	3,5	;RP0=0, select bank0
+   403  0046  1303               	bcf	3,6	;RP1=0, select bank0
+   404  0047  179F               	bsf	31,7	;volatile
+   405                           
+   406                           ;esclavo 2.c: 96: ADCON0bits.ADCS0 = 0;
+   407  0048  131F               	bcf	31,6	;volatile
+   408                           
+   409                           ;esclavo 2.c: 97: ADCON0bits.CHS3 = 1;
+   410  0049  169F               	bsf	31,5	;volatile
+   411                           
+   412                           ;esclavo 2.c: 98: ADCON0bits.CHS2 = 1;
+   413  004A  161F               	bsf	31,4	;volatile
+   414                           
+   415                           ;esclavo 2.c: 99: ADCON0bits.CHS1 = 0;
+   416  004B  119F               	bcf	31,3	;volatile
+   417                           
+   418                           ;esclavo 2.c: 100: ADCON0bits.CHS0 = 0;
+   419  004C  111F               	bcf	31,2	;volatile
+   420                           
+   421                           ;esclavo 2.c: 101: ADRESL = 0;
+   422  004D  1683               	bsf	3,5	;RP0=1, select bank1
+   423  004E  1303               	bcf	3,6	;RP1=0, select bank1
+   424  004F  019E               	clrf	30	;volatile
+   425                           
+   426                           ;esclavo 2.c: 102: ADRESH = 0;
+   427  0050  1283               	bcf	3,5	;RP0=0, select bank0
+   428  0051  1303               	bcf	3,6	;RP1=0, select bank0
+   429  0052  019E               	clrf	30	;volatile
+   430                           
+   431                           ;esclavo 2.c: 103: ADCON0bits.ADON = 1;
+   432  0053  141F               	bsf	31,0	;volatile
+   433                           
+   434                           ;esclavo 2.c: 104: _delay((unsigned long)((1)*(8000000/4000.0)));
+   435  0054  3003               	movlw	3
+   436  0055  1283               	bcf	3,5	;RP0=0, select bank0
+   437  0056  1303               	bcf	3,6	;RP1=0, select bank0
+   438  0057  00AB               	movwf	??_main+1
+   439  0058  3097               	movlw	151
+   440  0059  00AA               	movwf	??_main
+   441  005A                     u547:	
+   442  005A  0BAA               	decfsz	??_main,f
+   443  005B  285A               	goto	u547
+   444  005C  0BAB               	decfsz	??_main+1,f
+   445  005D  285A               	goto	u547
+   446                           
+   447                           ;esclavo 2.c: 107: SSPSTAT=0b01000000;
+   448  005E  3040               	movlw	64
+   449  005F  1683               	bsf	3,5	;RP0=1, select bank1
+   450  0060  1303               	bcf	3,6	;RP1=0, select bank1
+   451  0061  0094               	movwf	20	;volatile
+   452                           
+   453                           ;esclavo 2.c: 109: SSPCON=0b00110100;
+   454  0062  3034               	movlw	52
+   455  0063  1283               	bcf	3,5	;RP0=0, select bank0
+   456  0064  1303               	bcf	3,6	;RP1=0, select bank0
+   457  0065  0094               	movwf	20	;volatile
+   458  0066                     l985:	
+   459                           ;esclavo 2.c: 121: while (1){
+   460                           
+   461                           
+   462                           ;esclavo 2.c: 124: medicion_ultrasonico();
+   463  0066  120A  118A  20A9  120A  118A  	fcall	_medicion_ultrasonico
+   464                           
+   465                           ;esclavo 2.c: 126: medicion_temperatura();
+   466  006B  120A  118A  2138  120A  118A  	fcall	_medicion_temperatura
+   467                           
+   468                           ;esclavo 2.c: 128: if (SSPSTATbits.BF==1){
+   469  0070  1683               	bsf	3,5	;RP0=1, select bank1
+   470  0071  1303               	bcf	3,6	;RP1=0, select bank1
+   471  0072  1C14               	btfss	20,0	;volatile
+   472  0073  287C               	goto	l993
+   473                           
+   474                           ;esclavo 2.c: 129: accion=SSPBUF;
+   475  0074  1283               	bcf	3,5	;RP0=0, select bank0
+   476  0075  1303               	bcf	3,6	;RP1=0, select bank0
+   477  0076  0813               	movf	19,w	;volatile
+   478  0077  00AA               	movwf	??_main
+   479  0078  082A               	movf	??_main,w
+   480  0079  00AE               	movwf	_accion
+   481                           
+   482                           ;esclavo 2.c: 130: PORTD=accion;
+   483  007A  082E               	movf	_accion,w
+   484  007B  0088               	movwf	8	;volatile
+   485  007C                     l993:	
+   486                           
+   487                           ;esclavo 2.c: 131: }
+   488                           ;esclavo 2.c: 133: if (accion==1){
+   489  007C  1283               	bcf	3,5	;RP0=0, select bank0
+   490  007D  032E               	decf	_accion,w
+   491  007E  1D03               	btfss	3,2
+   492  007F  2888               	goto	l997
+   493                           
+   494                           ;esclavo 2.c: 134: SSPBUF=medicion_ultrasonico();
+   495  0080  120A  118A  20A9  120A  118A  	fcall	_medicion_ultrasonico
+   496  0085  1283               	bcf	3,5	;RP0=0, select bank0
+   497  0086  1303               	bcf	3,6	;RP1=0, select bank0
+   498  0087  0093               	movwf	19	;volatile
+   499  0088                     l997:	
+   500                           
+   501                           ;esclavo 2.c: 136: }
+   502                           ;esclavo 2.c: 138: if (accion==2){
+   503  0088  3002               	movlw	2
+   504  0089  062E               	xorwf	_accion,w
+   505  008A  1D03               	btfss	3,2
+   506  008B  2894               	goto	l1001
+   507                           
+   508                           ;esclavo 2.c: 139: SSPBUF=medicion_temperatura();
+   509  008C  120A  118A  2138  120A  118A  	fcall	_medicion_temperatura
+   510  0091  1283               	bcf	3,5	;RP0=0, select bank0
+   511  0092  1303               	bcf	3,6	;RP1=0, select bank0
+   512  0093  0093               	movwf	19	;volatile
+   513  0094                     l1001:	
+   514                           
+   515                           ;esclavo 2.c: 141: }
+   516                           ;esclavo 2.c: 142: if (accion==3){
+   517  0094  3003               	movlw	3
+   518  0095  062E               	xorwf	_accion,w
+   519  0096  1D03               	btfss	3,2
+   520  0097  2866               	goto	l985
+   521  0098                     l75:	
+   522                           ;esclavo 2.c: 143: while (SSPSTATbits.BF==0){}
+   523                           
+   524  0098  1683               	bsf	3,5	;RP0=1, select bank1
+   525  0099  1303               	bcf	3,6	;RP1=0, select bank1
+   526  009A  1C14               	btfss	20,0	;volatile
+   527  009B  2898               	goto	l75
+   528                           
+   529                           ;esclavo 2.c: 144: leds=SSPBUF;
+   530  009C  1283               	bcf	3,5	;RP0=0, select bank0
+   531  009D  1303               	bcf	3,6	;RP1=0, select bank0
+   532  009E  0813               	movf	19,w	;volatile
+   533  009F  00AA               	movwf	??_main
+   534  00A0  082A               	movf	??_main,w
+   535  00A1  00AF               	movwf	_leds
+   536                           
+   537                           ;esclavo 2.c: 145: ColorLed(leds);
+   538  00A2  082F               	movf	_leds,w
+   539  00A3  120A  118A  214E  120A  118A  	fcall	_ColorLed
+   540  00A8  2866               	goto	l985
+   541  00A9                     __end_of_main:	
+   542                           
+   543                           	psect	text1
+   544  00A9                     __ptext1:	
+   545 ;; *************** function _medicion_ultrasonico *****************
+   546 ;; Defined at:
+   547 ;;		line 169 in file "esclavo 2.c"
+   548 ;; Parameters:    Size  Location     Type
+   549 ;;		None
+   550 ;; Auto vars:     Size  Location     Type
+   551 ;;  tiempo          2    8[BANK0 ] unsigned int 
+   552 ;;  objeto          1    7[BANK0 ] unsigned char 
+   553 ;; Return value:  Size  Location     Type
+   554 ;;                  1    wreg      unsigned char 
+   555 ;; Registers used:
+   556 ;;		wreg, status,2, status,0, pclath, cstack
+   557 ;; Tracked objects:
+   558 ;;		On entry : 0/0
+   559 ;;		On exit  : 0/0
+   560 ;;		Unchanged: 0/0
+   561 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   562 ;;      Params:         0       0       0       0       0
+   563 ;;      Locals:         0       3       0       0       0
+   564 ;;      Temps:          1       0       0       0       0
+   565 ;;      Totals:         1       3       0       0       0
+   566 ;;Total ram usage:        4 bytes
+   567 ;; Hardware stack levels used:    1
+   568 ;; Hardware stack levels required when called:    2
+   569 ;; This function calls:
+   570 ;;		_ColorLed
+   571 ;;		___lwdiv
+   572 ;; This function is called by:
+   573 ;;		_main
+   574 ;; This function uses a non-reentrant model
+   575 ;;
+   576                           
+   577                           
+   578                           ;psect for function _medicion_ultrasonico
+   579  00A9                     _medicion_ultrasonico:	
+   580                           
+   581                           ;esclavo 2.c: 170: unsigned int tiempo=0;
+   582                           
+   583                           ;incstack = 0
+   584                           ; Regs used in _medicion_ultrasonico: [wreg+status,2+status,0+pclath+cstack]
+   585  00A9  1283               	bcf	3,5	;RP0=0, select bank0
+   586  00AA  1303               	bcf	3,6	;RP1=0, select bank0
+   587  00AB  01A8               	clrf	medicion_ultrasonico@tiempo
+   588  00AC  01A9               	clrf	medicion_ultrasonico@tiempo+1
+   589                           
+   590                           ;esclavo 2.c: 171: char objeto = 0;
+   591  00AD  01A7               	clrf	medicion_ultrasonico@objeto
+   592                           
+   593                           ;esclavo 2.c: 172: PORTAbits.RA0 = 0;
+   594  00AE  1005               	bcf	5,0	;volatile
+   595                           
+   596                           ;esclavo 2.c: 173: _delay((unsigned long)((10)*(8000000/4000000.0)));
+   597  00AF  3006               	movlw	6
+   598  00B0  00F5               	movwf	??_medicion_ultrasonico
+   599  00B1                     u557:	
+   600  00B1  0BF5               	decfsz	??_medicion_ultrasonico,f
+   601  00B2  28B1               	goto	u557
+   602  00B3  0000               	nop
+   603                           
+   604                           ;esclavo 2.c: 174: PORTAbits.RA0 = 1;
+   605  00B4  1283               	bcf	3,5	;RP0=0, select bank0
+   606  00B5  1303               	bcf	3,6	;RP1=0, select bank0
+   607  00B6  1405               	bsf	5,0	;volatile
+   608                           
+   609                           ;esclavo 2.c: 175: _delay((unsigned long)((10)*(8000000/4000000.0)));
+   610  00B7  3006               	movlw	6
+   611  00B8  00F5               	movwf	??_medicion_ultrasonico
+   612  00B9                     u567:	
+   613  00B9  0BF5               	decfsz	??_medicion_ultrasonico,f
+   614  00BA  28B9               	goto	u567
+   615  00BB  0000               	nop
+   616                           
+   617                           ;esclavo 2.c: 176: PORTAbits.RA0 = 0;
+   618  00BC  1283               	bcf	3,5	;RP0=0, select bank0
+   619  00BD  1303               	bcf	3,6	;RP1=0, select bank0
+   620  00BE  1005               	bcf	5,0	;volatile
+   621  00BF                     l92:	
+   622                           ;esclavo 2.c: 177: while (1){
+   623                           
+   624                           
+   625                           ;esclavo 2.c: 178: tiempo=0;
+   626  00BF  01A8               	clrf	medicion_ultrasonico@tiempo
+   627  00C0  01A9               	clrf	medicion_ultrasonico@tiempo+1
+   628                           
+   629                           ;esclavo 2.c: 179: if (PORTAbits.RA1==1){
+   630  00C1  1885               	btfsc	5,1	;volatile
+   631  00C2  28CF               	goto	l919
+   632  00C3  28BF               	goto	l92
+   633  00C4                     l95:	
+   634                           ;esclavo 2.c: 180: while (PORTAbits.RA1==1){
+   635                           
+   636                           
+   637                           ;esclavo 2.c: 181: _delay((unsigned long)((1)*(8000000/4000000.0)));
+   638  00C4  28C5               	nop2	;2 cycle nop
+   639                           
+   640                           ;esclavo 2.c: 182: tiempo=tiempo+1;
+   641  00C5  1283               	bcf	3,5	;RP0=0, select bank0
+   642  00C6  1303               	bcf	3,6	;RP1=0, select bank0
+   643  00C7  0828               	movf	medicion_ultrasonico@tiempo,w
+   644  00C8  3E01               	addlw	1
+   645  00C9  00A8               	movwf	medicion_ultrasonico@tiempo
+   646  00CA  0829               	movf	medicion_ultrasonico@tiempo+1,w
+   647  00CB  1803               	skipnc
+   648  00CC  3E01               	addlw	1
+   649  00CD  3E00               	addlw	0
+   650  00CE  00A9               	movwf	medicion_ultrasonico@tiempo+1
+   651  00CF                     l919:	
+   652  00CF  1885               	btfsc	5,1	;volatile
+   653  00D0  28C4               	goto	l95
+   654                           
+   655                           ;esclavo 2.c: 183: }
+   656                           ;esclavo 2.c: 184: tiempo=tiempo/11;
+   657  00D1  300B               	movlw	11
+   658  00D2  00A0               	movwf	___lwdiv@divisor
+   659  00D3  3000               	movlw	0
+   660  00D4  00A1               	movwf	___lwdiv@divisor+1
+   661  00D5  0829               	movf	medicion_ultrasonico@tiempo+1,w
+   662  00D6  00A3               	movwf	___lwdiv@dividend+1
+   663  00D7  0828               	movf	medicion_ultrasonico@tiempo,w
+   664  00D8  00A2               	movwf	___lwdiv@dividend
+   665  00D9  120A  118A  20FA  120A  118A  	fcall	___lwdiv
+   666  00DE  1283               	bcf	3,5	;RP0=0, select bank0
+   667  00DF  1303               	bcf	3,6	;RP1=0, select bank0
+   668  00E0  0821               	movf	?___lwdiv+1,w
+   669  00E1  00A9               	movwf	medicion_ultrasonico@tiempo+1
+   670  00E2  0820               	movf	?___lwdiv,w
+   671  00E3  00A8               	movwf	medicion_ultrasonico@tiempo
+   672                           
+   673                           ;esclavo 2.c: 185: if (tiempo<=75){
+   674  00E4  3000               	movlw	0
+   675  00E5  0229               	subwf	medicion_ultrasonico@tiempo+1,w
+   676  00E6  304C               	movlw	76
+   677  00E7  1903               	skipnz
+   678  00E8  0228               	subwf	medicion_ultrasonico@tiempo,w
+   679  00E9  1803               	skipnc
+   680  00EA  28EF               	goto	l929
+   681                           
+   682                           ;esclavo 2.c: 186: objeto=1;
+   683  00EB  01A7               	clrf	medicion_ultrasonico@objeto
+   684  00EC  0AA7               	incf	medicion_ultrasonico@objeto,f
+   685                           
+   686                           ;esclavo 2.c: 187: ColorLed(0b111);
+   687  00ED  3007               	movlw	7
+   688  00EE  28F3               	goto	L1
+   689  00EF                     l929:	
+   690                           ;esclavo 2.c: 189: }
+   691                           
+   692                           
+   693                           ;esclavo 2.c: 190: else {
+   694                           ;esclavo 2.c: 191: objeto=0;
+   695  00EF  1283               	bcf	3,5	;RP0=0, select bank0
+   696  00F0  1303               	bcf	3,6	;RP1=0, select bank0
+   697  00F1  01A7               	clrf	medicion_ultrasonico@objeto
+   698                           
+   699                           ;esclavo 2.c: 192: ColorLed(0b0000);
+   700  00F2  3000               	movlw	0
+   701  00F3                     L1:	
+   702  00F3  120A  118A  214E   	fcall	_ColorLed
+   703                           
+   704                           ;esclavo 2.c: 193: }
+   705                           ;esclavo 2.c: 194: return objeto;
+   706  00F6  1283               	bcf	3,5	;RP0=0, select bank0
+   707  00F7  1303               	bcf	3,6	;RP1=0, select bank0
+   708  00F8  0827               	movf	medicion_ultrasonico@objeto,w
+   709  00F9  0008               	return
+   710  00FA                     __end_of_medicion_ultrasonico:	
+   711                           
+   712                           	psect	text2
+   713  00FA                     __ptext2:	
+   714 ;; *************** function ___lwdiv *****************
+   715 ;; Defined at:
+   716 ;;		line 6 in file "C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c"
+   717 ;; Parameters:    Size  Location     Type
+   718 ;;  divisor         2    0[BANK0 ] unsigned int 
+   719 ;;  dividend        2    2[BANK0 ] unsigned int 
+   720 ;; Auto vars:     Size  Location     Type
+   721 ;;  quotient        2    5[BANK0 ] unsigned int 
+   722 ;;  counter         1    4[BANK0 ] unsigned char 
+   723 ;; Return value:  Size  Location     Type
+   724 ;;                  2    0[BANK0 ] unsigned int 
+   725 ;; Registers used:
+   726 ;;		wreg, status,2, status,0
+   727 ;; Tracked objects:
+   728 ;;		On entry : 0/0
+   729 ;;		On exit  : 0/0
+   730 ;;		Unchanged: 0/0
+   731 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   732 ;;      Params:         0       4       0       0       0
+   733 ;;      Locals:         0       3       0       0       0
+   734 ;;      Temps:          1       0       0       0       0
+   735 ;;      Totals:         1       7       0       0       0
+   736 ;;Total ram usage:        8 bytes
+   737 ;; Hardware stack levels used:    1
+   738 ;; Hardware stack levels required when called:    1
+   739 ;; This function calls:
+   740 ;;		Nothing
+   741 ;; This function is called by:
+   742 ;;		_medicion_ultrasonico
+   743 ;; This function uses a non-reentrant model
+   744 ;;
+   745                           
+   746                           
+   747                           ;psect for function ___lwdiv
+   748  00FA                     ___lwdiv:	
+   749                           
+   750                           ;incstack = 0
+   751                           ; Regs used in ___lwdiv: [wreg+status,2+status,0]
+   752  00FA  1283               	bcf	3,5	;RP0=0, select bank0
+   753  00FB  1303               	bcf	3,6	;RP1=0, select bank0
+   754  00FC  01A5               	clrf	___lwdiv@quotient
+   755  00FD  01A6               	clrf	___lwdiv@quotient+1
+   756  00FE  0820               	movf	___lwdiv@divisor,w
+   757  00FF  0421               	iorwf	___lwdiv@divisor+1,w
+   758  0100  1903               	btfsc	3,2
+   759  0101  2933               	goto	l897
+   760  0102  01A4               	clrf	___lwdiv@counter
+   761  0103  0AA4               	incf	___lwdiv@counter,f
+   762  0104                     l885:	
+   763  0104  1BA1               	btfsc	___lwdiv@divisor+1,7
+   764  0105  2912               	goto	l887
+   765  0106  3001               	movlw	1
+   766  0107                     u405:	
+   767  0107  1003               	clrc
+   768  0108  0DA0               	rlf	___lwdiv@divisor,f
+   769  0109  0DA1               	rlf	___lwdiv@divisor+1,f
+   770  010A  3EFF               	addlw	-1
+   771  010B  1D03               	skipz
+   772  010C  2907               	goto	u405
+   773  010D  3001               	movlw	1
+   774  010E  00F4               	movwf	??___lwdiv
+   775  010F  0874               	movf	??___lwdiv,w
+   776  0110  07A4               	addwf	___lwdiv@counter,f
+   777  0111  2904               	goto	l885
+   778  0112                     l887:	
+   779  0112  3001               	movlw	1
+   780  0113                     u425:	
+   781  0113  1003               	clrc
+   782  0114  0DA5               	rlf	___lwdiv@quotient,f
+   783  0115  0DA6               	rlf	___lwdiv@quotient+1,f
+   784  0116  3EFF               	addlw	-1
+   785  0117  1D03               	skipz
+   786  0118  2913               	goto	u425
+   787  0119  0821               	movf	___lwdiv@divisor+1,w
+   788  011A  0223               	subwf	___lwdiv@dividend+1,w
+   789  011B  1D03               	skipz
+   790  011C  291F               	goto	u435
+   791  011D  0820               	movf	___lwdiv@divisor,w
+   792  011E  0222               	subwf	___lwdiv@dividend,w
+   793  011F                     u435:	
+   794  011F  1C03               	skipc
+   795  0120  2928               	goto	l893
+   796  0121  0820               	movf	___lwdiv@divisor,w
+   797  0122  02A2               	subwf	___lwdiv@dividend,f
+   798  0123  0821               	movf	___lwdiv@divisor+1,w
+   799  0124  1C03               	skipc
+   800  0125  03A3               	decf	___lwdiv@dividend+1,f
+   801  0126  02A3               	subwf	___lwdiv@dividend+1,f
+   802  0127  1425               	bsf	___lwdiv@quotient,0
+   803  0128                     l893:	
+   804  0128  3001               	movlw	1
+   805  0129                     u445:	
+   806  0129  1003               	clrc
+   807  012A  0CA1               	rrf	___lwdiv@divisor+1,f
+   808  012B  0CA0               	rrf	___lwdiv@divisor,f
+   809  012C  3EFF               	addlw	-1
+   810  012D  1D03               	skipz
+   811  012E  2929               	goto	u445
+   812  012F  3001               	movlw	1
+   813  0130  02A4               	subwf	___lwdiv@counter,f
+   814  0131  1D03               	btfss	3,2
+   815  0132  2912               	goto	l887
+   816  0133                     l897:	
+   817  0133  0826               	movf	___lwdiv@quotient+1,w
+   818  0134  00A1               	movwf	?___lwdiv+1
+   819  0135  0825               	movf	___lwdiv@quotient,w
+   820  0136  00A0               	movwf	?___lwdiv
+   821  0137  0008               	return
+   822  0138                     __end_of___lwdiv:	
+   823                           
+   824                           	psect	text3
+   825  014E                     __ptext3:	
+   826 ;; *************** function _ColorLed *****************
+   827 ;; Defined at:
+   828 ;;		line 151 in file "esclavo 2.c"
+   829 ;; Parameters:    Size  Location     Type
+   830 ;;  binario         1    wreg     unsigned char 
+   831 ;; Auto vars:     Size  Location     Type
+   832 ;;  binario         1    4[COMMON] unsigned char 
+   833 ;; Return value:  Size  Location     Type
+   834 ;;                  1    wreg      unsigned char 
+   835 ;; Registers used:
+   836 ;;		wreg
+   837 ;; Tracked objects:
+   838 ;;		On entry : 0/0
+   839 ;;		On exit  : 0/0
+   840 ;;		Unchanged: 0/0
+   841 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   842 ;;      Params:         0       0       0       0       0
+   843 ;;      Locals:         1       0       0       0       0
+   844 ;;      Temps:          0       0       0       0       0
+   845 ;;      Totals:         1       0       0       0       0
+   846 ;;Total ram usage:        1 bytes
+   847 ;; Hardware stack levels used:    1
+   848 ;; Hardware stack levels required when called:    1
+   849 ;; This function calls:
+   850 ;;		Nothing
+   851 ;; This function is called by:
+   852 ;;		_main
+   853 ;;		_medicion_ultrasonico
+   854 ;; This function uses a non-reentrant model
+   855 ;;
+   856                           
+   857                           
+   858                           ;psect for function _ColorLed
+   859  014E                     _ColorLed:	
+   860                           
+   861                           ;incstack = 0
+   862                           ; Regs used in _ColorLed: [wreg]
+   863                           ;ColorLed@binario stored from wreg
+   864  014E  00F4               	movwf	ColorLed@binario
+   865                           
+   866                           ;esclavo 2.c: 152: if((binario)&(0b1)==1){
+   867  014F  1C74               	btfss	ColorLed@binario,0
+   868  0150  2955               	goto	l83
+   869                           
+   870                           ;esclavo 2.c: 153: PORTAbits.RA3=1;
+   871  0151  1283               	bcf	3,5	;RP0=0, select bank0
+   872  0152  1303               	bcf	3,6	;RP1=0, select bank0
+   873  0153  1585               	bsf	5,3	;volatile
+   874                           
+   875                           ;esclavo 2.c: 154: }
+   876  0154  2958               	goto	l84
+   877  0155                     l83:	
+   878                           
+   879                           ;esclavo 2.c: 155: else {PORTAbits.RA3=0;}
+   880  0155  1283               	bcf	3,5	;RP0=0, select bank0
+   881  0156  1303               	bcf	3,6	;RP1=0, select bank0
+   882  0157  1185               	bcf	5,3	;volatile
+   883  0158                     l84:	
+   884                           
+   885                           ;esclavo 2.c: 157: if((binario)&(0b10)==2){
+   886  0158  1C74               	btfss	ColorLed@binario,0
+   887  0159  295C               	goto	l85
+   888                           
+   889                           ;esclavo 2.c: 158: PORTAbits.RA2=1;
+   890  015A  1505               	bsf	5,2	;volatile
+   891                           
+   892                           ;esclavo 2.c: 159: }
+   893  015B  295D               	goto	l86
+   894  015C                     l85:	
+   895                           
+   896                           ;esclavo 2.c: 160: else {PORTAbits.RA2=0;}
+   897  015C  1105               	bcf	5,2	;volatile
+   898  015D                     l86:	
+   899                           
+   900                           ;esclavo 2.c: 162: if((binario)&(0b100)==4){
+   901  015D  1C74               	btfss	ColorLed@binario,0
+   902  015E  2961               	goto	l87
+   903                           
+   904                           ;esclavo 2.c: 163: PORTAbits.RA4=1;
+   905  015F  1605               	bsf	5,4	;volatile
+   906                           
+   907                           ;esclavo 2.c: 164: }
+   908  0160  0008               	return
+   909  0161                     l87:	
+   910                           
+   911                           ;esclavo 2.c: 165: else{PORTAbits.RA4=0;}
+   912  0161  1205               	bcf	5,4	;volatile
+   913  0162  0008               	return
+   914  0163                     __end_of_ColorLed:	
+   915                           ;esclavo 2.c: 166: return;
+   916                           
+   917                           
+   918                           	psect	text4
+   919  0138                     __ptext4:	
+   920 ;; *************** function _medicion_temperatura *****************
+   921 ;; Defined at:
+   922 ;;		line 199 in file "esclavo 2.c"
+   923 ;; Parameters:    Size  Location     Type
+   924 ;;		None
+   925 ;; Auto vars:     Size  Location     Type
+   926 ;;  numero          1    5[COMMON] unsigned char 
+   927 ;; Return value:  Size  Location     Type
+   928 ;;                  1    wreg      unsigned char 
+   929 ;; Registers used:
+   930 ;;		wreg, status,2, status,0
+   931 ;; Tracked objects:
+   932 ;;		On entry : 0/0
+   933 ;;		On exit  : 0/0
+   934 ;;		Unchanged: 0/0
+   935 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   936 ;;      Params:         0       0       0       0       0
+   937 ;;      Locals:         1       0       0       0       0
+   938 ;;      Temps:          1       0       0       0       0
+   939 ;;      Totals:         2       0       0       0       0
+   940 ;;Total ram usage:        2 bytes
+   941 ;; Hardware stack levels used:    1
+   942 ;; Hardware stack levels required when called:    1
+   943 ;; This function calls:
+   944 ;;		Nothing
+   945 ;; This function is called by:
+   946 ;;		_main
+   947 ;; This function uses a non-reentrant model
+   948 ;;
+   949                           
+   950                           
+   951                           ;psect for function _medicion_temperatura
+   952  0138                     _medicion_temperatura:	
+   953                           
+   954                           ;esclavo 2.c: 200: char numero=0;
+   955                           
+   956                           ;incstack = 0
+   957                           ; Regs used in _medicion_temperatura: [wreg+status,2+status,0]
+   958  0138  01F5               	clrf	medicion_temperatura@numero
+   959                           
+   960                           ;esclavo 2.c: 201: ADCON0bits.GO=1;
+   961  0139  1283               	bcf	3,5	;RP0=0, select bank0
+   962  013A  1303               	bcf	3,6	;RP1=0, select bank0
+   963  013B  149F               	bsf	31,1	;volatile
+   964  013C                     l104:	
+   965                           ;esclavo 2.c: 202: while(PIR1bits.ADIF==0){
+   966                           
+   967  013C  1283               	bcf	3,5	;RP0=0, select bank0
+   968  013D  1303               	bcf	3,6	;RP1=0, select bank0
+   969  013E  1B0C               	btfsc	12,6	;volatile
+   970  013F  2942               	goto	l106
+   971                           
+   972                           ;esclavo 2.c: 203: _delay((unsigned long)((1)*(8000000/4000000.0)));
+   973  0140  2941               	nop2	;2 cycle nop
+   974  0141  293C               	goto	l104
+   975  0142                     l106:	
+   976                           
+   977                           ;esclavo 2.c: 204: }
+   978                           ;esclavo 2.c: 205: PIR1bits.ADIF=0;
+   979  0142  130C               	bcf	12,6	;volatile
+   980                           
+   981                           ;esclavo 2.c: 206: numero=ADRESH;
+   982  0143  081E               	movf	30,w	;volatile
+   983  0144  00F4               	movwf	??_medicion_temperatura
+   984  0145  0874               	movf	??_medicion_temperatura,w
+   985  0146  00F5               	movwf	medicion_temperatura@numero
+   986                           
+   987                           ;esclavo 2.c: 207: numero=numero-115;
+   988  0147  0875               	movf	medicion_temperatura@numero,w
+   989  0148  3E8D               	addlw	141
+   990  0149  00F4               	movwf	??_medicion_temperatura
+   991  014A  0874               	movf	??_medicion_temperatura,w
+   992  014B  00F5               	movwf	medicion_temperatura@numero
+   993                           
+   994                           ;esclavo 2.c: 208: return numero;
+   995  014C  0875               	movf	medicion_temperatura@numero,w
+   996  014D  0008               	return
+   997  014E                     __end_of_medicion_temperatura:	
+   998                           
+   999                           	psect	text5
+  1000  0163                     __ptext5:	
+  1001 ;; *************** function _ISR *****************
+  1002 ;; Defined at:
+  1003 ;;		line 54 in file "esclavo 2.c"
+  1004 ;; Parameters:    Size  Location     Type
+  1005 ;;		None
+  1006 ;; Auto vars:     Size  Location     Type
+  1007 ;;		None
+  1008 ;; Return value:  Size  Location     Type
+  1009 ;;                  1    wreg      void 
+  1010 ;; Registers used:
+  1011 ;;		None
+  1012 ;; Tracked objects:
+  1013 ;;		On entry : 0/0
+  1014 ;;		On exit  : 0/0
+  1015 ;;		Unchanged: 0/0
+  1016 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1017 ;;      Params:         0       0       0       0       0
+  1018 ;;      Locals:         0       0       0       0       0
+  1019 ;;      Temps:          4       0       0       0       0
+  1020 ;;      Totals:         4       0       0       0       0
+  1021 ;;Total ram usage:        4 bytes
+  1022 ;; Hardware stack levels used:    1
+  1023 ;; This function calls:
+  1024 ;;		Nothing
+  1025 ;; This function is called by:
+  1026 ;;		Interrupt level 1
+  1027 ;; This function uses a non-reentrant model
+  1028 ;;
+  1029                           
+  1030                           
+  1031                           ;psect for function _ISR
+  1032  0163                     _ISR:	
+  1033  0163  0873               	movf	??_ISR+3,w
+  1034  0164  00FF               	movwf	127
+  1035  0165  0872               	movf	??_ISR+2,w
+  1036  0166  008A               	movwf	10
+  1037  0167  0871               	movf	??_ISR+1,w
+  1038  0168  0084               	movwf	4
+  1039  0169  0E70               	swapf	??_ISR^(0+-128),w
+  1040  016A  0083               	movwf	3
+  1041  016B  0EFE               	swapf	126,f
+  1042  016C  0E7E               	swapf	126,w
+  1043  016D  0009               	retfie
+  1044  016E                     __end_of_ISR:	
+  1045  007E                     btemp	set	126	;btemp
+  1046  007E                     wtemp0	set	126
+  1047                           
+  1048                           	psect	intentry
+  1049  0004                     __pintentry:	
+  1050                           ;incstack = 0
+  1051                           ; Regs used in _ISR: []
+  1052                           
+  1053  0004                     interrupt_function:	
+  1054  007E                     saved_w	set	btemp
+  1055  0004  00FE               	movwf	btemp
+  1056  0005  0E03               	swapf	3,w
+  1057  0006  00F0               	movwf	??_ISR
+  1058  0007  0804               	movf	4,w
+  1059  0008  00F1               	movwf	??_ISR+1
+  1060  0009  080A               	movf	10,w
+  1061  000A  00F2               	movwf	??_ISR+2
+  1062  000B  1283               	bcf	3,5	;RP0=0, select bank0
+  1063  000C  1303               	bcf	3,6	;RP1=0, select bank0
+  1064  000D  087F               	movf	btemp+1,w
+  1065  000E  00F3               	movwf	??_ISR+3
+  1066  000F  120A  118A  2963   	ljmp	_ISR
 
 
 Data Sizes:
     Strings     0
     Constant    0
-    Data        0
-    BSS         1
+    Data        1
+    BSS         6
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMMON           14      6       7
-    BANK0            80      0       0
+    COMMON           14      6       9
+    BANK0            80     12      16
     BANK1            80      0       0
     BANK3            96      0       0
     BANK2            96      0       0
@@ -443,7 +1102,10 @@ Pointer List with Targets:
 
 Critical Paths under _main in COMMON
 
-    None.
+    _main->_medicion_temperatura
+    _main->_medicion_ultrasonico
+    _medicion_ultrasonico->_ColorLed
+    _medicion_ultrasonico->___lwdiv
 
 Critical Paths under _ISR in COMMON
 
@@ -451,7 +1113,8 @@ Critical Paths under _ISR in COMMON
 
 Critical Paths under _main in BANK0
 
-    None.
+    _main->_medicion_ultrasonico
+    _medicion_ultrasonico->___lwdiv
 
 Critical Paths under _ISR in BANK0
 
@@ -486,74 +1149,121 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 2     2      0       0
+ (0) _main                                                 2     2      0     695
+                                             10 BANK0      2     2      0
+                           _ColorLed
+               _medicion_temperatura
+               _medicion_ultrasonico
+ ---------------------------------------------------------------------------------
+ (1) _medicion_ultrasonico                                 4     4      0     582
+                                              5 COMMON     1     1      0
+                                              7 BANK0      3     3      0
+                           _ColorLed
+                            ___lwdiv
+ ---------------------------------------------------------------------------------
+ (2) ___lwdiv                                              8     4      4     371
+                                              4 COMMON     1     1      0
+                                              0 BANK0      7     3      4
+ ---------------------------------------------------------------------------------
+ (2) _ColorLed                                             1     1      0      66
+                                              4 COMMON     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _medicion_temperatura                                 2     2      0      47
                                               4 COMMON     2     2      0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 0
+ Estimated maximum stack depth 2
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (1) _ISR                                                  4     4      0       0
+ (3) _ISR                                                  4     4      0       0
                                               0 COMMON     4     4      0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 1
+ Estimated maximum stack depth 3
  ---------------------------------------------------------------------------------
 
  Call Graph Graphs:
 
  _main (ROOT)
+   _ColorLed
+   _medicion_temperatura
+   _medicion_ultrasonico
+     _ColorLed
+     ___lwdiv
 
  _ISR (ROOT)
 
  Address spaces:
 Name               Size   Autos  Total    Cost      Usage
-BITCOMMON            E      0       0       0        0.0%
-EEDATA             100      0       0       0        0.0%
-NULL                 0      0       0       0        0.0%
-CODE                 0      0       0       0        0.0%
-COMMON               E      6       7       1       50.0%
-BITSFR0              0      0       0       1        0.0%
-SFR0                 0      0       0       1        0.0%
-BITSFR1              0      0       0       2        0.0%
-SFR1                 0      0       0       2        0.0%
-STACK                0      0       0       2        0.0%
-ABS                  0      0       7       3        0.0%
-BITBANK0            50      0       0       4        0.0%
-BITSFR3              0      0       0       4        0.0%
-SFR3                 0      0       0       4        0.0%
-BANK0               50      0       0       5        0.0%
-BITSFR2              0      0       0       5        0.0%
-SFR2                 0      0       0       5        0.0%
-BITBANK1            50      0       0       6        0.0%
-BANK1               50      0       0       7        0.0%
-BITBANK3            60      0       0       8        0.0%
 BANK3               60      0       0       9        0.0%
-BITBANK2            60      0       0      10        0.0%
+BITBANK3            60      0       0       8        0.0%
+SFR3                 0      0       0       4        0.0%
+BITSFR3              0      0       0       4        0.0%
 BANK2               60      0       0      11        0.0%
-DATA                 0      0       7      12        0.0%
+BITBANK2            60      0       0      10        0.0%
+SFR2                 0      0       0       5        0.0%
+BITSFR2              0      0       0       5        0.0%
+BANK1               50      0       0       7        0.0%
+BITBANK1            50      0       0       6        0.0%
+SFR1                 0      0       0       2        0.0%
+BITSFR1              0      0       0       2        0.0%
+BANK0               50      C      10       5       20.0%
+BITBANK0            50      0       0       4        0.0%
+SFR0                 0      0       0       1        0.0%
+BITSFR0              0      0       0       1        0.0%
+COMMON               E      6       9       1       64.3%
+BITCOMMON            E      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+DATA                 0      0      19      12        0.0%
+ABS                  0      0      19       3        0.0%
+NULL                 0      0       0       0        0.0%
+STACK                0      0       0       2        0.0%
+EEDATA             100      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V1.41 build -162212810 
-Symbol Table                                                                                   Tue May 30 20:10:56 2017
+Symbol Table                                                                                   Thu Jun 01 00:38:04 2017
 
-             __CFG_CP$OFF 0000                        l44 0052                        u87 004D  
-            __CFG_CPD$OFF 0000                       _ISR 0053                       fsr0 0004  
-            __CFG_LVP$OFF 0000                      ?_ISR 0070              __CFG_WRT$OFF 0000  
-                    _main 001A                      btemp 007E                      start 0012  
-           __CFG_IESO$OFF 0000             __CFG_MCLRE$ON 0000                     ??_ISR 0070  
-                   ?_main 0070             __CFG_WDTE$OFF 0000                     _ANSEL 0188  
-                   _PORTA 0005                     _PORTB 0006                     _PORTD 0008  
-                   _TRISA 0085                     _TRISB 0086                     _TRISD 0088  
-          __CFG_FCMEN$OFF 0000            __CFG_BOREN$OFF 0000                     pclath 000A  
-                   status 0003                     wtemp0 007E           __initialization 0015  
-            __end_of_main 0053                    ??_main 0074                    _ADRESH 001E  
-                  _ADRESL 009E                    _ANSELH 0189            __CFG_PWRTE$OFF 0000  
-                  saved_w 007E   __end_of__initialization 0016            __pcstackCOMMON 0070  
-              __pmaintext 001A                __pintentry 0004                   __ptext1 0053  
-            __size_of_ISR 000B      end_of_initialization 0016                 _PORTAbits 0005  
-     start_initialization 0015               __end_of_ISR 005E  __CFG_FOSC$INTRC_NOCLKOUT 0000  
-             __pbssCOMMON 0076                 ___latbits 0002         interrupt_function 0004  
-                _PIE1bits 008C                  _PIR1bits 000C                _ADCON0bits 001F  
-              _ADCON1bits 009F                _ANSELHbits 0189         __CFG_BOR4V$BOR40V 0000  
-           __size_of_main 0039                  intlevel1 0000                _OSCCONbits 008F  
-            _presion_zero 0076  
+                  __CFG_CP$OFF 0000                    _SSPSTATbits 0094                             l83 0155  
+                           l75 0098                             l84 0158                             l92 00BF  
+                           l85 015C                             l86 015D                             l87 0161  
+                           l95 00C4           _medicion_temperatura 0138                            l104 013C  
+                          l106 0142                            l919 00CF                            l929 00EF  
+                          l893 0128                            l885 0104                            l887 0112  
+                          l897 0133                            l993 007C                            l985 0066  
+                          l997 0088                            u405 0107                            u425 0113  
+                 __CFG_CPD$OFF 0000                            u435 011F                            _ISR 0163  
+                          u445 0129                            u547 005A                            u557 00B1  
+                          u567 00B9                            fsr0 0004                   __CFG_LVP$OFF 0000  
+                         ?_ISR 0070                           l1001 0094                   __CFG_WRT$OFF 0000  
+                         _cont 002C                           _main 0023                           _leds 002F  
+                         btemp 007E                           start 0012                  __CFG_IESO$OFF 0000  
+                __CFG_MCLRE$ON 0000                          ??_ISR 0070     medicion_ultrasonico@objeto 0027  
+   medicion_ultrasonico@tiempo 0028          ?_medicion_temperatura 0070                          ?_main 0070  
+                __CFG_WDTE$OFF 0000                          _ANSEL 0188                __end_of___lwdiv 0138  
+                        _PORTA 0005                          _PORTB 0006                          _PORTD 0008  
+                        _TRISA 0085                          _TRISB 0086                          _TRISC 0087  
+                        _TRISD 0088                 __CFG_FCMEN$OFF 0000                 __CFG_BOREN$OFF 0000  
+                        pclath 000A                          status 0003                          wtemp0 007E  
+         _medicion_ultrasonico 00A9                __initialization 0015               __end_of_ColorLed 0163  
+                 __end_of_main 00A9                         ??_main 002A                         _ADRESH 001E  
+                       _ADRESL 009E                         _ANSELH 0189                         _SSPCON 0014  
+                       _SSPBUF 0013          ?_medicion_ultrasonico 0070                 __CFG_PWRTE$OFF 0000  
+                       _accion 002E         ??_medicion_temperatura 0074                      ??___lwdiv 0074  
+                       saved_w 007E     medicion_temperatura@numero 0075        __end_of__initialization 001F  
+               __pcstackCOMMON 0070                   __pidataBANK0 016E                ColorLed@binario 0074  
+                    ?_ColorLed 0070                     __pbssBANK0 002C         ??_medicion_ultrasonico 0075  
+                   __pmaintext 0023                     __pintentry 0004                     ??_ColorLed 0074  
+                      _SSPSTAT 0094                        ___lwdiv 00FA                        __ptext1 00A9  
+                      __ptext2 00FA                        __ptext3 014E                        __ptext4 0138  
+                      __ptext5 0163                   __size_of_ISR 000B           end_of_initialization 001F  
+                    _PORTAbits 0005  __size_of_medicion_temperatura 0016            start_initialization 0015  
+                  __end_of_ISR 016E              __size_of_ColorLed 0015       __CFG_FOSC$INTRC_NOCLKOUT 0000  
+                  __pdataBANK0 002F                    __pbssCOMMON 0076                      ___latbits 0002  
+                __pcstackBANK0 0020  __size_of_medicion_ultrasonico 0051               ___lwdiv@dividend 0022  
+                     ?___lwdiv 0020                      _distancia 0078               ___lwdiv@quotient 0025  
+            interrupt_function 0004                       _PIE1bits 008C                       _PIR1bits 000C  
+                    _presencia 0076                     _ADCON0bits 001F                     _ADCON1bits 009F  
+                     _ColorLed 014E               __size_of___lwdiv 003E                     _ANSELHbits 0189  
+              ___lwdiv@divisor 0020                ___lwdiv@counter 0024              __CFG_BOR4V$BOR40V 0000  
+ __end_of_medicion_temperatura 014E                  __size_of_main 0086                       intlevel1 0000  
+                   _OSCCONbits 008F   __end_of_medicion_ultrasonico 00FA                    _temperatura 0077  

@@ -13,13 +13,19 @@
 [v _eecpymem eecpymem `(v  1 e 1 0 ]
 "39
 [v _memcpyee memcpyee `(v  1 e 1 0 ]
-"47 D:\Jose\UVG\2017\Circuitos\Proecto final pruebas\Proyecto.X\esclavo 2.c
+"54 C:\Users\Yosemite\Documents\UVG\Semestre 7\Circuitos 3\P_DISPENSADORA-master\ProyectoFinal\Proyecto.X\esclavo 2.c
 [v _ISR ISR `II(v  1 e 1 0 ]
-"53
+"67
 [v _main main `(v  1 e 1 0 ]
+"151
+[v _ColorLed ColorLed `(uc  1 e 1 0 ]
+"169
+[v _medicion_ultrasonico medicion_ultrasonico `(uc  1 e 1 0 ]
+"199
+[v _medicion_temperatura medicion_temperatura `(uc  1 e 1 0 ]
 "158 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
-[s S158 . 1 `uc 1 RA0 1 0 :1:0 
+[s S264 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -29,13 +35,13 @@
 `uc 1 RA7 1 0 :1:7 
 ]
 "175
-[u S167 . 1 `S158 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES167  1 e 1 @5 ]
+[u S273 . 1 `S264 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES273  1 e 1 @5 ]
 "219
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "341
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
-[s S179 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[s S285 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -44,17 +50,21 @@
 `uc 1 ADIF 1 0 :1:6 
 ]
 "538
-[u S187 . 1 `S179 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES187  1 e 1 @12 ]
+[u S293 . 1 `S285 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES293  1 e 1 @12 ]
+"820
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
+"826
+[v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
 "1202
 [v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
-[s S104 . 1 `uc 1 ADON 1 0 :1:0 
+[s S105 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :4:2 
 `uc 1 ADCS 1 0 :2:6 
 ]
 "1239
-[s S109 . 1 `uc 1 . 1 0 :1:0 
+[s S110 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -63,21 +73,23 @@
 `uc 1 ADCS0 1 0 :1:6 
 `uc 1 ADCS1 1 0 :1:7 
 ]
-[s S118 . 1 `uc 1 . 1 0 :1:0 
+[s S119 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S121 . 1 `uc 1 . 1 0 :1:0 
+[s S122 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[u S124 . 1 `S104 1 . 1 0 `S109 1 . 1 0 `S118 1 . 1 0 `S121 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES124  1 e 1 @31 ]
+[u S125 . 1 `S105 1 . 1 0 `S110 1 . 1 0 `S119 1 . 1 0 `S122 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES125  1 e 1 @31 ]
 "1377
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1438
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1499
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
 "1560
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
-[s S68 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S69 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSPIE 1 0 :1:3 
@@ -86,8 +98,8 @@
 `uc 1 ADIE 1 0 :1:6 
 ]
 "1674
-[u S76 . 1 `S68 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES76  1 e 1 @140 ]
+[u S77 . 1 `S69 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES77  1 e 1 @140 ]
 [s S19 . 1 `uc 1 SCS 1 0 :1:0 
 `uc 1 LTS 1 0 :1:1 
 `uc 1 HTS 1 0 :1:2 
@@ -102,22 +114,67 @@
 ]
 [u S30 . 1 `S19 1 . 1 0 `S25 1 . 1 0 ]
 [v _OSCCONbits OSCCONbits `VES30  1 e 1 @143 ]
+"2124
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+[s S169 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+"2178
+[s S178 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S183 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 I2C_READ 1 0 :1:2 
+`uc 1 I2C_START 1 0 :1:3 
+`uc 1 I2C_STOP 1 0 :1:4 
+`uc 1 I2C_DATA 1 0 :1:5 
+]
+[s S189 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S194 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S199 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S204 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 READ_WRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 DATA_ADDRESS 1 0 :1:5 
+]
+[u S209 . 1 `S169 1 . 1 0 `S178 1 . 1 0 `S183 1 . 1 0 `S189 1 . 1 0 `S194 1 . 1 0 `S199 1 . 1 0 `S204 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES209  1 e 1 @148 ]
 "2907
 [v _ADRESL ADRESL `VEuc  1 e 1 @158 ]
-[s S53 . 1 `uc 1 . 1 0 :4:0 
+[s S54 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 VCFG0 1 0 :1:4 
 `uc 1 VCFG1 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 ADFM 1 0 :1:7 
 ]
 "2927
-[u S59 . 1 `S53 1 . 1 0 ]
-[v _ADCON1bits ADCON1bits `VES59  1 e 1 @159 ]
+[u S60 . 1 `S54 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES60  1 e 1 @159 ]
 "3312
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3373
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-[s S87 . 1 `uc 1 ANS8 1 0 :1:0 
+[s S88 . 1 `uc 1 ANS8 1 0 :1:0 
 `uc 1 ANS9 1 0 :1:1 
 `uc 1 ANS10 1 0 :1:2 
 `uc 1 ANS11 1 0 :1:3 
@@ -125,17 +182,55 @@
 `uc 1 ANS13 1 0 :1:5 
 ]
 "3388
-[u S94 . 1 `S87 1 . 1 0 ]
-[v _ANSELHbits ANSELHbits `VES94  1 e 1 @393 ]
-"39 D:\Jose\UVG\2017\Circuitos\Proecto final pruebas\Proyecto.X\esclavo 2.c
-[v _presion_zero presion_zero `uc  1 e 1 0 ]
-"53
+[u S95 . 1 `S88 1 . 1 0 ]
+[v _ANSELHbits ANSELHbits `VES95  1 e 1 @393 ]
+"40 C:\Users\Yosemite\Documents\UVG\Semestre 7\Circuitos 3\P_DISPENSADORA-master\ProyectoFinal\Proyecto.X\esclavo 2.c
+[v _accion accion `uc  1 e 1 0 ]
+"41
+[v _leds leds `uc  1 e 1 0 ]
+"67
 [v _main main `(v  1 e 1 0 ]
 {
-"97
+"149
 } 0
-"47
+"169
+[v _medicion_ultrasonico medicion_ultrasonico `(uc  1 e 1 0 ]
+{
+"170
+[v medicion_ultrasonico@tiempo tiempo `ui  1 a 2 8 ]
+"171
+[v medicion_ultrasonico@objeto objeto `uc  1 a 1 7 ]
+"197
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 5 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 4 ]
+"6
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"31
+} 0
+"151 C:\Users\Yosemite\Documents\UVG\Semestre 7\Circuitos 3\P_DISPENSADORA-master\ProyectoFinal\Proyecto.X\esclavo 2.c
+[v _ColorLed ColorLed `(uc  1 e 1 0 ]
+{
+[v ColorLed@binario binario `uc  1 a 1 wreg ]
+[v ColorLed@binario binario `uc  1 a 1 wreg ]
+[v ColorLed@binario binario `uc  1 a 1 4 ]
+"167
+} 0
+"199
+[v _medicion_temperatura medicion_temperatura `(uc  1 e 1 0 ]
+{
+"200
+[v medicion_temperatura@numero numero `uc  1 a 1 5 ]
+"209
+} 0
+"54
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"50
+"64
 } 0

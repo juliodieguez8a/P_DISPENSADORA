@@ -30,36 +30,53 @@
 #define _XTAL_FREQ 8000000      //Frecuencia 
 #define Trigger PORTAbits.RA0   //Salida
 #define Echo PORTAbits.RA1      //Entrada
+#define LED_Rojo PORTAbits.RA2  //Salida
 #define LED_Azul PORTAbits.RA3  //Salida
 #define LED_Verde PORTAbits.RA4  //Salida
-#define LED_Amarillo PORTAbits.RA5  //Salida
 #define PIN_Temperatura PORTBbits.RB0  //Entrada
 
 //!!!!!!!!!!!!!!!!!!!!Copiar la varialble !!!!!!!!!!!!!!!!!!
-char presion_zero = 0;          //variable alamacena el valor cuando no se tiene nada. ES necesaria
+//char presion_zero = 0;          //variable alamacena el valor cuando no se tiene nada. ES necesaria
+char accion; //accion transmitida
+char leds=0b111;
+char distancia;
+char temperatura;
+char presencia=0;
+int cont=0;
 
+char ColorLed(char);
 char medicion_ultrasonico(void);
 char medicion_temperatura(void);
-void calibracion_presion(void);
-char medicion_presion(void);
+//void calibracion_presion(void);
+//char medicion_presion(void);
 
 
 void interrupt ISR(){
-    
+   /* if (PIR1bits.TMR2IF == 1){
+        PIR1bits.TMR2IF =0;
+        cont++;    
+        if (cont==200){
+            cont=0;
+            TMR2ON=0;
+        }
+    }*/
     
 }
 
 
 void main(void){
+    //OSCILADOR
     OSCCONbits.HTS = 1;         //ES ESTABLE
     OSCCONbits.IRCF0 = 1;
     OSCCONbits.IRCF1 = 1;
     OSCCONbits.IRCF2 = 1;       //Fosc = 8Mhz   
     OSCCONbits.OSTS = 0;        //RELOJ INTERNO
     OSCCONbits.SCS = 1;         //RELOJ INTERNO
-     
-    TRISA=0B00000010;       
-    TRISB=0B00000001;       
+    
+    //ENTRADAS - SALIDAS
+    TRISA=0B00000010;       //RA5-SS
+    TRISB=0B00111001;       //RB3-5 Para cambiar leds
+	TRISC=0b00011001;	//RC5-SD0=0, RC4-SDI=1, RC3-SCK=1
     TRISD=0B00000000;
     
     ANSEL=0;
@@ -69,6 +86,7 @@ void main(void){
     PORTA=0;
     PORTB=0;
     
+    //ADC
     ADCON1bits.VCFG1 = 0;       //referencia a VSS
     ADCON1bits.VCFG0 = 0;       //Referencia a VDD
     ADCON1bits.ADFM = 0;        //Justificado a la izquierda
@@ -85,17 +103,68 @@ void main(void){
     ADCON0bits.ADON = 1;        //ADC On, Encendido
     __delay_ms(1);              //Tiempo para cambiar canal
        
-    //medicion_ultrasonico();
-    //medicion_temperatura();
-    //calibracion_presion();
-    //presion_zero=42;            //
-    //medicion_presion();         //
+    //CONFIGURANDO MSSP MODO SPI ESCLAVO
+    SSPSTAT=0b01000000;
+    //ESCLAVO
+    SSPCON=0b00110100;
+
+    //TIMER2
+    /*PR2=155;
+    T2CON = 0b01111011;     //PRESCALER 16 Y ENCENDER, TMR2 = OFF
+    PIR1bits.TMR2IF = 0;    //BORRAR FLAG TIMER2
+    PIE1bits.TMR2IE = 1;    //HABILITAR INTERRUPCION
+    
+    //HABILITAR INTERRUPCIONES
+    INTCONbits.PEIE=1;  //INTERRUPCIONES PERIFERICAS
+    INTCONbits.GIE=1;   //INTERRUPCIONES GLOBALES
+ */
     while (1){
-       
+		
+        //if (cont==0){
+        medicion_ultrasonico();    
+        //}
+		medicion_temperatura();
+	//RECIBIR ACCIONES
+        if (SSPSTATbits.BF==1){
+            accion=SSPBUF;
+            PORTD=accion;  
+        }
+		//Ultrasonico
+		if (accion==1){
+			SSPBUF=medicion_ultrasonico();
+            
+		}
+		//Temperatura
+		if (accion==2){
+            SSPBUF=medicion_temperatura();
+			
+		}
+        if (accion==3){
+            while (SSPSTATbits.BF==0){}
+            leds=SSPBUF;
+            ColorLed(leds);
+        }
     }
     
 }
 
+char ColorLed(char binario){
+    if((binario)&(0b1)==1){
+        LED_Azul=1;
+    }
+    else {LED_Azul=0;}
+    
+    if((binario)&(0b10)==2){
+        LED_Rojo=1;
+    }
+    else {LED_Rojo=0;}
+    
+    if((binario)&(0b100)==4){
+        LED_Verde=1;
+    }
+    else{LED_Verde=0;}
+    return;
+}
 
 char medicion_ultrasonico(void){
     unsigned int tiempo=0; 
@@ -115,11 +184,13 @@ char medicion_ultrasonico(void){
             tiempo=tiempo/11;   //Se convierte a centimetro
             if (tiempo<=75){    //Si esta un objeto en menos de 75 cm se enciende la luz
                 objeto=1;
+                ColorLed(0b111);
+                //TMR2ON=1;   
             }
             else {
                 objeto=0;
+                ColorLed(0b0000);
             }
-            __delay_ms(1000);   //
             return objeto;
         }
     }
@@ -137,7 +208,7 @@ char medicion_temperatura(void){
     return numero;
 }
 
-char medicion_presion(void) {
+/*char medicion_presion(void) {
     char numero=0;              //variable
     char objeto=0; 
     ADCON0bits.GO=1;            //se activa la conversion analogica
@@ -163,7 +234,7 @@ void calibracion_presion(void) {    //se utiliza para calibrar cuando se enciend
     presion_zero=numero;               //se envia la medicion
     PORTD=numero;
     return;                     //no devuelve nada, solo guarda el valor en la variable global
-}
+}*/
 
 
 
