@@ -79,8 +79,11 @@ class Index(object):
         global moneda,temperature
         enviar_Valor(1)
         #ser.open()
-        #temp = str( ser.readline(1) )
-        moneda = "Q 1.50"
+        #temp_1 = str( ser.readline(1) )
+        #temp_2 = str( ser.readline(1) )
+        entero = "1"
+        parte = "50"
+        moneda = "Q "+entero+"."+parte
         textCoin = plt.text(0.3,10,moneda)
         textTemperature = plt.text(0.2,6.2,temperature)
         #ser.close()
@@ -112,7 +115,30 @@ class Index(object):
             compra = 1
         else:
             compra = 0
+    
+    def envio_1(self, event):
+        enviar_Valor(1)
+        print ("Funcion 1")  
+    
+    def envio_2(self, event):
+        enviar_Valor(2)
+        print ("Funcion 2")  
         
+    def envio_3(self, event):
+        enviar_Valor(3)
+        print ("Funcion 3")  
+        
+    def envio_4(self, event):
+        enviar_Valor(4)
+        print ("Funcion 4")  
+        
+    def envio_5(self, event):
+        enviar_Valor(5)
+        print ("Funcion 5")  
+        
+    def envio_6(self, event):
+        enviar_Valor(6)
+        print ("Funcion 6")  
         
 #==============================================================================
 
@@ -144,6 +170,26 @@ blcd = Button(axLCD, 'Display')
 blcd.on_clicked(callback.desplegar)
 textCoin = plt.text(0.3,10,moneda)
 textTemperature = plt.text(0.2,6.2,temperature)
+#BOTONES CONTROL
+ax_1 = plt.axes([0.1, 0.005, 0.05, 0.075])
+b1 = Button(ax_1, '1')
+b1.on_clicked(callback.envio_1)
+ax_2 = plt.axes([0.15, 0.005, 0.05, 0.075])
+b2 = Button(ax_2, '2')
+b2.on_clicked(callback.envio_2)
+ax_3 = plt.axes([0.2, 0.005, 0.05, 0.075])
+b3 = Button(ax_3, '3')
+b3.on_clicked(callback.envio_3)
+ax_4 = plt.axes([0.25, 0.005, 0.05, 0.075])
+b4 = Button(ax_4, '4')
+b4.on_clicked(callback.envio_4)
+ax_5 = plt.axes([0.3, 0.005, 0.05, 0.075])
+b5 = Button(ax_5, '5')
+b5.on_clicked(callback.envio_5)
+ax_6 = plt.axes([0.35, 0.005, 0.05, 0.075])
+b6 = Button(ax_6, '6')
+b6.on_clicked(callback.envio_6)
+
 plt.show()
 
 
