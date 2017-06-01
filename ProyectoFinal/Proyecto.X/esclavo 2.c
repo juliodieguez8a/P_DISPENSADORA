@@ -73,10 +73,14 @@ void main(void){
     OSCCONbits.OSTS = 0;        //RELOJ INTERNO
     OSCCONbits.SCS = 1;         //RELOJ INTERNO
     
+    ANSELH=0;
+    ANSEL=0;
+    
     //ENTRADAS - SALIDAS
-    TRISA=0B00000010;       //RA5-SS
+    TRISA=0B00100010;       //RA5-SS
     TRISB=0B00111001;       //RB3-5 Para cambiar leds
-	TRISC=0b00011001;	//RC5-SD0=0, RC4-SDI=1, RC3-SCK=1
+	//TRISC=0b00011001;	//RC5-SD0=0, RC4-SDI=1, RC3-SCK=1
+    TRISC=0b11011111;
     TRISD=0B00000000;
     
     ANSEL=0;
@@ -87,6 +91,7 @@ void main(void){
     PORTB=0;
     
     //ADC
+    /*
     ADCON1bits.VCFG1 = 0;       //referencia a VSS
     ADCON1bits.VCFG0 = 0;       //Referencia a VDD
     ADCON1bits.ADFM = 0;        //Justificado a la izquierda
@@ -102,11 +107,13 @@ void main(void){
     ADRESH = 0;
     ADCON0bits.ADON = 1;        //ADC On, Encendido
     __delay_ms(1);              //Tiempo para cambiar canal
-       
+     */
+    
     //CONFIGURANDO MSSP MODO SPI ESCLAVO
     SSPSTAT=0b01000000;
     //ESCLAVO
     SSPCON=0b00110100;
+   
 
     //TIMER2
     /*PR2=155;
@@ -119,31 +126,35 @@ void main(void){
     INTCONbits.GIE=1;   //INTERRUPCIONES GLOBALES
  */
     while (1){
-		
+		//__delay_ms(10);
         //if (cont==0){
         medicion_ultrasonico();    
         //}
-		medicion_temperatura();
-	//RECIBIR ACCIONES
+		//medicion_temperatura();
+        //RECIBIR ACCIONES
         if (SSPSTATbits.BF==1){
             accion=SSPBUF;
+            leds=accion;
             PORTD=accion;  
         }
 		//Ultrasonico
-		if (accion==1){
-			SSPBUF=medicion_ultrasonico();
-            
-		}
+		//if (accion==1){
+		//	SSPBUF=medicion_ultrasonico();
+        //    accion=0;
+		//}
 		//Temperatura
-		if (accion==2){
-            SSPBUF=medicion_temperatura();
-			
-		}
-        if (accion==3){
-            while (SSPSTATbits.BF==0){}
-            leds=SSPBUF;
-            ColorLed(leds);
-        }
+		//if (accion==2){
+        //    SSPBUF=medicion_temperatura();
+		//	accion=0;
+		//}
+        
+        //if (accion==1){
+        //    while (SSPSTATbits.BF==0){}
+        //    leds=SSPBUF;
+        //    
+        //    accion=0;
+        //}
+        
     }
     
 }
@@ -184,12 +195,17 @@ char medicion_ultrasonico(void){
             tiempo=tiempo/11;   //Se convierte a centimetro
             if (tiempo<=75){    //Si esta un objeto en menos de 75 cm se enciende la luz
                 objeto=1;
-                ColorLed(0b111);
+                ColorLed(leds);
+                cont=0;
                 //TMR2ON=1;   
             }
             else {
-                objeto=0;
-                ColorLed(0b0000);
+                cont++;
+                if (cont>500){
+                    objeto=0;
+                    ColorLed(0b0000);
+                    cont=0;
+                }
             }
             return objeto;
         }

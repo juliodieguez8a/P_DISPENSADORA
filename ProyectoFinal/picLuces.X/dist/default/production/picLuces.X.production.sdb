@@ -1,0 +1,185 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F887 ]
+[d frameptr 6 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"31 C:\Users\Julio\Google Drive\Microcontroladores\ProyectoFinal\picLuces.X\picLuces.c
+[v _ColorLed ColorLed `(uc  1 e 1 0 ]
+"49
+[v _medicion_ultrasonico medicion_ultrasonico `(uc  1 e 1 0 ]
+"84
+[v _ISR ISR `II(v  1 e 1 0 ]
+"95
+[v _main main `(v  1 e 1 0 ]
+[s S19 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+"175 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
+[u S28 . 1 `S19 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES28  1 e 1 @5 ]
+"341
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+[s S46 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"538
+[u S54 . 1 `S46 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES54  1 e 1 @12 ]
+"820
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
+"826
+[v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
+"1202
+[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
+[s S66 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :4:2 
+`uc 1 ADCS 1 0 :2:6 
+]
+"1239
+[s S71 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+`uc 1 ADCS0 1 0 :1:6 
+`uc 1 ADCS1 1 0 :1:7 
+]
+[s S80 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 nDONE 1 0 :1:1 
+]
+[s S83 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_DONE 1 0 :1:1 
+]
+[u S86 . 1 `S66 1 . 1 0 `S71 1 . 1 0 `S80 1 . 1 0 `S83 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES86  1 e 1 @31 ]
+"1377
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1438
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1499
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1560
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1815
+[v _OSCCON OSCCON `VEuc  1 e 1 @143 ]
+"2124
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @148 ]
+[s S121 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+"2178
+[s S130 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S135 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 I2C_READ 1 0 :1:2 
+`uc 1 I2C_START 1 0 :1:3 
+`uc 1 I2C_STOP 1 0 :1:4 
+`uc 1 I2C_DATA 1 0 :1:5 
+]
+[s S141 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S146 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S151 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S156 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 READ_WRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 DATA_ADDRESS 1 0 :1:5 
+]
+[u S161 . 1 `S121 1 . 1 0 `S130 1 . 1 0 `S135 1 . 1 0 `S141 1 . 1 0 `S146 1 . 1 0 `S151 1 . 1 0 `S156 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES161  1 e 1 @148 ]
+"3312
+[v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
+"3373
+[v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+"3534
+[v _BF BF `VEb  1 e 0 @1184 ]
+"25 C:\Users\Julio\Google Drive\Microcontroladores\ProyectoFinal\picLuces.X\picLuces.c
+[v _accion accion `uc  1 e 1 0 ]
+"26
+[v _ADC ADC `uc  1 e 1 0 ]
+"27
+[v _leds leds `uc  1 e 1 0 ]
+"28
+[v _cont cont `i  1 e 2 0 ]
+"95
+[v _main main `(v  1 e 1 0 ]
+{
+"155
+} 0
+"49
+[v _medicion_ultrasonico medicion_ultrasonico `(uc  1 e 1 0 ]
+{
+"50
+[v medicion_ultrasonico@tiempo tiempo `ui  1 a 2 9 ]
+"51
+[v medicion_ultrasonico@objeto objeto `uc  1 a 1 8 ]
+"82
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 6 ]
+"6
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"31
+} 0
+"31 C:\Users\Julio\Google Drive\Microcontroladores\ProyectoFinal\picLuces.X\picLuces.c
+[v _ColorLed ColorLed `(uc  1 e 1 0 ]
+{
+[v ColorLed@binario binario `uc  1 a 1 wreg ]
+[v ColorLed@binario binario `uc  1 a 1 wreg ]
+[v ColorLed@binario binario `uc  1 a 1 6 ]
+"47
+} 0
+"84
+[v _ISR ISR `II(v  1 e 1 0 ]
+{
+"93
+} 0

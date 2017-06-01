@@ -1,5 +1,5 @@
 
-# 1 "picMaestro.c"
+# 1 "picLuces.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -2088,172 +2088,8 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\__size_t.h"
-typedef unsigned size_t;
 
-# 14 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\string.h"
-extern void * memcpy(void *, const void *, size_t);
-extern void * memmove(void *, const void *, size_t);
-extern void * memset(void *, int, size_t);
-
-# 34
-extern char * strcat(char *, const char *);
-extern char * strcpy(char *, const char *);
-extern char * strncat(char *, const char *, size_t);
-extern char * strncpy(char *, const char *, size_t);
-extern char * strdup(const char *);
-extern char * strtok(char *, const char *);
-
-
-extern int memcmp(const void *, const void *, size_t);
-extern int strcmp(const char *, const char *);
-extern int stricmp(const char *, const char *);
-extern int strncmp(const char *, const char *, size_t);
-extern int strnicmp(const char *, const char *, size_t);
-extern void * memchr(const void *, int, size_t);
-extern size_t strcspn(const char *, const char *);
-extern char * strpbrk(const char *, const char *);
-extern size_t strspn(const char *, const char *);
-extern char * strstr(const char *, const char *);
-extern char * stristr(const char *, const char *);
-extern char * strerror(int);
-extern size_t strlen(const char *);
-extern char * strchr(const char *, int);
-extern char * strichr(const char *, int);
-extern char * strrchr(const char *, int);
-extern char * strrichr(const char *, int);
-
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 7 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdlib.h"
-typedef unsigned short wchar_t;
-
-# 15
-typedef struct {
-int rem;
-int quot;
-} div_t;
-typedef struct {
-unsigned rem;
-unsigned quot;
-} udiv_t;
-typedef struct {
-long quot;
-long rem;
-} ldiv_t;
-typedef struct {
-unsigned long quot;
-unsigned long rem;
-} uldiv_t;
-
-# 53
-extern double atof(const char *);
-extern double strtod(const char *, const char **);
-extern int atoi(const char *);
-extern unsigned xtoi(const char *);
-extern long atol(const char *);
-extern long strtol(const char *, char **, int);
-
-extern int rand(void);
-extern void srand(unsigned int);
-extern void * calloc(size_t, size_t);
-extern div_t div(int numer, int denom);
-extern udiv_t udiv(unsigned numer, unsigned denom);
-extern ldiv_t ldiv(long numer, long denom);
-extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-extern unsigned int _rotl(unsigned int value, unsigned int shift);
-extern unsigned int _rotr(unsigned int value, unsigned int shift);
-
-
-
-
-extern void * malloc(size_t);
-extern void free(void *);
-extern void * realloc(void *, size_t);
-
-# 86
-extern int atexit(void (*)(void));
-extern char * getenv(const char *);
-extern char ** environ;
-extern int system(char *);
-extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-extern int abs(int);
-extern long labs(long);
-
-extern char * itoa(char * buf, int val, int base);
-extern char * utoa(char * buf, unsigned val, int base);
-
-
-
-
-extern char * ltoa(char * buf, long val, int base);
-extern char * ultoa(char * buf, unsigned long val, int base);
-
-extern char * ftoa(float f, int * status);
-
-# 43 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\errno.h"
-extern int errno;
-
-# 12 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-
-# 11 "picMaestro.c"
+# 5 "picLuces.c"
 #pragma config FOSC = INTRC_NOCLKOUT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
@@ -2269,456 +2105,73 @@ extern int printf(const char *, ...);
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
 
+# 25
+char accion;
+char ADC;
+char leds=0b111;
+int cont;
 
 
+char ColorLed(char binario){
+if((binario&0b1)==1){
+PORTAbits.RA2=1;
+}
+else {PORTAbits.RA2=0;}
 
-char ADC=0;
-int cont=0;
-int cont2=0;
-char n_mensaje=0;
+if((binario&0b10)==2){
+PORTAbits.RA3=1;
+}
+else {PORTAbits.RA3=0;}
 
-
-int dinero=0;
-int dineroT=0;
-char tortrix=0;
-char tampicos=0;
-char temperatura=0;
-
-
-int noControl=0;
-char accionUSART=0;
-
-
-void LCD_t(char c){
-
-PORTA=c|32;
-_delay((unsigned long)((5)*(8000000/4000000.0)));
-PORTAbits.RA5=0;
-_delay((unsigned long)((5)*(8000000/4000000.0)));
-PORTAbits.RA5=1;
-_delay((unsigned long)((5)*(8000000/4000000.0)));
+if((binario&0b100)==4){
+PORTAbits.RA4=1;
+}
+else{PORTAbits.RA4=0;}
 return;
 }
 
-
-void LCD_t8(int i){
-char rs = (char)(i>>9);
-char com = i & 0xff;
-
-
-char l=com & 0x0f;
-char h=com>>4;
-
-LCD_t(h+rs*16);
-LCD_t(l+rs*16);
-
-_delay((unsigned long)((50)*(8000000/4000000.0)));
-return;
+char medicion_ultrasonico(void){
+unsigned int tiempo=0;
+char objeto = 0;
+PORTAbits.RA0 = 0;
+_delay((unsigned long)((10)*(8000000/4000000.0)));
+PORTAbits.RA0 = 1;
+_delay((unsigned long)((10)*(8000000/4000000.0)));
+PORTAbits.RA0 = 0;
+while (1){
+tiempo=0;
+if (PORTAbits.RA1==1){
+while (PORTAbits.RA1==1){
+_delay((unsigned long)((1)*(8000000/4000000.0)));
+tiempo=tiempo+1;
 }
-
-
-void LCD_W(char c){
-
-
-char l=c & 0x0f;
-char h=c>>4;
-
-LCD_t(h+16);
-LCD_t(l+16);
-
-_delay((unsigned long)((50)*(8000000/4000000.0)));
-return;
-}
-
-
-void LCD_WM(char c[]){
-char i=0;
-while (c[i]!=0){
-LCD_W(c[i]);
-i++;
-}
-return;
-}
-
-
-void LCD_init(void){
-
-_delay((unsigned long)((10)*(8000000/4000.0)));
-LCD_t(0b00011);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-LCD_t(0b00011);
-LCD_t(0b00011);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t(0b00010);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8(0b0000101000);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8(0b0000001000);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8(0b0000000110);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8(0b0000001100);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-return;
-}
-
-
-void IRcontrol(){
-if(PORTCbits.RC0==0){
-T1CONbits.TMR1ON=1;
-_delay((unsigned long)((200)*(8000000/4000.0)));
-T1CONbits.TMR1ON=0;
-noControl=TMR1L;
-
-TMR1L=0;
-T1CONbits.TMR1ON=1;
-}
-}
-
-
-
-void check_mensajes(){
-if (n_mensaje==1 & dinero==0){
-n_mensaje=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("Hola!!! Inserte");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("una moneda -->");
-}
-if (n_mensaje==2 & dinero==0){
-
-n_mensaje=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("Temperatura:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("--> ");
-char str_temperatura[6];
-sprintf(str_temperatura, "%d", temperatura);
-LCD_WM(str_temperatura);
-LCD_W(0b11011111);
-LCD_W('C');
-}
-if (n_mensaje==1 & dinero>0){
-n_mensaje=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("Dinero:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("--> ");
-
-
-char str_dinero[8];
-char str_dinero2[8];
-sprintf(str_dinero, "%d", dinero);
-sprintf(str_dinero2, "%d", dinero);
-
-char i;
-for(i = 0; str_dinero[i] != '\0'; ++i);
-if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
-if (i>2){str_dinero2[i-2]='\0';}
-LCD_WM(str_dinero2);
-
-LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
-}
-if (n_mensaje==3){
-n_mensaje=0;
+tiempo=tiempo/11;
+if (tiempo<=75){
+objeto=1;
+ColorLed(leds);
 cont=0;
 
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("DESPACHO BEBIDA:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("Tampico");
 }
-if (n_mensaje==4){
-n_mensaje=0;
+else {
+cont++;
+if (cont>500){
+objeto=0;
+ColorLed(0b0000);
 cont=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("DESPACHO:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("Tortrix");
-}
-if (n_mensaje==5){
-n_mensaje=0;
-cont=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("CAMBIO DE LUCES:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("1,2,3,4,5,6.EXIT");
-}
-if (n_mensaje==6){
-n_mensaje=0;
-cont=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("MOVER PUERTA:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("1.OP 2.CL 6.EXIT");
-}
-if (n_mensaje==7){
-n_mensaje=0;
-cont=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("Tampicos=");
-char str_int[8];
-sprintf(str_int, "%d", tampicos);
-LCD_WM(str_int);
-
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("Tortrix=");
-char str_int[8];
-sprintf(str_int, "%d", tortrix);
-LCD_WM(str_int);
-}
-if (n_mensaje==8){
-n_mensaje=0;
-cont=0;
-
-LCD_t8(0b0000000001);
-_delay((unsigned long)((2)*(8000000/4000.0)));
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("DINERO MONEDERO:");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("--> ");
-
-
-char str_dinero[8];
-char str_dinero2[8];
-sprintf(str_dinero, "%d", dineroT);
-sprintf(str_dinero2, "%d", dineroT);
-
-char i;
-for(i = 0; str_dinero[i] != '\0'; ++i);
-if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
-if (i>2){str_dinero2[i-2]='\0';}
-LCD_WM(str_dinero2);
-
-LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
-}
-
-}
-
-void enviarUSART(char dato){
-while (TXSTAbits.TRMT==0);
-TXREG = dato;
-return;
-}
-
-void enviarDATA_USART(){
-enviarUSART(255);
-enviarUSART(temperatura);
-enviarUSART(tortrix);
-enviarUSART(dinero>>8&255);
-enviarUSART(dinero&255);
-enviarUSART(dineroT>>8&255);
-enviarUSART(dineroT&255);
-enviarUSART('a');
-return;
-}
-
-
-void e2accion3(char color){
-PORTE=0b11111101;
-color+=2;
-
-SSPBUF=3;
-_delay((unsigned long)((1)*(8000000/4000.0)));
-SSPBUF=color;
-PORTD=color;
-}
-
-
-void check_transmisiones(){
-
-if (noControl==1|accionUSART==1){
-n_mensaje=5;
-check_mensajes();
-noControl=0;
-accionUSART=0;
-while (noControl!=6&accionUSART!=6){
-IRcontrol();
-if (noControl!=0&noControl!=6){
-e2accion3(noControl);
-LCD_t8((0b001<<7)|(0x00));
-LCD_W(0x30+noControl);
-noControl=0;
-}
-if (accionUSART!=0&accionUSART!=6){
-e2accion3(accionUSART);
-accionUSART=0;
 }
 }
-accionUSART=0;
-noControl=0;
-}
-
-if (noControl==2|accionUSART==2){
-n_mensaje=3;
-check_mensajes();
-PORTE=0b11111110;
-SSPBUF=1;
-noControl=0;
-accionUSART=0;
-}
-
-if (noControl==3|accionUSART==3){
-n_mensaje=4;
-check_mensajes();
-PORTE=0b11111110;
-SSPBUF=2;
-noControl=0;
-accionUSART=0;
-}
-
-if (noControl==4|accionUSART==4){
-n_mensaje=6;
-check_mensajes();
-noControl=0;
-accionUSART=0;
-while (noControl!=6&accionUSART!=6){
-IRcontrol();
-
-if (noControl==1|accionUSART==1){
-PORTE=0b11111110;
-SSPBUF=3;
-noControl=0;
-accionUSART=0;
-}
-
-if (noControl==2|accionUSART==2){
-PORTE=0b11111110;
-SSPBUF=4;
-noControl=0;
-accionUSART=0;
+return objeto;
 }
 }
-noControl=0;
-accionUSART=0;
 }
-
-
-if (noControl==5|accionUSART==5){
-n_mensaje=7;
-check_mensajes();
-noControl=0;
-accionUSART=0;
-}
-
-
-if (noControl==6|accionUSART==6){
-n_mensaje=8;
-check_mensajes();
-noControl=0;
-accionUSART=0;
-}
-}
-
 
 void interrupt ISR(){
-if (INTCONbits.RBIF==1){
+if (PIR1bits.ADIF==1){
+PIR1bits.ADIF=0;
 
-if (PORTBbits.RB0==0){dinero+=25;dineroT+=25;n_mensaje=1;}
-if (PORTBbits.RB1==0){dinero+=50;dineroT+=50;n_mensaje=1;}
-if (PORTBbits.RB2==0){dinero+=100;dineroT+=100;n_mensaje=1;}
-
-
-if (PORTBbits.RB3==0&dinero>=350){
-tampicos+=1;
-dinero-=350;
-PORTE=0b11111110;
-n_mensaje=3;
-SSPBUF=1;
-PORTD=1;
-_delay((unsigned long)((500)*(8000000/4000.0)));
-}
-
-if (PORTBbits.RB4==0&dinero>=200){
-tortrix+=1;
-dinero-=200;
-PORTE=0b11111110;
-n_mensaje=4;
-SSPBUF=2;
-PORTD=2;
-_delay((unsigned long)((500)*(8000000/4000.0)));
-}
-INTCONbits.RBIF=0;
-}
-
-
-if(PIR1bits.RCIF == 1){
-accionUSART = RCREG;
-
-PIR1bits.RCIF = 0;
-}
-
-
-if (PIR1bits.TMR2IF == 1){
-PIR1bits.TMR2IF =0;
-cont2++;
-cont++;
-if (cont==500){
-n_mensaje=1;
-}
-if (cont==1000){
-n_mensaje=2;
-cont=0;
-}
-if (cont2==50){
-cont2=0;
-enviarDATA_USART();
-}
+ADC=ADRESH;
+_delay((unsigned long)((2)*(8000000/4000.0)));
+ADCON0bits.GO=1;
 }
 return;
 }
@@ -2732,66 +2185,34 @@ ANSEL=0;
 ANSELH=0;
 
 
-TRISA=0b11000000;
-TRISB=0b11111111;
-TRISC=0b11010111;
-TRISD=0b00000000;
-TRISE=0b00000000;
+TRISB=0b11110000;
+TRISC=0b11011001;
+TRISA=0b11100010;
+TRISD=0;
 
-PORTD=0;
-PORTE=0b11111111;
-
-LCD_init();
-
-LCD_t8((0b001<<7)|(0x00));
-LCD_WM("Bienvenido!!!");
-
-LCD_t8((0b001<<7)|(0x40));
-LCD_WM("Cmamut");
-
-
-IOCB=0b00011111;
-WPUB=0b00011111;
-INTCONbits.RBIF=0;
-INTCONbits.RBIE=1;
-OPTION_REGbits.nRBPU=0;
-
-TMR1L=0;
-TMR1H=0;
-T1CON= 0B00000111;
-
-PR2=155;
-T2CON = 0b01111111;
-PIR1bits.TMR2IF = 0;
-PIE1bits.TMR2IE = 1;
+ColorLed(leds);
 
 
 SSPSTAT=0b01000000;
 
-SSPCON=0b00110010;
+SSPCON=0b00110100;
 
-
-TXSTAbits.SYNC = 0;
-TXSTAbits.BRGH = 0;
-TXSTAbits.TXEN = 1;
-
-BAUDCTLbits.BRG16 = 0;
-SPBRG = 12;
-SPBRGH = 0;
-
-RCSTAbits.SPEN = 1;
-RCSTAbits.RX9 = 0;
-RCSTAbits.CREN = 1;
-
-
-INTCONbits.PEIE=1;
-INTCONbits.GIE=1;
-INTCONbits.PEIE=1;
-
-char dato=0;
+# 138
 while(1){
-check_mensajes();
-IRcontrol();
-check_transmisiones();
+_delay((unsigned long)((10)*(8000000/4000.0)));
+medicion_ultrasonico();
+
+if (SSPSTATbits.BF==1){
+accion=SSPBUF;
+PORTD=accion;
+leds=accion;
+ColorLed(leds);
+}
+if (accion==3){
+while(BF==0){}
+
+leds=SSPBUF;
+}
+
 }
 }
