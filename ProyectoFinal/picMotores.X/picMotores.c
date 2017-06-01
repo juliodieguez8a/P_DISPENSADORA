@@ -216,8 +216,9 @@ void main(void) {
             if (accion==2){accion=0;}
         }
         //CERRAR PUERTA
-        if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
+        if (PORTBbits.RB5==1| (accion==4&pos==20)|(presion!=1)){
             while (PORTBbits.RB5==1){}
+            __delay_ms(6000); //recogieron el producto, espera 6 seg.
             giro=1;
             if (accion==3){accion=0;}
         }
@@ -228,14 +229,11 @@ void main(void) {
             if (accion==3){accion=0;}
         }
         //MOVER SERVO
-        if (giro==1){ //Cierra puerta
+        if (giro==1|giro==2){ 
             //while(medicion_presion()==1){} //verifica si hay algo despachado
-            __delay_ms(4000); //recogieron el producto, espera 3 seg.
             move_servo(); //cierra la puerta
         }
-        if (giro==2){ //abre la puerta
-            move_servo(); //abre la puerta
-        }
+        
         //RECIBIR ACCIONES
         if (SSPSTATbits.BF==1){
             accion=SSPBUF;

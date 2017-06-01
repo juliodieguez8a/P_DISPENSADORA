@@ -2113,6 +2113,36 @@ char giro=0;
 char pos=20;
 char vel=100;
 char accion;
+char presion_zero = 0;
+char presion=0;
+
+unsigned char medicion_presion(void) {
+char numero=0;
+char objeto=0;
+ADCON0bits.GO=1;
+while(PIR1bits.ADIF==0){
+_delay((unsigned long)((1)*(500000/4000000.0)));
+}
+PIR1bits.ADIF=0;
+numero=ADRESH;
+if (numero > (presion_zero+3)){
+objeto = 1;
+}
+return objeto;
+}
+
+void calibracion_presion(void) {
+char numero=0;
+ADCON0bits.GO=1;
+while(PIR1bits.ADIF==0){
+_delay((unsigned long)((1)*(500000/4000000.0)));
+}
+PIR1bits.ADIF=0;
+numero=ADRESH;
+presion_zero=numero;
+PORTD=numero;
+return;
+}
 
 void stepper(void){
 char i=3;
@@ -2156,7 +2186,9 @@ CCP1CON=0b00001100;
 CCP1CONbits.DC1B0=(vel)&(0b1);
 CCP1CONbits.DC1B1=(vel>>1)&(0b1);
 CCPR1L=(vel>>2);
-_delay((unsigned long)((1000)*(500000/4000.0)));
+calibracion_presion();
+while (medicion_presion()!=1){
+_delay((unsigned long)((500)*(500000/4000.0)));}
 CCP1CON=0;
 PORTCbits.RC2=0;
 return;
@@ -2191,6 +2223,7 @@ pos=20;
 return;
 }
 
+
 void interrupt ISR(){
 if (PIR1bits.ADIF==1){
 PIR1bits.ADIF=0;
@@ -2209,13 +2242,16 @@ OSCCON = 0b00111100;
 
 ANSEL=0;
 ANSELH=0;
+ANSELbits.ANS0;
 
 
+TRISA=0b00000001;
 TRISB=0b11110000;
 TRISC=0b11011001;
 TRISD=0;
 
 
+PORTA=0;
 PORTB=0b1001;
 PORTCbits.RC2=0;
 PORTCbits.RC1=0;
@@ -2234,10 +2270,25 @@ SSPSTAT=0b01000000;
 
 SSPCON=0b00110100;
 
-# 170
+
+INTCONbits.GIE=1;
+INTCONbits.PEIE=1;
+PIE1bits.ADIE=1; ;
+
+
+ADCON1=0b00000000;
+ADCON0=0b11000001;
+_delay((unsigned long)((1)*(500000/4000.0)));
+ADRESL=0;
+ADRESH=0;
+
 giro=0;
 
 while(1){
+
+calibracion_presion();
+presion = medicion_presion();
+
 
 if (PORTBbits.RB4==1|accion==1){
 while (PORTBbits.RB4==1){
@@ -2253,19 +2304,24 @@ move_pwmDC();
 if (accion==2){accion=0;}
 }
 
-if (PORTBbits.RB5==1| (accion==3&pos==20)){
+if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
 while (PORTBbits.RB5==1){}
 giro=1;
 if (accion==3){accion=0;}
 }
 
-if (PORTBbits.RB6==1| (accion==3&pos==77)){
+if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
 while (PORTBbits.RB6==1){}
 giro=2;
 if (accion==3){accion=0;}
 }
 
-if (giro==1|giro==2){
+if (giro==1){
+
+_delay((unsigned long)((4000)*(500000/4000.0)));
+move_servo();
+}
+if (giro==2){
 move_servo();
 }
 

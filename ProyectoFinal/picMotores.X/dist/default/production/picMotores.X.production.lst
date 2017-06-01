@@ -1,1141 +1,1485 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V1.41 build -162212810 
-                                                                                               Tue May 30 15:48:53 2017
+                                                                                               Wed May 31 18:59:27 2017
 
 Microchip Technology Omniscient Code Generator v1.41 (Free mode) build 201701250102
      1                           	processor	16F887
      2                           	opt	pw 120
      3                           	opt	lm
      4                           	psect	idataCOMMON,global,class=CODE,delta=2
-     5                           	psect	cinit,global,class=CODE,merge=1,delta=2
-     6                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
-     7                           	psect	dataCOMMON,global,class=COMMON,space=1,delta=1
-     8                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
-     9                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
-    10                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
-    11                           	psect	maintext,global,class=CODE,split=1,delta=2
-    12                           	psect	text1,local,class=CODE,merge=1,delta=2
-    13                           	psect	text2,local,class=CODE,merge=1,delta=2
-    14                           	psect	text3,local,class=CODE,merge=1,delta=2
-    15                           	psect	text4,local,class=CODE,merge=1,delta=2
-    16                           	psect	text5,local,class=CODE,merge=1,delta=2
-    17                           	psect	intentry,global,class=CODE,delta=2
-    18                           	dabs	1,0x7E,2
-    19  0000                     
-    20                           ; Version 1.41
-    21                           ; Generated 25/01/2017 GMT
-    22                           ; 
-    23                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
-    24                           ; All rights reserved.
-    25                           ; 
-    26                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+     5                           	psect	idataBANK0,global,class=CODE,delta=2
+     6                           	psect	cinit,global,class=CODE,merge=1,delta=2
+     7                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1
+     8                           	psect	dataCOMMON,global,class=COMMON,space=1,delta=1
+     9                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+    10                           	psect	dataBANK0,global,class=BANK0,space=1,delta=1
+    11                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
+    12                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
+    13                           	psect	maintext,global,class=CODE,split=1,delta=2
+    14                           	psect	text1,local,class=CODE,merge=1,delta=2
+    15                           	psect	text2,local,class=CODE,merge=1,delta=2
+    16                           	psect	text3,local,class=CODE,merge=1,delta=2
+    17                           	psect	text4,local,class=CODE,merge=1,delta=2
+    18                           	psect	text5,local,class=CODE,merge=1,delta=2
+    19                           	psect	text6,local,class=CODE,merge=1,delta=2
+    20                           	psect	text7,local,class=CODE,merge=1,delta=2
+    21                           	psect	intentry,global,class=CODE,delta=2
+    22                           	dabs	1,0x7E,2
+    23  0000                     
+    24                           ; Version 1.41
+    25                           ; Generated 25/01/2017 GMT
+    26                           ; 
+    27                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    28                           ; All rights reserved.
+    29                           ; 
+    30                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
       +                          ip").
-    27                           ; 
-    28                           ; Redistribution and use in source and binary forms, with or without modification, are
-    29                           ; permitted provided that the following conditions are met:
-    30                           ; 
-    31                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+    31                           ; 
+    32                           ; Redistribution and use in source and binary forms, with or without modification, are
+    33                           ; permitted provided that the following conditions are met:
+    34                           ; 
+    35                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
       +                          t of
-    32                           ;        conditions and the following disclaimer.
-    33                           ; 
-    34                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
-      +                          list
-    35                           ;        of conditions and the following disclaimer in the documentation and/or other
-    36                           ;        materials provided with the distribution.
+    36                           ;        conditions and the following disclaimer.
     37                           ; 
-    38                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+    38                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    39                           ;        of conditions and the following disclaimer in the documentation and/or other
+    40                           ;        materials provided with the distribution.
+    41                           ; 
+    42                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
       +                          is
-    39                           ;        software without specific prior written permission.
-    40                           ; 
-    41                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    42                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+    43                           ;        software without specific prior written permission.
+    44                           ; 
+    45                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    46                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
       +                          OR
-    43                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+    47                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
       +                          T,
-    44                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
-    45                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
-    46                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+    48                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    49                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    50                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
       +                          RICT
-    47                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+    51                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
       +                          SE OF
-    48                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    49                           ; 
-    50                           ; 
-    51                           ; Code-generator required, PIC16F887 Definitions
-    52                           ; 
-    53                           ; SFR Addresses
-    54  0000                     	;# 
-    55  0001                     	;# 
-    56  0002                     	;# 
-    57  0003                     	;# 
-    58  0004                     	;# 
-    59  0005                     	;# 
-    60  0006                     	;# 
-    61  0007                     	;# 
-    62  0008                     	;# 
-    63  0009                     	;# 
-    64  000A                     	;# 
-    65  000B                     	;# 
-    66  000C                     	;# 
-    67  000D                     	;# 
-    68  000E                     	;# 
-    69  000E                     	;# 
-    70  000F                     	;# 
-    71  0010                     	;# 
-    72  0011                     	;# 
-    73  0012                     	;# 
-    74  0013                     	;# 
-    75  0014                     	;# 
-    76  0015                     	;# 
-    77  0015                     	;# 
-    78  0016                     	;# 
-    79  0017                     	;# 
-    80  0018                     	;# 
-    81  0019                     	;# 
-    82  001A                     	;# 
-    83  001B                     	;# 
-    84  001B                     	;# 
-    85  001C                     	;# 
-    86  001D                     	;# 
-    87  001E                     	;# 
-    88  001F                     	;# 
-    89  0081                     	;# 
-    90  0085                     	;# 
-    91  0086                     	;# 
-    92  0087                     	;# 
-    93  0088                     	;# 
-    94  0089                     	;# 
-    95  008C                     	;# 
-    96  008D                     	;# 
-    97  008E                     	;# 
-    98  008F                     	;# 
-    99  0090                     	;# 
-   100  0091                     	;# 
-   101  0092                     	;# 
-   102  0093                     	;# 
-   103  0093                     	;# 
-   104  0093                     	;# 
-   105  0094                     	;# 
-   106  0095                     	;# 
-   107  0096                     	;# 
-   108  0097                     	;# 
-   109  0098                     	;# 
-   110  0099                     	;# 
-   111  009A                     	;# 
-   112  009B                     	;# 
-   113  009C                     	;# 
-   114  009D                     	;# 
-   115  009E                     	;# 
-   116  009F                     	;# 
-   117  0105                     	;# 
-   118  0107                     	;# 
-   119  0108                     	;# 
-   120  0109                     	;# 
-   121  010C                     	;# 
-   122  010C                     	;# 
-   123  010D                     	;# 
-   124  010E                     	;# 
-   125  010F                     	;# 
-   126  0185                     	;# 
-   127  0187                     	;# 
-   128  0188                     	;# 
-   129  0189                     	;# 
-   130  018C                     	;# 
-   131  018D                     	;# 
-   132                           
-   133                           	psect	idataCOMMON
-   134  01B9                     __pidataCOMMON:	
-   135                           
-   136                           ;initializer for _vel
-   137  01B9  3464               	retlw	100
-   138                           
-   139                           ;initializer for _pos
-   140  01BA  3414               	retlw	20
-   141  0008                     _PORTD	set	8
-   142  0013                     _SSPBUF	set	19
-   143  0006                     _PORTBbits	set	6
-   144  0014                     _SSPCON	set	20
-   145  0012                     _T2CON	set	18
-   146  001D                     _CCP2CON	set	29
-   147  001F                     _ADCON0bits	set	31
-   148  001E                     _ADRESH	set	30
-   149  000C                     _PIR1bits	set	12
-   150  001B                     _CCPR2L	set	27
-   151  001D                     _CCP2CONbits	set	29
-   152  0007                     _PORTCbits	set	7
-   153  0015                     _CCPR1L	set	21
-   154  0017                     _CCP1CONbits	set	23
-   155  0017                     _CCP1CON	set	23
-   156  0006                     _PORTB	set	6
-   157  0094                     _SSPSTATbits	set	148
-   158  0094                     _SSPSTAT	set	148
-   159  0092                     _PR2	set	146
-   160  0088                     _TRISD	set	136
-   161  0087                     _TRISC	set	135
-   162  0086                     _TRISB	set	134
-   163  008F                     _OSCCON	set	143
-   164  0189                     _ANSELH	set	393
-   165  0188                     _ANSEL	set	392
-   166                           
-   167                           ; #config settings
-   168  0000                     
-   169                           	psect	cinit
-   170  0015                     start_initialization:	
-   171  0015                     __initialization:	
-   172                           
-   173                           ; Initialize objects allocated to COMMON
-   174  0015  120A  118A  21B9  120A  118A  	fcall	__pidataCOMMON	;fetch initializer
-   175  001A  00F8               	movwf	__pdataCOMMON& (0+127)
-   176  001B  120A  118A  21BA   	fcall	__pidataCOMMON+1	;fetch initializer
-   177  001E  00F9               	movwf	(__pdataCOMMON+1)& (0+127)
-   178                           
-   179                           ; Clear objects allocated to BANK0
-   180  001F  01A5               	clrf	__pbssBANK0& (0+127)
+    52                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    53                           ; 
+    54                           ; 
+    55                           ; Code-generator required, PIC16F887 Definitions
+    56                           ; 
+    57                           ; SFR Addresses
+    58  0000                     	;# 
+    59  0001                     	;# 
+    60  0002                     	;# 
+    61  0003                     	;# 
+    62  0004                     	;# 
+    63  0005                     	;# 
+    64  0006                     	;# 
+    65  0007                     	;# 
+    66  0008                     	;# 
+    67  0009                     	;# 
+    68  000A                     	;# 
+    69  000B                     	;# 
+    70  000C                     	;# 
+    71  000D                     	;# 
+    72  000E                     	;# 
+    73  000E                     	;# 
+    74  000F                     	;# 
+    75  0010                     	;# 
+    76  0011                     	;# 
+    77  0012                     	;# 
+    78  0013                     	;# 
+    79  0014                     	;# 
+    80  0015                     	;# 
+    81  0015                     	;# 
+    82  0016                     	;# 
+    83  0017                     	;# 
+    84  0018                     	;# 
+    85  0019                     	;# 
+    86  001A                     	;# 
+    87  001B                     	;# 
+    88  001B                     	;# 
+    89  001C                     	;# 
+    90  001D                     	;# 
+    91  001E                     	;# 
+    92  001F                     	;# 
+    93  0081                     	;# 
+    94  0085                     	;# 
+    95  0086                     	;# 
+    96  0087                     	;# 
+    97  0088                     	;# 
+    98  0089                     	;# 
+    99  008C                     	;# 
+   100  008D                     	;# 
+   101  008E                     	;# 
+   102  008F                     	;# 
+   103  0090                     	;# 
+   104  0091                     	;# 
+   105  0092                     	;# 
+   106  0093                     	;# 
+   107  0093                     	;# 
+   108  0093                     	;# 
+   109  0094                     	;# 
+   110  0095                     	;# 
+   111  0096                     	;# 
+   112  0097                     	;# 
+   113  0098                     	;# 
+   114  0099                     	;# 
+   115  009A                     	;# 
+   116  009B                     	;# 
+   117  009C                     	;# 
+   118  009D                     	;# 
+   119  009E                     	;# 
+   120  009F                     	;# 
+   121  0105                     	;# 
+   122  0107                     	;# 
+   123  0108                     	;# 
+   124  0109                     	;# 
+   125  010C                     	;# 
+   126  010C                     	;# 
+   127  010D                     	;# 
+   128  010E                     	;# 
+   129  010F                     	;# 
+   130  0185                     	;# 
+   131  0187                     	;# 
+   132  0188                     	;# 
+   133  0189                     	;# 
+   134  018C                     	;# 
+   135  018D                     	;# 
+   136                           
+   137                           	psect	idataCOMMON
+   138  0246                     __pidataCOMMON:	
+   139                           
+   140                           ;initializer for _pos
+   141  0246  3414               	retlw	20
+   142                           
+   143                           	psect	idataBANK0
+   144  0247                     __pidataBANK0:	
+   145                           
+   146                           ;initializer for _vel
+   147  0247  3464               	retlw	100
+   148  0013                     _SSPBUF	set	19
+   149  0006                     _PORTBbits	set	6
+   150  001F                     _ADCON0	set	31
+   151  000B                     _INTCONbits	set	11
+   152  0014                     _SSPCON	set	20
+   153  0012                     _T2CON	set	18
+   154  001D                     _CCP2CON	set	29
+   155  0005                     _PORTA	set	5
+   156  001B                     _CCPR2L	set	27
+   157  001D                     _CCP2CONbits	set	29
+   158  0007                     _PORTCbits	set	7
+   159  0015                     _CCPR1L	set	21
+   160  0017                     _CCP1CONbits	set	23
+   161  0017                     _CCP1CON	set	23
+   162  0006                     _PORTB	set	6
+   163  0008                     _PORTD	set	8
+   164  001E                     _ADRESH	set	30
+   165  000C                     _PIR1bits	set	12
+   166  001F                     _ADCON0bits	set	31
+   167  0094                     _SSPSTATbits	set	148
+   168  009E                     _ADRESL	set	158
+   169  009F                     _ADCON1	set	159
+   170  008C                     _PIE1bits	set	140
+   171  0094                     _SSPSTAT	set	148
+   172  0092                     _PR2	set	146
+   173  0088                     _TRISD	set	136
+   174  0087                     _TRISC	set	135
+   175  0086                     _TRISB	set	134
+   176  0085                     _TRISA	set	133
+   177  008F                     _OSCCON	set	143
+   178  0188                     _ANSELbits	set	392
+   179  0189                     _ANSELH	set	393
+   180  0188                     _ANSEL	set	392
    181                           
-   182                           ; Clear objects allocated to COMMON
-   183  0020  01F5               	clrf	__pbssCOMMON& (0+127)
-   184  0021  01F6               	clrf	(__pbssCOMMON+1)& (0+127)
-   185  0022  01F7               	clrf	(__pbssCOMMON+2)& (0+127)
-   186  0023                     end_of_initialization:	
-   187                           ;End of C runtime variable initialization code
-   188                           
-   189  0023                     __end_of__initialization:	
-   190  0023  0183               	clrf	3
-   191  0024  120A  118A  2827   	ljmp	_main	;jump to C main() function
-   192                           
-   193                           	psect	bssCOMMON
-   194  0075                     __pbssCOMMON:	
-   195  0075                     _accion:	
-   196  0075                     	ds	1
-   197  0076                     _giro:	
-   198  0076                     	ds	1
-   199  0077                     _puerta:	
-   200  0077                     	ds	1
-   201                           
-   202                           	psect	dataCOMMON
-   203  0078                     __pdataCOMMON:	
-   204  0078                     _vel:	
-   205  0078                     	ds	1
-   206  0079                     _pos:	
-   207  0079                     	ds	1
-   208                           
-   209                           	psect	bssBANK0
-   210  0025                     __pbssBANK0:	
-   211  0025                     _ADC:	
-   212  0025                     	ds	1
-   213                           
-   214                           	psect	cstackCOMMON
-   215  0070                     __pcstackCOMMON:	
-   216  0070                     ?_stepper:	
-   217  0070                     ?_move_pwmDC:	
-   218                           ; 1 bytes @ 0x0
-   219                           
-   220  0070                     ?_servo:	
-   221                           ; 1 bytes @ 0x0
+   182                           ; #config settings
+   183  0000                     
+   184                           	psect	cinit
+   185  0015                     start_initialization:	
+   186  0015                     __initialization:	
+   187                           
+   188                           ; Initialize objects allocated to BANK0
+   189  0015  120A  118A  2247  120A  118A  	fcall	__pidataBANK0	;fetch initializer
+   190  001A  00AC               	movwf	__pdataBANK0& (0+127)
+   191                           
+   192                           ; Initialize objects allocated to COMMON
+   193  001B  120A  118A  2246   	fcall	__pidataCOMMON	;fetch initializer
+   194  001E  00F9               	movwf	__pdataCOMMON& (0+127)
+   195                           
+   196                           ; Clear objects allocated to BANK0
+   197  001F  01AA               	clrf	__pbssBANK0& (0+127)
+   198  0020  01AB               	clrf	(__pbssBANK0+1)& (0+127)
+   199                           
+   200                           ; Clear objects allocated to COMMON
+   201  0021  01F5               	clrf	__pbssCOMMON& (0+127)
+   202  0022  01F6               	clrf	(__pbssCOMMON+1)& (0+127)
+   203  0023  01F7               	clrf	(__pbssCOMMON+2)& (0+127)
+   204  0024  01F8               	clrf	(__pbssCOMMON+3)& (0+127)
+   205  0025                     end_of_initialization:	
+   206                           ;End of C runtime variable initialization code
+   207                           
+   208  0025                     __end_of__initialization:	
+   209  0025  0183               	clrf	3
+   210  0026  120A  118A  2829   	ljmp	_main	;jump to C main() function
+   211                           
+   212                           	psect	bssCOMMON
+   213  0075                     __pbssCOMMON:	
+   214  0075                     _presion:	
+   215  0075                     	ds	1
+   216  0076                     _accion:	
+   217  0076                     	ds	1
+   218  0077                     _giro:	
+   219  0077                     	ds	1
+   220  0078                     _puerta:	
+   221  0078                     	ds	1
    222                           
-   223  0070                     ?_move_servo:	
-   224                           ; 1 bytes @ 0x0
-   225                           
-   226  0070                     ?_ISR:	
-   227                           ; 1 bytes @ 0x0
-   228                           
-   229  0070                     ??_ISR:	
-   230                           ; 1 bytes @ 0x0
-   231                           
-   232  0070                     ?_main:	
-   233                           ; 1 bytes @ 0x0
+   223                           	psect	dataCOMMON
+   224  0079                     __pdataCOMMON:	
+   225  0079                     _pos:	
+   226  0079                     	ds	1
+   227                           
+   228                           	psect	bssBANK0
+   229  002A                     __pbssBANK0:	
+   230  002A                     _presion_zero:	
+   231  002A                     	ds	1
+   232  002B                     _ADC:	
+   233  002B                     	ds	1
    234                           
-   235                           
-   236                           ; 1 bytes @ 0x0
-   237  0070                     	ds	5
-   238                           
-   239                           	psect	cstackBANK0
-   240  0020                     __pcstackBANK0:	
-   241  0020                     ??_stepper:	
-   242  0020                     ??_move_pwmDC:	
-   243                           ; 1 bytes @ 0x0
-   244                           
-   245  0020                     ??_servo:	
-   246                           ; 1 bytes @ 0x0
-   247                           
+   235                           	psect	dataBANK0
+   236  002C                     __pdataBANK0:	
+   237  002C                     _vel:	
+   238  002C                     	ds	1
+   239                           
+   240                           	psect	cstackCOMMON
+   241  0070                     __pcstackCOMMON:	
+   242  0070                     ?_medicion_presion:	
+   243  0070                     ?_calibracion_presion:	
+   244                           ; 1 bytes @ 0x0
+   245                           
+   246  0070                     ?_stepper:	
+   247                           ; 1 bytes @ 0x0
    248                           
-   249                           ; 1 bytes @ 0x0
-   250  0020                     	ds	2
-   251  0022                     ??_move_servo:	
-   252  0022                     stepper@i:	
-   253                           ; 1 bytes @ 0x2
+   249  0070                     ?_move_pwmDC:	
+   250                           ; 1 bytes @ 0x0
+   251                           
+   252  0070                     ?_servo:	
+   253                           ; 1 bytes @ 0x0
    254                           
-   255                           
-   256                           ; 1 bytes @ 0x2
-   257  0022                     	ds	2
-   258  0024                     ??_main:	
-   259                           
-   260                           ; 1 bytes @ 0x4
-   261  0024                     	ds	1
-   262                           
-   263                           	psect	maintext
-   264  0027                     __pmaintext:	
-   265 ;;
-   266 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
-   267 ;;
-   268 ;; *************** function _main *****************
-   269 ;; Defined at:
-   270 ;;		line 117 in file "picMotores.c"
-   271 ;; Parameters:    Size  Location     Type
-   272 ;;		None
-   273 ;; Auto vars:     Size  Location     Type
-   274 ;;		None
-   275 ;; Return value:  Size  Location     Type
-   276 ;;                  1    wreg      void 
-   277 ;; Registers used:
-   278 ;;		wreg, status,2, status,0, pclath, cstack
-   279 ;; Tracked objects:
-   280 ;;		On entry : B00/0
-   281 ;;		On exit  : 0/0
-   282 ;;		Unchanged: 0/0
-   283 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   284 ;;      Params:         0       0       0       0       0
-   285 ;;      Locals:         0       0       0       0       0
-   286 ;;      Temps:          0       1       0       0       0
-   287 ;;      Totals:         0       1       0       0       0
-   288 ;;Total ram usage:        1 bytes
-   289 ;; Hardware stack levels required when called:    3
-   290 ;; This function calls:
-   291 ;;		_move_pwmDC
-   292 ;;		_move_servo
-   293 ;;		_servo
-   294 ;;		_stepper
-   295 ;; This function is called by:
-   296 ;;		Startup code after reset
-   297 ;; This function uses a non-reentrant model
-   298 ;;
-   299                           
-   300                           
-   301                           ;psect for function _main
-   302  0027                     _main:	
-   303                           
-   304                           ;picMotores.c: 119: OSCCON = 0b00111100;
-   305                           
-   306                           ;incstack = 0
-   307                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
-   308  0027  303C               	movlw	60
-   309  0028  1683               	bsf	3,5	;RP0=1, select bank1
-   310  0029  1303               	bcf	3,6	;RP1=0, select bank1
-   311  002A  008F               	movwf	15	;volatile
-   312                           
-   313                           ;picMotores.c: 122: ANSEL=0;
-   314  002B  1683               	bsf	3,5	;RP0=1, select bank3
-   315  002C  1703               	bsf	3,6	;RP1=1, select bank3
-   316  002D  0188               	clrf	8	;volatile
-   317                           
-   318                           ;picMotores.c: 123: ANSELH=0;
-   319  002E  0189               	clrf	9	;volatile
-   320                           
-   321                           ;picMotores.c: 126: TRISB=0b11110000;
-   322  002F  30F0               	movlw	240
-   323  0030  1683               	bsf	3,5	;RP0=1, select bank1
-   324  0031  1303               	bcf	3,6	;RP1=0, select bank1
-   325  0032  0086               	movwf	6	;volatile
-   326                           
-   327                           ;picMotores.c: 127: TRISC=0b11011001;
-   328  0033  30D9               	movlw	217
-   329  0034  0087               	movwf	7	;volatile
-   330                           
-   331                           ;picMotores.c: 128: TRISD=0;
-   332  0035  0188               	clrf	8	;volatile
-   333                           
-   334                           ;picMotores.c: 131: PORTB=0b1001;
-   335  0036  3009               	movlw	9
-   336  0037  1283               	bcf	3,5	;RP0=0, select bank0
-   337  0038  1303               	bcf	3,6	;RP1=0, select bank0
-   338  0039  0086               	movwf	6	;volatile
-   339                           
-   340                           ;picMotores.c: 132: PORTCbits.RC2=0;
-   341  003A  1107               	bcf	7,2	;volatile
-   342                           
-   343                           ;picMotores.c: 133: PORTCbits.RC1=0;
-   344  003B  1087               	bcf	7,1	;volatile
-   345                           
-   346                           ;picMotores.c: 136: CCP2CON=0b00001111;
-   347  003C  300F               	movlw	15
-   348  003D  009D               	movwf	29	;volatile
-   349                           
-   350                           ;picMotores.c: 137: servo();
-   351  003E  120A  118A  217D  120A  118A  	fcall	_servo
+   255  0070                     ?_move_servo:	
+   256                           ; 1 bytes @ 0x0
+   257                           
+   258  0070                     ?_ISR:	
+   259                           ; 1 bytes @ 0x0
+   260                           
+   261  0070                     ??_ISR:	
+   262                           ; 1 bytes @ 0x0
+   263                           
+   264  0070                     ?_main:	
+   265                           ; 1 bytes @ 0x0
+   266                           
+   267                           
+   268                           ; 1 bytes @ 0x0
+   269  0070                     	ds	5
+   270                           
+   271                           	psect	cstackBANK0
+   272  0020                     __pcstackBANK0:	
+   273  0020                     ??_medicion_presion:	
+   274  0020                     ??_calibracion_presion:	
+   275                           ; 1 bytes @ 0x0
+   276                           
+   277  0020                     ??_stepper:	
+   278                           ; 1 bytes @ 0x0
+   279                           
+   280  0020                     ??_servo:	
+   281                           ; 1 bytes @ 0x0
+   282                           
+   283                           
+   284                           ; 1 bytes @ 0x0
+   285  0020                     	ds	1
+   286  0021                     calibracion_presion@numero:	
+   287                           
+   288                           ; 1 bytes @ 0x1
+   289  0021                     	ds	1
+   290  0022                     ??_move_servo:	
+   291  0022                     stepper@i:	
+   292                           ; 1 bytes @ 0x2
+   293                           
+   294                           
+   295                           ; 1 bytes @ 0x2
+   296  0022                     	ds	1
+   297  0023                     medicion_presion@numero:	
+   298                           
+   299                           ; 1 bytes @ 0x3
+   300  0023                     	ds	1
+   301  0024                     medicion_presion@objeto:	
+   302                           
+   303                           ; 1 bytes @ 0x4
+   304  0024                     	ds	1
+   305  0025                     ??_move_pwmDC:	
+   306                           
+   307                           ; 1 bytes @ 0x5
+   308  0025                     	ds	2
+   309  0027                     ??_main:	
+   310                           
+   311                           ; 1 bytes @ 0x7
+   312  0027                     	ds	3
+   313                           
+   314                           	psect	maintext
+   315  0029                     __pmaintext:	
+   316 ;;
+   317 ;;Main: autosize = 0, tempsize = 3, incstack = 0, save=0
+   318 ;;
+   319 ;; *************** function _main *****************
+   320 ;; Defined at:
+   321 ;;		line 150 in file "picMotores.c"
+   322 ;; Parameters:    Size  Location     Type
+   323 ;;		None
+   324 ;; Auto vars:     Size  Location     Type
+   325 ;;		None
+   326 ;; Return value:  Size  Location     Type
+   327 ;;                  1    wreg      void 
+   328 ;; Registers used:
+   329 ;;		wreg, status,2, status,0, pclath, cstack
+   330 ;; Tracked objects:
+   331 ;;		On entry : B00/0
+   332 ;;		On exit  : 0/0
+   333 ;;		Unchanged: 0/0
+   334 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   335 ;;      Params:         0       0       0       0       0
+   336 ;;      Locals:         0       0       0       0       0
+   337 ;;      Temps:          0       3       0       0       0
+   338 ;;      Totals:         0       3       0       0       0
+   339 ;;Total ram usage:        3 bytes
+   340 ;; Hardware stack levels required when called:    3
+   341 ;; This function calls:
+   342 ;;		_calibracion_presion
+   343 ;;		_medicion_presion
+   344 ;;		_move_pwmDC
+   345 ;;		_move_servo
+   346 ;;		_servo
+   347 ;;		_stepper
+   348 ;; This function is called by:
+   349 ;;		Startup code after reset
+   350 ;; This function uses a non-reentrant model
+   351 ;;
    352                           
-   353                           ;picMotores.c: 139: PR2=155;
-   354  0043  309B               	movlw	155
-   355  0044  1683               	bsf	3,5	;RP0=1, select bank1
-   356  0045  1303               	bcf	3,6	;RP1=0, select bank1
-   357  0046  0092               	movwf	18	;volatile
+   353                           
+   354                           ;psect for function _main
+   355  0029                     _main:	
+   356                           
+   357                           ;picMotores.c: 152: OSCCON = 0b00111100;
    358                           
-   359                           ;picMotores.c: 140: T2CON = 0b00000111;
-   360  0047  3007               	movlw	7
-   361  0048  1283               	bcf	3,5	;RP0=0, select bank0
-   362  0049  1303               	bcf	3,6	;RP1=0, select bank0
-   363  004A  0092               	movwf	18	;volatile
-   364                           
-   365                           ;picMotores.c: 141: PIR1bits.TMR2IF = 0;
-   366  004B  108C               	bcf	12,1	;volatile
-   367                           
-   368                           ;picMotores.c: 145: SSPSTAT=0b01000000;
-   369  004C  3040               	movlw	64
-   370  004D  1683               	bsf	3,5	;RP0=1, select bank1
-   371  004E  1303               	bcf	3,6	;RP1=0, select bank1
-   372  004F  0094               	movwf	20	;volatile
+   359                           ;incstack = 0
+   360                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   361  0029  303C               	movlw	60
+   362  002A  1683               	bsf	3,5	;RP0=1, select bank1
+   363  002B  1303               	bcf	3,6	;RP1=0, select bank1
+   364  002C  008F               	movwf	15	;volatile
+   365                           
+   366                           ;picMotores.c: 155: ANSEL=0;
+   367  002D  1683               	bsf	3,5	;RP0=1, select bank3
+   368  002E  1703               	bsf	3,6	;RP1=1, select bank3
+   369  002F  0188               	clrf	8	;volatile
+   370                           
+   371                           ;picMotores.c: 156: ANSELH=0;
+   372  0030  0189               	clrf	9	;volatile
    373                           
-   374                           ;picMotores.c: 147: SSPCON=0b00110100;
-   375  0050  3034               	movlw	52
-   376  0051  1283               	bcf	3,5	;RP0=0, select bank0
-   377  0052  1303               	bcf	3,6	;RP1=0, select bank0
-   378  0053  0094               	movwf	20	;volatile
-   379                           
-   380                           ;picMotores.c: 170: giro=0;
-   381  0054  01F6               	clrf	_giro
-   382  0055                     l934:	
-   383                           ;picMotores.c: 172: while(1){
-   384                           
-   385                           
-   386                           ;picMotores.c: 174: if (PORTBbits.RB4==1|accion==1){
-   387  0055  1283               	bcf	3,5	;RP0=0, select bank0
-   388  0056  1A06               	btfsc	6,4	;volatile
-   389  0057  285D               	goto	l940
-   390  0058  0375               	decf	_accion,w
-   391  0059  1903               	btfsc	3,2
-   392  005A  285D               	goto	l940
-   393  005B  2867               	goto	l948
-   394  005C                     l938:	
-   395                           ;picMotores.c: 175: while (PORTBbits.RB4==1){
-   396                           
-   397                           
-   398                           ;picMotores.c: 176: PORTBbits.RB4==1;
-   399  005C  0806               	movf	6,w	;volatile
-   400  005D                     l940:	
-   401  005D  1A06               	btfsc	6,4	;volatile
-   402  005E  285C               	goto	l938
-   403                           
-   404                           ;picMotores.c: 177: }
-   405                           ;picMotores.c: 178: stepper();
-   406  005F  120A  118A  20BB  120A  118A  	fcall	_stepper
-   407                           
-   408                           ;picMotores.c: 179: if (accion==1){accion=0;}
-   409  0064  0375               	decf	_accion,w
-   410  0065  1903               	btfsc	3,2
-   411  0066  01F5               	clrf	_accion
-   412  0067                     l948:	
-   413                           
-   414                           ;picMotores.c: 180: }
-   415                           ;picMotores.c: 182: if (PORTBbits.RB7==1|accion==2){
-   416  0067  1283               	bcf	3,5	;RP0=0, select bank0
-   417  0068  1303               	bcf	3,6	;RP1=0, select bank0
-   418  0069  1B86               	btfsc	6,7	;volatile
-   419  006A  286F               	goto	l104
-   420  006B  3002               	movlw	2
-   421  006C  0675               	xorwf	_accion,w
-   422  006D  1D03               	btfss	3,2
-   423  006E  287A               	goto	l958
-   424  006F                     l104:	
-   425                           ;picMotores.c: 183: while (PORTBbits.RB7==1){}
-   426                           
-   427  006F  1B86               	btfsc	6,7	;volatile
-   428  0070  286F               	goto	l104
-   429                           
-   430                           ;picMotores.c: 184: move_pwmDC();
-   431  0071  120A  118A  2149  120A  118A  	fcall	_move_pwmDC
-   432                           
-   433                           ;picMotores.c: 185: if (accion==2){accion=0;}
-   434  0076  3002               	movlw	2
-   435  0077  0675               	xorwf	_accion,w
-   436  0078  1903               	btfsc	3,2
-   437  0079  01F5               	clrf	_accion
-   438  007A                     l958:	
-   439                           
-   440                           ;picMotores.c: 186: }
-   441                           ;picMotores.c: 188: if (PORTBbits.RB5==1| (accion==3&pos==20)){
-   442  007A  1283               	bcf	3,5	;RP0=0, select bank0
-   443  007B  1303               	bcf	3,6	;RP1=0, select bank0
-   444  007C  1A86               	btfsc	6,5	;volatile
-   445  007D  2886               	goto	l111
-   446  007E  3003               	movlw	3
-   447  007F  0675               	xorwf	_accion,w
-   448  0080  1D03               	btfss	3,2
-   449  0081  288E               	goto	l968
-   450  0082  3014               	movlw	20
-   451  0083  0679               	xorwf	_pos,w
-   452  0084  1D03               	btfss	3,2
-   453  0085  288E               	goto	l968
-   454  0086                     l111:	
-   455                           ;picMotores.c: 189: while (PORTBbits.RB5==1){}
+   374                           ;picMotores.c: 157: ANSELbits.ANS0;
+   375  0031  0808               	movf	8,w	;volatile
+   376                           
+   377                           ;picMotores.c: 160: TRISA=0b00000001;
+   378  0032  3001               	movlw	1
+   379  0033  1683               	bsf	3,5	;RP0=1, select bank1
+   380  0034  1303               	bcf	3,6	;RP1=0, select bank1
+   381  0035  0085               	movwf	5	;volatile
+   382                           
+   383                           ;picMotores.c: 161: TRISB=0b11110000;
+   384  0036  30F0               	movlw	240
+   385  0037  0086               	movwf	6	;volatile
+   386                           
+   387                           ;picMotores.c: 162: TRISC=0b11011001;
+   388  0038  30D9               	movlw	217
+   389  0039  0087               	movwf	7	;volatile
+   390                           
+   391                           ;picMotores.c: 163: TRISD=0;
+   392  003A  0188               	clrf	8	;volatile
+   393                           
+   394                           ;picMotores.c: 166: PORTA=0;
+   395  003B  1283               	bcf	3,5	;RP0=0, select bank0
+   396  003C  1303               	bcf	3,6	;RP1=0, select bank0
+   397  003D  0185               	clrf	5	;volatile
+   398                           
+   399                           ;picMotores.c: 167: PORTB=0b1001;
+   400  003E  3009               	movlw	9
+   401  003F  0086               	movwf	6	;volatile
+   402                           
+   403                           ;picMotores.c: 168: PORTCbits.RC2=0;
+   404  0040  1107               	bcf	7,2	;volatile
+   405                           
+   406                           ;picMotores.c: 169: PORTCbits.RC1=0;
+   407  0041  1087               	bcf	7,1	;volatile
+   408                           
+   409                           ;picMotores.c: 172: CCP2CON=0b00001111;
+   410  0042  300F               	movlw	15
+   411  0043  009D               	movwf	29	;volatile
+   412                           
+   413                           ;picMotores.c: 173: servo();
+   414  0044  120A  118A  21F6  120A  118A  	fcall	_servo
+   415                           
+   416                           ;picMotores.c: 175: PR2=155;
+   417  0049  309B               	movlw	155
+   418  004A  1683               	bsf	3,5	;RP0=1, select bank1
+   419  004B  1303               	bcf	3,6	;RP1=0, select bank1
+   420  004C  0092               	movwf	18	;volatile
+   421                           
+   422                           ;picMotores.c: 176: T2CON = 0b00000111;
+   423  004D  3007               	movlw	7
+   424  004E  1283               	bcf	3,5	;RP0=0, select bank0
+   425  004F  1303               	bcf	3,6	;RP1=0, select bank0
+   426  0050  0092               	movwf	18	;volatile
+   427                           
+   428                           ;picMotores.c: 177: PIR1bits.TMR2IF = 0;
+   429  0051  108C               	bcf	12,1	;volatile
+   430                           
+   431                           ;picMotores.c: 181: SSPSTAT=0b01000000;
+   432  0052  3040               	movlw	64
+   433  0053  1683               	bsf	3,5	;RP0=1, select bank1
+   434  0054  1303               	bcf	3,6	;RP1=0, select bank1
+   435  0055  0094               	movwf	20	;volatile
+   436                           
+   437                           ;picMotores.c: 183: SSPCON=0b00110100;
+   438  0056  3034               	movlw	52
+   439  0057  1283               	bcf	3,5	;RP0=0, select bank0
+   440  0058  1303               	bcf	3,6	;RP1=0, select bank0
+   441  0059  0094               	movwf	20	;volatile
+   442                           
+   443                           ;picMotores.c: 186: INTCONbits.GIE=1;
+   444  005A  178B               	bsf	11,7	;volatile
+   445                           
+   446                           ;picMotores.c: 187: INTCONbits.PEIE=1;
+   447  005B  170B               	bsf	11,6	;volatile
+   448                           
+   449                           ;picMotores.c: 188: PIE1bits.ADIE=1; ;
+   450  005C  1683               	bsf	3,5	;RP0=1, select bank1
+   451  005D  1303               	bcf	3,6	;RP1=0, select bank1
+   452  005E  170C               	bsf	12,6	;volatile
+   453                           
+   454                           ;picMotores.c: 191: ADCON1=0b00000000;
+   455  005F  019F               	clrf	31	;volatile
    456                           
-   457  0086  1A86               	btfsc	6,5	;volatile
-   458  0087  2886               	goto	l111
-   459                           
-   460                           ;picMotores.c: 190: giro=1;
-   461  0088  01F6               	clrf	_giro
-   462  0089  0AF6               	incf	_giro,f
-   463                           
-   464                           ;picMotores.c: 191: if (accion==3){accion=0;}
-   465  008A  3003               	movlw	3
-   466  008B  0675               	xorwf	_accion,w
-   467  008C  1903               	btfsc	3,2
-   468  008D  01F5               	clrf	_accion
-   469  008E                     l968:	
-   470                           
-   471                           ;picMotores.c: 192: }
-   472                           ;picMotores.c: 194: if (PORTBbits.RB6==1| (accion==3&pos==77)){
-   473  008E  1B06               	btfsc	6,6	;volatile
-   474  008F  2898               	goto	l118
-   475  0090  3003               	movlw	3
-   476  0091  0675               	xorwf	_accion,w
-   477  0092  1D03               	btfss	3,2
-   478  0093  28A2               	goto	l980
-   479  0094  304D               	movlw	77
-   480  0095  0679               	xorwf	_pos,w
-   481  0096  1D03               	btfss	3,2
-   482  0097  28A2               	goto	l980
-   483  0098                     l118:	
-   484                           ;picMotores.c: 195: while (PORTBbits.RB6==1){}
-   485                           
-   486  0098  1B06               	btfsc	6,6	;volatile
-   487  0099  2898               	goto	l118
+   457                           ;picMotores.c: 192: ADCON0=0b11000001;
+   458  0060  30C1               	movlw	193
+   459  0061  1283               	bcf	3,5	;RP0=0, select bank0
+   460  0062  1303               	bcf	3,6	;RP1=0, select bank0
+   461  0063  009F               	movwf	31	;volatile
+   462                           
+   463                           ;picMotores.c: 193: _delay((unsigned long)((1)*(500000/4000.0)));
+   464  0064  3028               	movlw	40
+   465  0065  1283               	bcf	3,5	;RP0=0, select bank0
+   466  0066  1303               	bcf	3,6	;RP1=0, select bank0
+   467  0067  00A7               	movwf	??_main
+   468  0068                     u997:	
+   469  0068  0BA7               	decfsz	??_main,f
+   470  0069  2868               	goto	u997
+   471  006A  286B               	nop2
+   472                           
+   473                           ;picMotores.c: 194: ADRESL=0;
+   474  006B  1683               	bsf	3,5	;RP0=1, select bank1
+   475  006C  1303               	bcf	3,6	;RP1=0, select bank1
+   476  006D  019E               	clrf	30	;volatile
+   477                           
+   478                           ;picMotores.c: 195: ADRESH=0;
+   479  006E  1283               	bcf	3,5	;RP0=0, select bank0
+   480  006F  1303               	bcf	3,6	;RP1=0, select bank0
+   481  0070  019E               	clrf	30	;volatile
+   482                           
+   483                           ;picMotores.c: 197: giro=0;
+   484  0071  01F7               	clrf	_giro
+   485  0072                     l1127:	
+   486                           ;picMotores.c: 199: while(1){
+   487                           
    488                           
-   489                           ;picMotores.c: 196: giro=2;
-   490  009A  3002               	movlw	2
-   491  009B  00A4               	movwf	??_main
-   492  009C  0824               	movf	??_main,w
-   493  009D  00F6               	movwf	_giro
-   494                           
-   495                           ;picMotores.c: 197: if (accion==3){accion=0;}
-   496  009E  3003               	movlw	3
-   497  009F  0675               	xorwf	_accion,w
-   498  00A0  1903               	btfsc	3,2
-   499  00A1  01F5               	clrf	_accion
-   500  00A2                     l980:	
-   501                           
-   502                           ;picMotores.c: 198: }
-   503                           ;picMotores.c: 200: if (giro==1|giro==2){
-   504  00A2  0376               	decf	_giro,w
-   505  00A3  1903               	btfsc	3,2
-   506  00A4  28A9               	goto	l984
-   507  00A5  3002               	movlw	2
-   508  00A6  0676               	xorwf	_giro,w
-   509  00A7  1D03               	btfss	3,2
-   510  00A8  28AE               	goto	l986
-   511  00A9                     l984:	
-   512                           
-   513                           ;picMotores.c: 201: move_servo();
-   514  00A9  120A  118A  2103  120A  118A  	fcall	_move_servo
-   515  00AE                     l986:	
+   489                           ;picMotores.c: 201: calibracion_presion();
+   490  0072  120A  118A  2232  120A  118A  	fcall	_calibracion_presion
+   491                           
+   492                           ;picMotores.c: 202: presion = medicion_presion();
+   493  0077  120A  118A  21CE  120A  118A  	fcall	_medicion_presion
+   494  007C  1283               	bcf	3,5	;RP0=0, select bank0
+   495  007D  1303               	bcf	3,6	;RP1=0, select bank0
+   496  007E  00A7               	movwf	??_main
+   497  007F  0827               	movf	??_main,w
+   498  0080  00F5               	movwf	_presion
+   499                           
+   500                           ;picMotores.c: 205: if (PORTBbits.RB4==1|accion==1){
+   501  0081  1A06               	btfsc	6,4	;volatile
+   502  0082  2888               	goto	l1137
+   503  0083  0376               	decf	_accion,w
+   504  0084  1903               	btfsc	3,2
+   505  0085  2888               	goto	l1137
+   506  0086  2892               	goto	l1145
+   507  0087                     l1135:	
+   508                           ;picMotores.c: 206: while (PORTBbits.RB4==1){
+   509                           
+   510                           
+   511                           ;picMotores.c: 207: PORTBbits.RB4==1;
+   512  0087  0806               	movf	6,w	;volatile
+   513  0088                     l1137:	
+   514  0088  1A06               	btfsc	6,4	;volatile
+   515  0089  2887               	goto	l1135
    516                           
-   517                           ;picMotores.c: 202: }
-   518                           ;picMotores.c: 204: if (SSPSTATbits.BF==1){
-   519  00AE  1683               	bsf	3,5	;RP0=1, select bank1
-   520  00AF  1303               	bcf	3,6	;RP1=0, select bank1
-   521  00B0  1C14               	btfss	20,0	;volatile
-   522  00B1  2855               	goto	l934
-   523                           
-   524                           ;picMotores.c: 205: accion=SSPBUF;
-   525  00B2  1283               	bcf	3,5	;RP0=0, select bank0
-   526  00B3  1303               	bcf	3,6	;RP1=0, select bank0
-   527  00B4  0813               	movf	19,w	;volatile
-   528  00B5  00A4               	movwf	??_main
-   529  00B6  0824               	movf	??_main,w
-   530  00B7  00F5               	movwf	_accion
-   531                           
-   532                           ;picMotores.c: 206: PORTD=accion;
-   533  00B8  0875               	movf	_accion,w
-   534  00B9  0088               	movwf	8	;volatile
-   535  00BA  2855               	goto	l934
-   536  00BB                     __end_of_main:	
-   537                           
-   538                           	psect	text1
-   539  00BB                     __ptext1:	
-   540 ;; *************** function _stepper *****************
-   541 ;; Defined at:
-   542 ;;		line 29 in file "picMotores.c"
-   543 ;; Parameters:    Size  Location     Type
-   544 ;;		None
-   545 ;; Auto vars:     Size  Location     Type
-   546 ;;  i               1    2[BANK0 ] unsigned char 
-   547 ;; Return value:  Size  Location     Type
-   548 ;;                  1    wreg      void 
-   549 ;; Registers used:
-   550 ;;		wreg, status,2, status,0
-   551 ;; Tracked objects:
-   552 ;;		On entry : 0/0
-   553 ;;		On exit  : 0/0
-   554 ;;		Unchanged: 0/0
-   555 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   556 ;;      Params:         0       0       0       0       0
-   557 ;;      Locals:         0       1       0       0       0
-   558 ;;      Temps:          0       2       0       0       0
-   559 ;;      Totals:         0       3       0       0       0
-   560 ;;Total ram usage:        3 bytes
-   561 ;; Hardware stack levels used:    1
-   562 ;; Hardware stack levels required when called:    1
-   563 ;; This function calls:
-   564 ;;		Nothing
-   565 ;; This function is called by:
-   566 ;;		_main
-   567 ;; This function uses a non-reentrant model
-   568 ;;
-   569                           
-   570                           
-   571                           ;psect for function _stepper
-   572  00BB                     _stepper:	
+   517                           ;picMotores.c: 208: }
+   518                           ;picMotores.c: 209: stepper();
+   519  008A  120A  118A  20FF  120A  118A  	fcall	_stepper
+   520                           
+   521                           ;picMotores.c: 210: if (accion==1){accion=0;}
+   522  008F  0376               	decf	_accion,w
+   523  0090  1903               	btfsc	3,2
+   524  0091  01F6               	clrf	_accion
+   525  0092                     l1145:	
+   526                           
+   527                           ;picMotores.c: 211: }
+   528                           ;picMotores.c: 213: if (PORTBbits.RB7==1|accion==2){
+   529  0092  1283               	bcf	3,5	;RP0=0, select bank0
+   530  0093  1303               	bcf	3,6	;RP1=0, select bank0
+   531  0094  1B86               	btfsc	6,7	;volatile
+   532  0095  289A               	goto	l140
+   533  0096  3002               	movlw	2
+   534  0097  0676               	xorwf	_accion,w
+   535  0098  1D03               	btfss	3,2
+   536  0099  28A5               	goto	l1155
+   537  009A                     l140:	
+   538                           ;picMotores.c: 214: while (PORTBbits.RB7==1){}
+   539                           
+   540  009A  1B86               	btfsc	6,7	;volatile
+   541  009B  289A               	goto	l140
+   542                           
+   543                           ;picMotores.c: 215: move_pwmDC();
+   544  009C  120A  118A  218D  120A  118A  	fcall	_move_pwmDC
+   545                           
+   546                           ;picMotores.c: 216: if (accion==2){accion=0;}
+   547  00A1  3002               	movlw	2
+   548  00A2  0676               	xorwf	_accion,w
+   549  00A3  1903               	btfsc	3,2
+   550  00A4  01F6               	clrf	_accion
+   551  00A5                     l1155:	
+   552                           
+   553                           ;picMotores.c: 217: }
+   554                           ;picMotores.c: 219: if (PORTBbits.RB5==1| (accion==3&pos==20)|(presion!=1)){
+   555  00A5  1283               	bcf	3,5	;RP0=0, select bank0
+   556  00A6  1303               	bcf	3,6	;RP1=0, select bank0
+   557  00A7  1A86               	btfsc	6,5	;volatile
+   558  00A8  28B4               	goto	l149
+   559  00A9  3003               	movlw	3
+   560  00AA  0676               	xorwf	_accion,w
+   561  00AB  1D03               	btfss	3,2
+   562  00AC  28B1               	goto	l1161
+   563  00AD  3014               	movlw	20
+   564  00AE  0679               	xorwf	_pos,w
+   565  00AF  1903               	btfsc	3,2
+   566  00B0  28B4               	goto	l149
+   567  00B1                     l1161:	
+   568  00B1  0375               	decf	_presion,w
+   569  00B2  1903               	btfsc	3,2
+   570  00B3  28BC               	goto	l1167
+   571  00B4                     l149:	
+   572                           ;picMotores.c: 220: while (PORTBbits.RB5==1){}
    573                           
-   574                           ;picMotores.c: 30: char i=3;
-   575                           
-   576                           ;incstack = 0
-   577                           ; Regs used in _stepper: [wreg+status,2+status,0]
-   578  00BB  3003               	movlw	3
-   579  00BC  1283               	bcf	3,5	;RP0=0, select bank0
-   580  00BD  1303               	bcf	3,6	;RP1=0, select bank0
-   581  00BE  00A0               	movwf	??_stepper
-   582  00BF  0820               	movf	??_stepper,w
-   583  00C0  00A2               	movwf	stepper@i
-   584  00C1                     l856:	
-   585                           ;picMotores.c: 31: while (i!=0){
-   586                           
-   587  00C1  0822               	movf	stepper@i,w
-   588  00C2  1903               	btfsc	3,2
-   589  00C3  0008               	return
-   590                           
-   591                           ;picMotores.c: 32: PORTB=0b0011;
-   592  00C4  3003               	movlw	3
-   593  00C5  0086               	movwf	6	;volatile
-   594                           
-   595                           ;picMotores.c: 33: _delay((unsigned long)((200)*(500000/4000.0)));
-   596  00C6  3021               	movlw	33
-   597  00C7  1283               	bcf	3,5	;RP0=0, select bank0
-   598  00C8  1303               	bcf	3,6	;RP1=0, select bank0
-   599  00C9  00A1               	movwf	??_stepper+1
-   600  00CA  3075               	movlw	117
-   601  00CB  00A0               	movwf	??_stepper
-   602  00CC                     u807:	
-   603  00CC  0BA0               	decfsz	??_stepper,f
-   604  00CD  28CC               	goto	u807
-   605  00CE  0BA1               	decfsz	??_stepper+1,f
-   606  00CF  28CC               	goto	u807
-   607  00D0  28D1               	nop2
-   608                           
-   609                           ;picMotores.c: 34: PORTB=0b0110;
-   610  00D1  3006               	movlw	6
-   611  00D2  1283               	bcf	3,5	;RP0=0, select bank0
-   612  00D3  1303               	bcf	3,6	;RP1=0, select bank0
-   613  00D4  0086               	movwf	6	;volatile
-   614                           
-   615                           ;picMotores.c: 35: _delay((unsigned long)((200)*(500000/4000.0)));
-   616  00D5  3021               	movlw	33
-   617  00D6  1283               	bcf	3,5	;RP0=0, select bank0
-   618  00D7  1303               	bcf	3,6	;RP1=0, select bank0
-   619  00D8  00A1               	movwf	??_stepper+1
-   620  00D9  3075               	movlw	117
-   621  00DA  00A0               	movwf	??_stepper
-   622  00DB                     u817:	
-   623  00DB  0BA0               	decfsz	??_stepper,f
-   624  00DC  28DB               	goto	u817
-   625  00DD  0BA1               	decfsz	??_stepper+1,f
-   626  00DE  28DB               	goto	u817
-   627  00DF  28E0               	nop2
+   574  00B4  1A86               	btfsc	6,5	;volatile
+   575  00B5  28B4               	goto	l149
+   576                           
+   577                           ;picMotores.c: 221: giro=1;
+   578  00B6  01F7               	clrf	_giro
+   579  00B7  0AF7               	incf	_giro,f
+   580                           
+   581                           ;picMotores.c: 222: if (accion==3){accion=0;}
+   582  00B8  3003               	movlw	3
+   583  00B9  0676               	xorwf	_accion,w
+   584  00BA  1903               	btfsc	3,2
+   585  00BB  01F6               	clrf	_accion
+   586  00BC                     l1167:	
+   587                           
+   588                           ;picMotores.c: 223: }
+   589                           ;picMotores.c: 225: if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
+   590  00BC  1B06               	btfsc	6,6	;volatile
+   591  00BD  28C9               	goto	l158
+   592  00BE  3003               	movlw	3
+   593  00BF  0676               	xorwf	_accion,w
+   594  00C0  1D03               	btfss	3,2
+   595  00C1  28C6               	goto	l1173
+   596  00C2  304D               	movlw	77
+   597  00C3  0679               	xorwf	_pos,w
+   598  00C4  1903               	btfsc	3,2
+   599  00C5  28C9               	goto	l158
+   600  00C6                     l1173:	
+   601  00C6  0375               	decf	_presion,w
+   602  00C7  1D03               	btfss	3,2
+   603  00C8  28D3               	goto	l1181
+   604  00C9                     l158:	
+   605                           ;picMotores.c: 226: while (PORTBbits.RB6==1){}
+   606                           
+   607  00C9  1B06               	btfsc	6,6	;volatile
+   608  00CA  28C9               	goto	l158
+   609                           
+   610                           ;picMotores.c: 227: giro=2;
+   611  00CB  3002               	movlw	2
+   612  00CC  00A7               	movwf	??_main
+   613  00CD  0827               	movf	??_main,w
+   614  00CE  00F7               	movwf	_giro
+   615                           
+   616                           ;picMotores.c: 228: if (accion==3){accion=0;}
+   617  00CF  3003               	movlw	3
+   618  00D0  0676               	xorwf	_accion,w
+   619  00D1  1903               	btfsc	3,2
+   620  00D2  01F6               	clrf	_accion
+   621  00D3                     l1181:	
+   622                           
+   623                           ;picMotores.c: 229: }
+   624                           ;picMotores.c: 231: if (giro==1){
+   625  00D3  0377               	decf	_giro,w
+   626  00D4  1D03               	btfss	3,2
+   627  00D5  28E9               	goto	l1187
    628                           
-   629                           ;picMotores.c: 36: PORTB=0b1100;
-   630  00E0  300C               	movlw	12
-   631  00E1  1283               	bcf	3,5	;RP0=0, select bank0
-   632  00E2  1303               	bcf	3,6	;RP1=0, select bank0
-   633  00E3  0086               	movwf	6	;volatile
-   634                           
-   635                           ;picMotores.c: 37: _delay((unsigned long)((200)*(500000/4000.0)));
-   636  00E4  3021               	movlw	33
-   637  00E5  1283               	bcf	3,5	;RP0=0, select bank0
-   638  00E6  1303               	bcf	3,6	;RP1=0, select bank0
-   639  00E7  00A1               	movwf	??_stepper+1
-   640  00E8  3075               	movlw	117
-   641  00E9  00A0               	movwf	??_stepper
-   642  00EA                     u827:	
-   643  00EA  0BA0               	decfsz	??_stepper,f
-   644  00EB  28EA               	goto	u827
-   645  00EC  0BA1               	decfsz	??_stepper+1,f
-   646  00ED  28EA               	goto	u827
-   647  00EE  28EF               	nop2
-   648                           
-   649                           ;picMotores.c: 38: PORTB=0b1001;
-   650  00EF  3009               	movlw	9
-   651  00F0  1283               	bcf	3,5	;RP0=0, select bank0
-   652  00F1  1303               	bcf	3,6	;RP1=0, select bank0
-   653  00F2  0086               	movwf	6	;volatile
-   654                           
-   655                           ;picMotores.c: 39: _delay((unsigned long)((200)*(500000/4000.0)));
-   656  00F3  3021               	movlw	33
-   657  00F4  1283               	bcf	3,5	;RP0=0, select bank0
-   658  00F5  1303               	bcf	3,6	;RP1=0, select bank0
-   659  00F6  00A1               	movwf	??_stepper+1
-   660  00F7  3075               	movlw	117
-   661  00F8  00A0               	movwf	??_stepper
-   662  00F9                     u837:	
-   663  00F9  0BA0               	decfsz	??_stepper,f
-   664  00FA  28F9               	goto	u837
-   665  00FB  0BA1               	decfsz	??_stepper+1,f
-   666  00FC  28F9               	goto	u837
-   667  00FD  28FE               	nop2
-   668                           
-   669                           ;picMotores.c: 40: i--;
-   670  00FE  3001               	movlw	1
-   671  00FF  1283               	bcf	3,5	;RP0=0, select bank0
-   672  0100  1303               	bcf	3,6	;RP1=0, select bank0
-   673  0101  02A2               	subwf	stepper@i,f
-   674  0102  28C1               	goto	l856
-   675  0103                     __end_of_stepper:	
-   676                           ;picMotores.c: 41: }
-   677                           ;picMotores.c: 43: return;
-   678                           
-   679                           
-   680                           	psect	text2
-   681  0103                     __ptext2:	
-   682 ;; *************** function _move_servo *****************
-   683 ;; Defined at:
-   684 ;;		line 84 in file "picMotores.c"
-   685 ;; Parameters:    Size  Location     Type
-   686 ;;		None
-   687 ;; Auto vars:     Size  Location     Type
+   629                           ;picMotores.c: 233: _delay((unsigned long)((4000)*(500000/4000.0)));
+   630  00D6  3003               	movlw	3
+   631  00D7  1283               	bcf	3,5	;RP0=0, select bank0
+   632  00D8  1303               	bcf	3,6	;RP1=0, select bank0
+   633  00D9  00A9               	movwf	??_main+2
+   634  00DA  308A               	movlw	138
+   635  00DB  00A8               	movwf	??_main+1
+   636  00DC  3055               	movlw	85
+   637  00DD  00A7               	movwf	??_main
+   638  00DE                     u1007:	
+   639  00DE  0BA7               	decfsz	??_main,f
+   640  00DF  28DE               	goto	u1007
+   641  00E0  0BA8               	decfsz	??_main+1,f
+   642  00E1  28DE               	goto	u1007
+   643  00E2  0BA9               	decfsz	??_main+2,f
+   644  00E3  28DE               	goto	u1007
+   645                           
+   646                           ;picMotores.c: 234: move_servo();
+   647  00E4  120A  118A  2147  120A  118A  	fcall	_move_servo
+   648  00E9                     l1187:	
+   649                           
+   650                           ;picMotores.c: 235: }
+   651                           ;picMotores.c: 236: if (giro==2){
+   652  00E9  3002               	movlw	2
+   653  00EA  0677               	xorwf	_giro,w
+   654  00EB  1D03               	btfss	3,2
+   655  00EC  28F2               	goto	l1191
+   656                           
+   657                           ;picMotores.c: 237: move_servo();
+   658  00ED  120A  118A  2147  120A  118A  	fcall	_move_servo
+   659  00F2                     l1191:	
+   660                           
+   661                           ;picMotores.c: 238: }
+   662                           ;picMotores.c: 240: if (SSPSTATbits.BF==1){
+   663  00F2  1683               	bsf	3,5	;RP0=1, select bank1
+   664  00F3  1303               	bcf	3,6	;RP1=0, select bank1
+   665  00F4  1C14               	btfss	20,0	;volatile
+   666  00F5  2872               	goto	l1127
+   667                           
+   668                           ;picMotores.c: 241: accion=SSPBUF;
+   669  00F6  1283               	bcf	3,5	;RP0=0, select bank0
+   670  00F7  1303               	bcf	3,6	;RP1=0, select bank0
+   671  00F8  0813               	movf	19,w	;volatile
+   672  00F9  00A7               	movwf	??_main
+   673  00FA  0827               	movf	??_main,w
+   674  00FB  00F6               	movwf	_accion
+   675                           
+   676                           ;picMotores.c: 242: PORTD=accion;
+   677  00FC  0876               	movf	_accion,w
+   678  00FD  0088               	movwf	8	;volatile
+   679  00FE  2872               	goto	l1127
+   680  00FF                     __end_of_main:	
+   681                           
+   682                           	psect	text1
+   683  00FF                     __ptext1:	
+   684 ;; *************** function _stepper *****************
+   685 ;; Defined at:
+   686 ;;		line 59 in file "picMotores.c"
+   687 ;; Parameters:    Size  Location     Type
    688 ;;		None
-   689 ;; Return value:  Size  Location     Type
-   690 ;;                  1    wreg      void 
-   691 ;; Registers used:
-   692 ;;		wreg, status,2, status,0, pclath, cstack
-   693 ;; Tracked objects:
-   694 ;;		On entry : 0/0
-   695 ;;		On exit  : 0/0
-   696 ;;		Unchanged: 0/0
-   697 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   698 ;;      Params:         0       0       0       0       0
-   699 ;;      Locals:         0       0       0       0       0
-   700 ;;      Temps:          0       2       0       0       0
-   701 ;;      Totals:         0       2       0       0       0
-   702 ;;Total ram usage:        2 bytes
-   703 ;; Hardware stack levels used:    1
-   704 ;; Hardware stack levels required when called:    2
-   705 ;; This function calls:
-   706 ;;		_servo
-   707 ;; This function is called by:
-   708 ;;		_main
-   709 ;; This function uses a non-reentrant model
-   710 ;;
-   711                           
-   712                           
-   713                           ;psect for function _move_servo
-   714  0103                     _move_servo:	
-   715                           
-   716                           ;picMotores.c: 85: if (giro==1){
+   689 ;; Auto vars:     Size  Location     Type
+   690 ;;  i               1    2[BANK0 ] unsigned char 
+   691 ;; Return value:  Size  Location     Type
+   692 ;;                  1    wreg      void 
+   693 ;; Registers used:
+   694 ;;		wreg, status,2, status,0
+   695 ;; Tracked objects:
+   696 ;;		On entry : 0/0
+   697 ;;		On exit  : 0/0
+   698 ;;		Unchanged: 0/0
+   699 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   700 ;;      Params:         0       0       0       0       0
+   701 ;;      Locals:         0       1       0       0       0
+   702 ;;      Temps:          0       2       0       0       0
+   703 ;;      Totals:         0       3       0       0       0
+   704 ;;Total ram usage:        3 bytes
+   705 ;; Hardware stack levels used:    1
+   706 ;; Hardware stack levels required when called:    1
+   707 ;; This function calls:
+   708 ;;		Nothing
+   709 ;; This function is called by:
+   710 ;;		_main
+   711 ;; This function uses a non-reentrant model
+   712 ;;
+   713                           
+   714                           
+   715                           ;psect for function _stepper
+   716  00FF                     _stepper:	
    717                           
-   718                           ;incstack = 0
-   719                           ; Regs used in _move_servo: [wreg+status,2+status,0+pclath+cstack]
-   720  0103  0376               	decf	_giro,w
-   721  0104  1D03               	btfss	3,2
-   722  0105  2927               	goto	l888
-   723                           
-   724                           ;picMotores.c: 86: pos++;
-   725  0106  3001               	movlw	1
-   726  0107  1283               	bcf	3,5	;RP0=0, select bank0
-   727  0108  1303               	bcf	3,6	;RP1=0, select bank0
-   728  0109  00A2               	movwf	??_move_servo
-   729  010A  0822               	movf	??_move_servo,w
-   730  010B  07F9               	addwf	_pos,f
-   731                           
-   732                           ;picMotores.c: 87: servo();
-   733  010C  120A  118A  217D  120A  118A  	fcall	_servo
+   718                           ;picMotores.c: 60: char i=3;
+   719                           
+   720                           ;incstack = 0
+   721                           ; Regs used in _stepper: [wreg+status,2+status,0]
+   722  00FF  3003               	movlw	3
+   723  0100  1283               	bcf	3,5	;RP0=0, select bank0
+   724  0101  1303               	bcf	3,6	;RP1=0, select bank0
+   725  0102  00A0               	movwf	??_stepper
+   726  0103  0820               	movf	??_stepper,w
+   727  0104  00A2               	movwf	stepper@i
+   728  0105                     l1031:	
+   729                           ;picMotores.c: 61: while (i!=0){
+   730                           
+   731  0105  0822               	movf	stepper@i,w
+   732  0106  1903               	btfsc	3,2
+   733  0107  0008               	return
    734                           
-   735                           ;picMotores.c: 88: _delay((unsigned long)((100)*(500000/4000.0)));
-   736  0111  3011               	movlw	17
-   737  0112  1283               	bcf	3,5	;RP0=0, select bank0
-   738  0113  1303               	bcf	3,6	;RP1=0, select bank0
-   739  0114  00A3               	movwf	??_move_servo+1
-   740  0115  3039               	movlw	57
-   741  0116  00A2               	movwf	??_move_servo
-   742  0117                     u847:	
-   743  0117  0BA2               	decfsz	??_move_servo,f
-   744  0118  2917               	goto	u847
-   745  0119  0BA3               	decfsz	??_move_servo+1,f
-   746  011A  2917               	goto	u847
-   747  011B  291C               	nop2
-   748                           
-   749                           ;picMotores.c: 89: if(pos==78){
-   750  011C  304E               	movlw	78
-   751  011D  0679               	xorwf	_pos,w
-   752  011E  1D03               	btfss	3,2
-   753  011F  2927               	goto	l888
-   754                           
-   755                           ;picMotores.c: 90: giro=0;
-   756  0120  01F6               	clrf	_giro
-   757                           
-   758                           ;picMotores.c: 91: pos=77;
-   759  0121  304D               	movlw	77
-   760  0122  1283               	bcf	3,5	;RP0=0, select bank0
-   761  0123  1303               	bcf	3,6	;RP1=0, select bank0
-   762  0124  00A2               	movwf	??_move_servo
-   763  0125  0822               	movf	??_move_servo,w
-   764  0126  00F9               	movwf	_pos
-   765  0127                     l888:	
-   766                           
-   767                           ;picMotores.c: 92: }
-   768                           ;picMotores.c: 93: }
-   769                           ;picMotores.c: 94: if (giro==2){
-   770  0127  3002               	movlw	2
-   771  0128  0676               	xorwf	_giro,w
-   772  0129  1D03               	btfss	3,2
-   773  012A  0008               	return
-   774                           
-   775                           ;picMotores.c: 95: pos--;
-   776  012B  3001               	movlw	1
-   777  012C  02F9               	subwf	_pos,f
+   735                           ;picMotores.c: 62: PORTB=0b0011;
+   736  0108  3003               	movlw	3
+   737  0109  0086               	movwf	6	;volatile
+   738                           
+   739                           ;picMotores.c: 63: _delay((unsigned long)((200)*(500000/4000.0)));
+   740  010A  3021               	movlw	33
+   741  010B  1283               	bcf	3,5	;RP0=0, select bank0
+   742  010C  1303               	bcf	3,6	;RP1=0, select bank0
+   743  010D  00A1               	movwf	??_stepper+1
+   744  010E  3075               	movlw	117
+   745  010F  00A0               	movwf	??_stepper
+   746  0110                     u1017:	
+   747  0110  0BA0               	decfsz	??_stepper,f
+   748  0111  2910               	goto	u1017
+   749  0112  0BA1               	decfsz	??_stepper+1,f
+   750  0113  2910               	goto	u1017
+   751  0114  2915               	nop2
+   752                           
+   753                           ;picMotores.c: 64: PORTB=0b0110;
+   754  0115  3006               	movlw	6
+   755  0116  1283               	bcf	3,5	;RP0=0, select bank0
+   756  0117  1303               	bcf	3,6	;RP1=0, select bank0
+   757  0118  0086               	movwf	6	;volatile
+   758                           
+   759                           ;picMotores.c: 65: _delay((unsigned long)((200)*(500000/4000.0)));
+   760  0119  3021               	movlw	33
+   761  011A  1283               	bcf	3,5	;RP0=0, select bank0
+   762  011B  1303               	bcf	3,6	;RP1=0, select bank0
+   763  011C  00A1               	movwf	??_stepper+1
+   764  011D  3075               	movlw	117
+   765  011E  00A0               	movwf	??_stepper
+   766  011F                     u1027:	
+   767  011F  0BA0               	decfsz	??_stepper,f
+   768  0120  291F               	goto	u1027
+   769  0121  0BA1               	decfsz	??_stepper+1,f
+   770  0122  291F               	goto	u1027
+   771  0123  2924               	nop2
+   772                           
+   773                           ;picMotores.c: 66: PORTB=0b1100;
+   774  0124  300C               	movlw	12
+   775  0125  1283               	bcf	3,5	;RP0=0, select bank0
+   776  0126  1303               	bcf	3,6	;RP1=0, select bank0
+   777  0127  0086               	movwf	6	;volatile
    778                           
-   779                           ;picMotores.c: 96: servo();
-   780  012D  120A  118A  217D  120A  118A  	fcall	_servo
-   781                           
-   782                           ;picMotores.c: 97: _delay((unsigned long)((100)*(500000/4000.0)));
-   783  0132  3011               	movlw	17
-   784  0133  1283               	bcf	3,5	;RP0=0, select bank0
-   785  0134  1303               	bcf	3,6	;RP1=0, select bank0
-   786  0135  00A3               	movwf	??_move_servo+1
-   787  0136  3039               	movlw	57
-   788  0137  00A2               	movwf	??_move_servo
-   789  0138                     u857:	
-   790  0138  0BA2               	decfsz	??_move_servo,f
-   791  0139  2938               	goto	u857
-   792  013A  0BA3               	decfsz	??_move_servo+1,f
-   793  013B  2938               	goto	u857
-   794  013C  293D               	nop2
-   795                           
-   796                           ;picMotores.c: 98: if(pos==19){
-   797  013D  3013               	movlw	19
-   798  013E  0679               	xorwf	_pos,w
-   799  013F  1D03               	btfss	3,2
-   800  0140  0008               	return
-   801                           
-   802                           ;picMotores.c: 99: giro=0;
-   803  0141  01F6               	clrf	_giro
-   804                           
-   805                           ;picMotores.c: 100: pos=20;
-   806  0142  3014               	movlw	20
-   807  0143  1283               	bcf	3,5	;RP0=0, select bank0
-   808  0144  1303               	bcf	3,6	;RP1=0, select bank0
-   809  0145  00A2               	movwf	??_move_servo
-   810  0146  0822               	movf	??_move_servo,w
-   811  0147  00F9               	movwf	_pos
-   812  0148  0008               	return
-   813  0149                     __end_of_move_servo:	
-   814                           ;picMotores.c: 101: }
-   815                           ;picMotores.c: 102: }
-   816                           ;picMotores.c: 103: return;
-   817                           
-   818                           
-   819                           	psect	text3
-   820  017D                     __ptext3:	
-   821 ;; *************** function _servo *****************
-   822 ;; Defined at:
-   823 ;;		line 77 in file "picMotores.c"
-   824 ;; Parameters:    Size  Location     Type
-   825 ;;		None
-   826 ;; Auto vars:     Size  Location     Type
-   827 ;;		None
-   828 ;; Return value:  Size  Location     Type
-   829 ;;                  1    wreg      void 
-   830 ;; Registers used:
-   831 ;;		wreg, status,2, status,0
-   832 ;; Tracked objects:
-   833 ;;		On entry : 0/0
-   834 ;;		On exit  : 0/0
-   835 ;;		Unchanged: 0/0
-   836 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   837 ;;      Params:         0       0       0       0       0
-   838 ;;      Locals:         0       0       0       0       0
-   839 ;;      Temps:          0       2       0       0       0
-   840 ;;      Totals:         0       2       0       0       0
-   841 ;;Total ram usage:        2 bytes
-   842 ;; Hardware stack levels used:    1
-   843 ;; Hardware stack levels required when called:    1
-   844 ;; This function calls:
-   845 ;;		Nothing
-   846 ;; This function is called by:
-   847 ;;		_move_servo
-   848 ;;		_main
-   849 ;; This function uses a non-reentrant model
-   850 ;;
-   851                           
-   852                           
-   853                           ;psect for function _servo
-   854  017D                     _servo:	
+   779                           ;picMotores.c: 67: _delay((unsigned long)((200)*(500000/4000.0)));
+   780  0128  3021               	movlw	33
+   781  0129  1283               	bcf	3,5	;RP0=0, select bank0
+   782  012A  1303               	bcf	3,6	;RP1=0, select bank0
+   783  012B  00A1               	movwf	??_stepper+1
+   784  012C  3075               	movlw	117
+   785  012D  00A0               	movwf	??_stepper
+   786  012E                     u1037:	
+   787  012E  0BA0               	decfsz	??_stepper,f
+   788  012F  292E               	goto	u1037
+   789  0130  0BA1               	decfsz	??_stepper+1,f
+   790  0131  292E               	goto	u1037
+   791  0132  2933               	nop2
+   792                           
+   793                           ;picMotores.c: 68: PORTB=0b1001;
+   794  0133  3009               	movlw	9
+   795  0134  1283               	bcf	3,5	;RP0=0, select bank0
+   796  0135  1303               	bcf	3,6	;RP1=0, select bank0
+   797  0136  0086               	movwf	6	;volatile
+   798                           
+   799                           ;picMotores.c: 69: _delay((unsigned long)((200)*(500000/4000.0)));
+   800  0137  3021               	movlw	33
+   801  0138  1283               	bcf	3,5	;RP0=0, select bank0
+   802  0139  1303               	bcf	3,6	;RP1=0, select bank0
+   803  013A  00A1               	movwf	??_stepper+1
+   804  013B  3075               	movlw	117
+   805  013C  00A0               	movwf	??_stepper
+   806  013D                     u1047:	
+   807  013D  0BA0               	decfsz	??_stepper,f
+   808  013E  293D               	goto	u1047
+   809  013F  0BA1               	decfsz	??_stepper+1,f
+   810  0140  293D               	goto	u1047
+   811  0141  2942               	nop2
+   812                           
+   813                           ;picMotores.c: 70: i--;
+   814  0142  3001               	movlw	1
+   815  0143  1283               	bcf	3,5	;RP0=0, select bank0
+   816  0144  1303               	bcf	3,6	;RP1=0, select bank0
+   817  0145  02A2               	subwf	stepper@i,f
+   818  0146  2905               	goto	l1031
+   819  0147                     __end_of_stepper:	
+   820                           ;picMotores.c: 71: }
+   821                           ;picMotores.c: 73: return;
+   822                           
+   823                           
+   824                           	psect	text2
+   825  0147                     __ptext2:	
+   826 ;; *************** function _move_servo *****************
+   827 ;; Defined at:
+   828 ;;		line 116 in file "picMotores.c"
+   829 ;; Parameters:    Size  Location     Type
+   830 ;;		None
+   831 ;; Auto vars:     Size  Location     Type
+   832 ;;		None
+   833 ;; Return value:  Size  Location     Type
+   834 ;;                  1    wreg      void 
+   835 ;; Registers used:
+   836 ;;		wreg, status,2, status,0, pclath, cstack
+   837 ;; Tracked objects:
+   838 ;;		On entry : 0/0
+   839 ;;		On exit  : 0/0
+   840 ;;		Unchanged: 0/0
+   841 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   842 ;;      Params:         0       0       0       0       0
+   843 ;;      Locals:         0       0       0       0       0
+   844 ;;      Temps:          0       2       0       0       0
+   845 ;;      Totals:         0       2       0       0       0
+   846 ;;Total ram usage:        2 bytes
+   847 ;; Hardware stack levels used:    1
+   848 ;; Hardware stack levels required when called:    2
+   849 ;; This function calls:
+   850 ;;		_servo
+   851 ;; This function is called by:
+   852 ;;		_main
+   853 ;; This function uses a non-reentrant model
+   854 ;;
    855                           
-   856                           ;picMotores.c: 78: CCP2CONbits.DC2B0=(pos)&(0b1);
-   857                           
-   858                           ;incstack = 0
-   859                           ; Regs used in _servo: [wreg+status,2+status,0]
-   860  017D  0879               	movf	_pos,w
-   861  017E  3901               	andlw	1
-   862  017F  1283               	bcf	3,5	;RP0=0, select bank0
-   863  0180  1303               	bcf	3,6	;RP1=0, select bank0
-   864  0181  00A0               	movwf	??_servo
-   865  0182  0EA0               	swapf	??_servo,f
-   866  0183  081D               	movf	29,w	;volatile
-   867  0184  0620               	xorwf	??_servo,w
-   868  0185  39EF               	andlw	-17
-   869  0186  0620               	xorwf	??_servo,w
-   870  0187  009D               	movwf	29	;volatile
-   871                           
-   872                           ;picMotores.c: 79: CCP2CONbits.DC2B1=(pos>>1)&(0b1);
-   873  0188  0879               	movf	_pos,w
-   874  0189  00A0               	movwf	??_servo
-   875  018A  1003               	clrc
-   876  018B  0C20               	rrf	??_servo,w
-   877  018C  3901               	andlw	1
-   878  018D  00A1               	movwf	??_servo+1
-   879  018E  0EA1               	swapf	??_servo+1,f
-   880  018F  0DA1               	rlf	??_servo+1,f
-   881  0190  081D               	movf	29,w	;volatile
-   882  0191  0621               	xorwf	??_servo+1,w
-   883  0192  39DF               	andlw	-33
-   884  0193  0621               	xorwf	??_servo+1,w
-   885  0194  009D               	movwf	29	;volatile
-   886                           
-   887                           ;picMotores.c: 80: CCPR2L=(pos>>2);
-   888  0195  0879               	movf	_pos,w
-   889  0196  00A0               	movwf	??_servo
-   890  0197  3002               	movlw	2
-   891  0198                     u525:	
-   892  0198  1003               	clrc
-   893  0199  0CA0               	rrf	??_servo,f
-   894  019A  3EFF               	addlw	-1
-   895  019B  1D03               	skipz
-   896  019C  2998               	goto	u525
-   897  019D  0820               	movf	??_servo,w
-   898  019E  009B               	movwf	27	;volatile
-   899  019F  0008               	return
-   900  01A0                     __end_of_servo:	
-   901                           ;picMotores.c: 81: return;
-   902                           
-   903                           
-   904                           	psect	text4
-   905  0149                     __ptext4:	
-   906 ;; *************** function _move_pwmDC *****************
-   907 ;; Defined at:
-   908 ;;		line 66 in file "picMotores.c"
-   909 ;; Parameters:    Size  Location     Type
-   910 ;;		None
-   911 ;; Auto vars:     Size  Location     Type
-   912 ;;		None
-   913 ;; Return value:  Size  Location     Type
-   914 ;;                  1    wreg      void 
-   915 ;; Registers used:
-   916 ;;		wreg, status,2, status,0
-   917 ;; Tracked objects:
-   918 ;;		On entry : 0/0
-   919 ;;		On exit  : 0/0
-   920 ;;		Unchanged: 0/0
-   921 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-   922 ;;      Params:         0       0       0       0       0
-   923 ;;      Locals:         0       0       0       0       0
-   924 ;;      Temps:          0       2       0       0       0
-   925 ;;      Totals:         0       2       0       0       0
-   926 ;;Total ram usage:        2 bytes
-   927 ;; Hardware stack levels used:    1
-   928 ;; Hardware stack levels required when called:    1
-   929 ;; This function calls:
-   930 ;;		Nothing
-   931 ;; This function is called by:
-   932 ;;		_main
-   933 ;; This function uses a non-reentrant model
-   934 ;;
-   935                           
-   936                           
-   937                           ;psect for function _move_pwmDC
-   938  0149                     _move_pwmDC:	
+   856                           
+   857                           ;psect for function _move_servo
+   858  0147                     _move_servo:	
+   859                           
+   860                           ;picMotores.c: 117: if (giro==1){
+   861                           
+   862                           ;incstack = 0
+   863                           ; Regs used in _move_servo: [wreg+status,2+status,0+pclath+cstack]
+   864  0147  0377               	decf	_giro,w
+   865  0148  1D03               	btfss	3,2
+   866  0149  296B               	goto	l1067
+   867                           
+   868                           ;picMotores.c: 118: pos++;
+   869  014A  3001               	movlw	1
+   870  014B  1283               	bcf	3,5	;RP0=0, select bank0
+   871  014C  1303               	bcf	3,6	;RP1=0, select bank0
+   872  014D  00A2               	movwf	??_move_servo
+   873  014E  0822               	movf	??_move_servo,w
+   874  014F  07F9               	addwf	_pos,f
+   875                           
+   876                           ;picMotores.c: 119: servo();
+   877  0150  120A  118A  21F6  120A  118A  	fcall	_servo
+   878                           
+   879                           ;picMotores.c: 120: _delay((unsigned long)((100)*(500000/4000.0)));
+   880  0155  3011               	movlw	17
+   881  0156  1283               	bcf	3,5	;RP0=0, select bank0
+   882  0157  1303               	bcf	3,6	;RP1=0, select bank0
+   883  0158  00A3               	movwf	??_move_servo+1
+   884  0159  3039               	movlw	57
+   885  015A  00A2               	movwf	??_move_servo
+   886  015B                     u1057:	
+   887  015B  0BA2               	decfsz	??_move_servo,f
+   888  015C  295B               	goto	u1057
+   889  015D  0BA3               	decfsz	??_move_servo+1,f
+   890  015E  295B               	goto	u1057
+   891  015F  2960               	nop2
+   892                           
+   893                           ;picMotores.c: 121: if(pos==78){
+   894  0160  304E               	movlw	78
+   895  0161  0679               	xorwf	_pos,w
+   896  0162  1D03               	btfss	3,2
+   897  0163  296B               	goto	l1067
+   898                           
+   899                           ;picMotores.c: 122: giro=0;
+   900  0164  01F7               	clrf	_giro
+   901                           
+   902                           ;picMotores.c: 123: pos=77;
+   903  0165  304D               	movlw	77
+   904  0166  1283               	bcf	3,5	;RP0=0, select bank0
+   905  0167  1303               	bcf	3,6	;RP1=0, select bank0
+   906  0168  00A2               	movwf	??_move_servo
+   907  0169  0822               	movf	??_move_servo,w
+   908  016A  00F9               	movwf	_pos
+   909  016B                     l1067:	
+   910                           
+   911                           ;picMotores.c: 124: }
+   912                           ;picMotores.c: 125: }
+   913                           ;picMotores.c: 126: if (giro==2){
+   914  016B  3002               	movlw	2
+   915  016C  0677               	xorwf	_giro,w
+   916  016D  1D03               	btfss	3,2
+   917  016E  0008               	return
+   918                           
+   919                           ;picMotores.c: 127: pos--;
+   920  016F  3001               	movlw	1
+   921  0170  02F9               	subwf	_pos,f
+   922                           
+   923                           ;picMotores.c: 128: servo();
+   924  0171  120A  118A  21F6  120A  118A  	fcall	_servo
+   925                           
+   926                           ;picMotores.c: 129: _delay((unsigned long)((100)*(500000/4000.0)));
+   927  0176  3011               	movlw	17
+   928  0177  1283               	bcf	3,5	;RP0=0, select bank0
+   929  0178  1303               	bcf	3,6	;RP1=0, select bank0
+   930  0179  00A3               	movwf	??_move_servo+1
+   931  017A  3039               	movlw	57
+   932  017B  00A2               	movwf	??_move_servo
+   933  017C                     u1067:	
+   934  017C  0BA2               	decfsz	??_move_servo,f
+   935  017D  297C               	goto	u1067
+   936  017E  0BA3               	decfsz	??_move_servo+1,f
+   937  017F  297C               	goto	u1067
+   938  0180  2981               	nop2
    939                           
-   940                           ;picMotores.c: 67: CCP1CON=0b00001100;
-   941                           
-   942                           ;incstack = 0
-   943                           ; Regs used in _move_pwmDC: [wreg+status,2+status,0]
-   944  0149  300C               	movlw	12
-   945  014A  1283               	bcf	3,5	;RP0=0, select bank0
-   946  014B  1303               	bcf	3,6	;RP1=0, select bank0
-   947  014C  0097               	movwf	23	;volatile
+   940                           ;picMotores.c: 130: if(pos==19){
+   941  0181  3013               	movlw	19
+   942  0182  0679               	xorwf	_pos,w
+   943  0183  1D03               	btfss	3,2
+   944  0184  0008               	return
+   945                           
+   946                           ;picMotores.c: 131: giro=0;
+   947  0185  01F7               	clrf	_giro
    948                           
-   949                           ;picMotores.c: 68: CCP1CONbits.DC1B0=(vel)&(0b1);
-   950  014D  0878               	movf	_vel,w
-   951  014E  3901               	andlw	1
-   952  014F  00A0               	movwf	??_move_pwmDC
-   953  0150  0EA0               	swapf	??_move_pwmDC,f
-   954  0151  0817               	movf	23,w	;volatile
-   955  0152  0620               	xorwf	??_move_pwmDC,w
-   956  0153  39EF               	andlw	-17
-   957  0154  0620               	xorwf	??_move_pwmDC,w
-   958  0155  0097               	movwf	23	;volatile
-   959                           
-   960                           ;picMotores.c: 69: CCP1CONbits.DC1B1=(vel>>1)&(0b1);
-   961  0156  0878               	movf	_vel,w
-   962  0157  00A0               	movwf	??_move_pwmDC
-   963  0158  1003               	clrc
-   964  0159  0C20               	rrf	??_move_pwmDC,w
-   965  015A  3901               	andlw	1
-   966  015B  00A1               	movwf	??_move_pwmDC+1
-   967  015C  0EA1               	swapf	??_move_pwmDC+1,f
-   968  015D  0DA1               	rlf	??_move_pwmDC+1,f
-   969  015E  0817               	movf	23,w	;volatile
-   970  015F  0621               	xorwf	??_move_pwmDC+1,w
-   971  0160  39DF               	andlw	-33
-   972  0161  0621               	xorwf	??_move_pwmDC+1,w
-   973  0162  0097               	movwf	23	;volatile
-   974                           
-   975                           ;picMotores.c: 70: CCPR1L=(vel>>2);
-   976  0163  0878               	movf	_vel,w
-   977  0164  00A0               	movwf	??_move_pwmDC
-   978  0165  3002               	movlw	2
-   979  0166                     u545:	
-   980  0166  1003               	clrc
-   981  0167  0CA0               	rrf	??_move_pwmDC,f
-   982  0168  3EFF               	addlw	-1
-   983  0169  1D03               	skipz
-   984  016A  2966               	goto	u545
-   985  016B  0820               	movf	??_move_pwmDC,w
-   986  016C  0095               	movwf	21	;volatile
-   987                           
-   988                           ;picMotores.c: 71: _delay((unsigned long)((1000)*(500000/4000.0)));
-   989  016D  30A3               	movlw	163
-   990  016E  1283               	bcf	3,5	;RP0=0, select bank0
-   991  016F  1303               	bcf	3,6	;RP1=0, select bank0
-   992  0170  00A1               	movwf	??_move_pwmDC+1
-   993  0171  3054               	movlw	84
-   994  0172  00A0               	movwf	??_move_pwmDC
-   995  0173                     u867:	
-   996  0173  0BA0               	decfsz	??_move_pwmDC,f
-   997  0174  2973               	goto	u867
-   998  0175  0BA1               	decfsz	??_move_pwmDC+1,f
-   999  0176  2973               	goto	u867
-  1000  0177  0000               	nop
+   949                           ;picMotores.c: 132: pos=20;
+   950  0186  3014               	movlw	20
+   951  0187  1283               	bcf	3,5	;RP0=0, select bank0
+   952  0188  1303               	bcf	3,6	;RP1=0, select bank0
+   953  0189  00A2               	movwf	??_move_servo
+   954  018A  0822               	movf	??_move_servo,w
+   955  018B  00F9               	movwf	_pos
+   956  018C  0008               	return
+   957  018D                     __end_of_move_servo:	
+   958                           ;picMotores.c: 133: }
+   959                           ;picMotores.c: 134: }
+   960                           ;picMotores.c: 135: return;
+   961                           
+   962                           
+   963                           	psect	text3
+   964  01F6                     __ptext3:	
+   965 ;; *************** function _servo *****************
+   966 ;; Defined at:
+   967 ;;		line 109 in file "picMotores.c"
+   968 ;; Parameters:    Size  Location     Type
+   969 ;;		None
+   970 ;; Auto vars:     Size  Location     Type
+   971 ;;		None
+   972 ;; Return value:  Size  Location     Type
+   973 ;;                  1    wreg      void 
+   974 ;; Registers used:
+   975 ;;		wreg, status,2, status,0
+   976 ;; Tracked objects:
+   977 ;;		On entry : 0/0
+   978 ;;		On exit  : 0/0
+   979 ;;		Unchanged: 0/0
+   980 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   981 ;;      Params:         0       0       0       0       0
+   982 ;;      Locals:         0       0       0       0       0
+   983 ;;      Temps:          0       2       0       0       0
+   984 ;;      Totals:         0       2       0       0       0
+   985 ;;Total ram usage:        2 bytes
+   986 ;; Hardware stack levels used:    1
+   987 ;; Hardware stack levels required when called:    1
+   988 ;; This function calls:
+   989 ;;		Nothing
+   990 ;; This function is called by:
+   991 ;;		_move_servo
+   992 ;;		_main
+   993 ;; This function uses a non-reentrant model
+   994 ;;
+   995                           
+   996                           
+   997                           ;psect for function _servo
+   998  01F6                     _servo:	
+   999                           
+  1000                           ;picMotores.c: 110: CCP2CONbits.DC2B0=(pos)&(0b1);
   1001                           
-  1002                           ;picMotores.c: 72: CCP1CON=0;
-  1003  0178  1283               	bcf	3,5	;RP0=0, select bank0
-  1004  0179  1303               	bcf	3,6	;RP1=0, select bank0
-  1005  017A  0197               	clrf	23	;volatile
-  1006                           
-  1007                           ;picMotores.c: 73: PORTCbits.RC2=0;
-  1008  017B  1107               	bcf	7,2	;volatile
-  1009  017C  0008               	return
-  1010  017D                     __end_of_move_pwmDC:	
-  1011                           ;picMotores.c: 74: return;
-  1012                           
-  1013                           
-  1014                           	psect	text5
-  1015  01A0                     __ptext5:	
-  1016 ;; *************** function _ISR *****************
-  1017 ;; Defined at:
-  1018 ;;		line 106 in file "picMotores.c"
-  1019 ;; Parameters:    Size  Location     Type
-  1020 ;;		None
-  1021 ;; Auto vars:     Size  Location     Type
-  1022 ;;		None
-  1023 ;; Return value:  Size  Location     Type
-  1024 ;;                  1    wreg      void 
-  1025 ;; Registers used:
-  1026 ;;		wreg
-  1027 ;; Tracked objects:
-  1028 ;;		On entry : 0/0
-  1029 ;;		On exit  : 0/0
-  1030 ;;		Unchanged: 0/0
-  1031 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-  1032 ;;      Params:         0       0       0       0       0
-  1033 ;;      Locals:         0       0       0       0       0
-  1034 ;;      Temps:          5       0       0       0       0
-  1035 ;;      Totals:         5       0       0       0       0
-  1036 ;;Total ram usage:        5 bytes
-  1037 ;; Hardware stack levels used:    1
-  1038 ;; This function calls:
-  1039 ;;		Nothing
-  1040 ;; This function is called by:
-  1041 ;;		Interrupt level 1
-  1042 ;; This function uses a non-reentrant model
-  1043 ;;
-  1044                           
-  1045                           
-  1046                           ;psect for function _ISR
-  1047  01A0                     _ISR:	
-  1048                           
-  1049                           ;picMotores.c: 107: if (PIR1bits.ADIF==1){
-  1050  01A0  1F0C               	btfss	12,6	;volatile
-  1051  01A1  29AE               	goto	i1l90
-  1052                           
-  1053                           ;picMotores.c: 108: PIR1bits.ADIF=0;
-  1054  01A2  130C               	bcf	12,6	;volatile
-  1055                           
-  1056                           ;picMotores.c: 110: ADC=ADRESH;
-  1057  01A3  081E               	movf	30,w	;volatile
-  1058  01A4  00F0               	movwf	??_ISR
-  1059  01A5  0870               	movf	??_ISR,w
-  1060  01A6  00A5               	movwf	_ADC
-  1061                           
-  1062                           ;picMotores.c: 111: _delay((unsigned long)((2)*(500000/4000.0)));
-  1063  01A7  3053               	movlw	83
-  1064  01A8  00F0               	movwf	??_ISR
-  1065  01A9                     u87_27:	
-  1066  01A9  0BF0               	decfsz	??_ISR,f
-  1067  01AA  29A9               	goto	u87_27
-  1068                           
-  1069                           ;picMotores.c: 112: ADCON0bits.GO=1;
-  1070  01AB  1283               	bcf	3,5	;RP0=0, select bank0
-  1071  01AC  1303               	bcf	3,6	;RP1=0, select bank0
-  1072  01AD  149F               	bsf	31,1	;volatile
-  1073  01AE                     i1l90:	
-  1074                           ;picMotores.c: 113: }
-  1075                           ;picMotores.c: 114: return;
-  1076                           
-  1077  01AE  0874               	movf	??_ISR+4,w
-  1078  01AF  00FF               	movwf	127
-  1079  01B0  0873               	movf	??_ISR+3,w
-  1080  01B1  008A               	movwf	10
-  1081  01B2  0872               	movf	??_ISR+2,w
-  1082  01B3  0084               	movwf	4
-  1083  01B4  0E71               	swapf	(??_ISR+1)^(0+-128),w
-  1084  01B5  0083               	movwf	3
-  1085  01B6  0EFE               	swapf	126,f
-  1086  01B7  0E7E               	swapf	126,w
-  1087  01B8  0009               	retfie
-  1088  01B9                     __end_of_ISR:	
-  1089  007E                     btemp	set	126	;btemp
-  1090  007E                     wtemp0	set	126
-  1091                           
-  1092                           	psect	intentry
-  1093  0004                     __pintentry:	
-  1094                           ;incstack = 0
-  1095                           ; Regs used in _ISR: [wreg]
-  1096                           
-  1097  0004                     interrupt_function:	
-  1098  007E                     saved_w	set	btemp
-  1099  0004  00FE               	movwf	btemp
-  1100  0005  0E03               	swapf	3,w
-  1101  0006  00F1               	movwf	??_ISR+1
-  1102  0007  0804               	movf	4,w
-  1103  0008  00F2               	movwf	??_ISR+2
-  1104  0009  080A               	movf	10,w
-  1105  000A  00F3               	movwf	??_ISR+3
-  1106  000B  1283               	bcf	3,5	;RP0=0, select bank0
-  1107  000C  1303               	bcf	3,6	;RP1=0, select bank0
-  1108  000D  087F               	movf	btemp+1,w
-  1109  000E  00F4               	movwf	??_ISR+4
-  1110  000F  120A  118A  29A0   	ljmp	_ISR
+  1002                           ;incstack = 0
+  1003                           ; Regs used in _servo: [wreg+status,2+status,0]
+  1004  01F6  0879               	movf	_pos,w
+  1005  01F7  3901               	andlw	1
+  1006  01F8  1283               	bcf	3,5	;RP0=0, select bank0
+  1007  01F9  1303               	bcf	3,6	;RP1=0, select bank0
+  1008  01FA  00A0               	movwf	??_servo
+  1009  01FB  0EA0               	swapf	??_servo,f
+  1010  01FC  081D               	movf	29,w	;volatile
+  1011  01FD  0620               	xorwf	??_servo,w
+  1012  01FE  39EF               	andlw	-17
+  1013  01FF  0620               	xorwf	??_servo,w
+  1014  0200  009D               	movwf	29	;volatile
+  1015                           
+  1016                           ;picMotores.c: 111: CCP2CONbits.DC2B1=(pos>>1)&(0b1);
+  1017  0201  0879               	movf	_pos,w
+  1018  0202  00A0               	movwf	??_servo
+  1019  0203  1003               	clrc
+  1020  0204  0C20               	rrf	??_servo,w
+  1021  0205  3901               	andlw	1
+  1022  0206  00A1               	movwf	??_servo+1
+  1023  0207  0EA1               	swapf	??_servo+1,f
+  1024  0208  0DA1               	rlf	??_servo+1,f
+  1025  0209  081D               	movf	29,w	;volatile
+  1026  020A  0621               	xorwf	??_servo+1,w
+  1027  020B  39DF               	andlw	-33
+  1028  020C  0621               	xorwf	??_servo+1,w
+  1029  020D  009D               	movwf	29	;volatile
+  1030                           
+  1031                           ;picMotores.c: 112: CCPR2L=(pos>>2);
+  1032  020E  0879               	movf	_pos,w
+  1033  020F  00A0               	movwf	??_servo
+  1034  0210  3002               	movlw	2
+  1035  0211                     u685:	
+  1036  0211  1003               	clrc
+  1037  0212  0CA0               	rrf	??_servo,f
+  1038  0213  3EFF               	addlw	-1
+  1039  0214  1D03               	skipz
+  1040  0215  2A11               	goto	u685
+  1041  0216  0820               	movf	??_servo,w
+  1042  0217  009B               	movwf	27	;volatile
+  1043  0218  0008               	return
+  1044  0219                     __end_of_servo:	
+  1045                           ;picMotores.c: 113: return;
+  1046                           
+  1047                           
+  1048                           	psect	text4
+  1049  018D                     __ptext4:	
+  1050 ;; *************** function _move_pwmDC *****************
+  1051 ;; Defined at:
+  1052 ;;		line 96 in file "picMotores.c"
+  1053 ;; Parameters:    Size  Location     Type
+  1054 ;;		None
+  1055 ;; Auto vars:     Size  Location     Type
+  1056 ;;		None
+  1057 ;; Return value:  Size  Location     Type
+  1058 ;;                  1    wreg      void 
+  1059 ;; Registers used:
+  1060 ;;		wreg, status,2, status,0, pclath, cstack
+  1061 ;; Tracked objects:
+  1062 ;;		On entry : 0/0
+  1063 ;;		On exit  : 0/0
+  1064 ;;		Unchanged: 0/0
+  1065 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1066 ;;      Params:         0       0       0       0       0
+  1067 ;;      Locals:         0       0       0       0       0
+  1068 ;;      Temps:          0       2       0       0       0
+  1069 ;;      Totals:         0       2       0       0       0
+  1070 ;;Total ram usage:        2 bytes
+  1071 ;; Hardware stack levels used:    1
+  1072 ;; Hardware stack levels required when called:    2
+  1073 ;; This function calls:
+  1074 ;;		_calibracion_presion
+  1075 ;;		_medicion_presion
+  1076 ;; This function is called by:
+  1077 ;;		_main
+  1078 ;; This function uses a non-reentrant model
+  1079 ;;
+  1080                           
+  1081                           
+  1082                           ;psect for function _move_pwmDC
+  1083  018D                     _move_pwmDC:	
+  1084                           
+  1085                           ;picMotores.c: 97: CCP1CON=0b00001100;
+  1086                           
+  1087                           ;incstack = 0
+  1088                           ; Regs used in _move_pwmDC: [wreg+status,2+status,0+pclath+cstack]
+  1089  018D  300C               	movlw	12
+  1090  018E  1283               	bcf	3,5	;RP0=0, select bank0
+  1091  018F  1303               	bcf	3,6	;RP1=0, select bank0
+  1092  0190  0097               	movwf	23	;volatile
+  1093                           
+  1094                           ;picMotores.c: 98: CCP1CONbits.DC1B0=(vel)&(0b1);
+  1095  0191  082C               	movf	_vel,w
+  1096  0192  3901               	andlw	1
+  1097  0193  00A5               	movwf	??_move_pwmDC
+  1098  0194  0EA5               	swapf	??_move_pwmDC,f
+  1099  0195  0817               	movf	23,w	;volatile
+  1100  0196  0625               	xorwf	??_move_pwmDC,w
+  1101  0197  39EF               	andlw	-17
+  1102  0198  0625               	xorwf	??_move_pwmDC,w
+  1103  0199  0097               	movwf	23	;volatile
+  1104                           
+  1105                           ;picMotores.c: 99: CCP1CONbits.DC1B1=(vel>>1)&(0b1);
+  1106  019A  082C               	movf	_vel,w
+  1107  019B  00A5               	movwf	??_move_pwmDC
+  1108  019C  1003               	clrc
+  1109  019D  0C25               	rrf	??_move_pwmDC,w
+  1110  019E  3901               	andlw	1
+  1111  019F  00A6               	movwf	??_move_pwmDC+1
+  1112  01A0  0EA6               	swapf	??_move_pwmDC+1,f
+  1113  01A1  0DA6               	rlf	??_move_pwmDC+1,f
+  1114  01A2  0817               	movf	23,w	;volatile
+  1115  01A3  0626               	xorwf	??_move_pwmDC+1,w
+  1116  01A4  39DF               	andlw	-33
+  1117  01A5  0626               	xorwf	??_move_pwmDC+1,w
+  1118  01A6  0097               	movwf	23	;volatile
+  1119                           
+  1120                           ;picMotores.c: 100: CCPR1L=(vel>>2);
+  1121  01A7  082C               	movf	_vel,w
+  1122  01A8  00A5               	movwf	??_move_pwmDC
+  1123  01A9  3002               	movlw	2
+  1124  01AA                     u705:	
+  1125  01AA  1003               	clrc
+  1126  01AB  0CA5               	rrf	??_move_pwmDC,f
+  1127  01AC  3EFF               	addlw	-1
+  1128  01AD  1D03               	skipz
+  1129  01AE  29AA               	goto	u705
+  1130  01AF  0825               	movf	??_move_pwmDC,w
+  1131  01B0  0095               	movwf	21	;volatile
+  1132                           
+  1133                           ;picMotores.c: 101: calibracion_presion();
+  1134  01B1  120A  118A  2232  120A  118A  	fcall	_calibracion_presion
+  1135  01B6                     l1045:	
+  1136                           ;picMotores.c: 102: while (medicion_presion()!=1){
+  1137                           
+  1138  01B6  120A  118A  21CE  120A  118A  	fcall	_medicion_presion
+  1139  01BB  3A01               	xorlw	1
+  1140  01BC  1903               	btfsc	3,2
+  1141  01BD  29C9               	goto	l1047
+  1142                           
+  1143                           ;picMotores.c: 103: _delay((unsigned long)((500)*(500000/4000.0)));}
+  1144  01BE  3052               	movlw	82
+  1145  01BF  1283               	bcf	3,5	;RP0=0, select bank0
+  1146  01C0  1303               	bcf	3,6	;RP1=0, select bank0
+  1147  01C1  00A6               	movwf	??_move_pwmDC+1
+  1148  01C2  3029               	movlw	41
+  1149  01C3  00A5               	movwf	??_move_pwmDC
+  1150  01C4                     u1077:	
+  1151  01C4  0BA5               	decfsz	??_move_pwmDC,f
+  1152  01C5  29C4               	goto	u1077
+  1153  01C6  0BA6               	decfsz	??_move_pwmDC+1,f
+  1154  01C7  29C4               	goto	u1077
+  1155  01C8  29B6               	goto	l1045
+  1156  01C9                     l1047:	
+  1157                           
+  1158                           ;picMotores.c: 104: CCP1CON=0;
+  1159  01C9  1283               	bcf	3,5	;RP0=0, select bank0
+  1160  01CA  1303               	bcf	3,6	;RP1=0, select bank0
+  1161  01CB  0197               	clrf	23	;volatile
+  1162                           
+  1163                           ;picMotores.c: 105: PORTCbits.RC2=0;
+  1164  01CC  1107               	bcf	7,2	;volatile
+  1165  01CD  0008               	return
+  1166  01CE                     __end_of_move_pwmDC:	
+  1167                           ;picMotores.c: 106: return;
+  1168                           
+  1169                           
+  1170                           	psect	text5
+  1171  01CE                     __ptext5:	
+  1172 ;; *************** function _medicion_presion *****************
+  1173 ;; Defined at:
+  1174 ;;		line 31 in file "picMotores.c"
+  1175 ;; Parameters:    Size  Location     Type
+  1176 ;;		None
+  1177 ;; Auto vars:     Size  Location     Type
+  1178 ;;  objeto          1    4[BANK0 ] unsigned char 
+  1179 ;;  numero          1    3[BANK0 ] unsigned char 
+  1180 ;; Return value:  Size  Location     Type
+  1181 ;;                  1    wreg      unsigned char 
+  1182 ;; Registers used:
+  1183 ;;		wreg, status,2
+  1184 ;; Tracked objects:
+  1185 ;;		On entry : 0/0
+  1186 ;;		On exit  : 0/0
+  1187 ;;		Unchanged: 0/0
+  1188 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1189 ;;      Params:         0       0       0       0       0
+  1190 ;;      Locals:         0       2       0       0       0
+  1191 ;;      Temps:          0       3       0       0       0
+  1192 ;;      Totals:         0       5       0       0       0
+  1193 ;;Total ram usage:        5 bytes
+  1194 ;; Hardware stack levels used:    1
+  1195 ;; Hardware stack levels required when called:    1
+  1196 ;; This function calls:
+  1197 ;;		Nothing
+  1198 ;; This function is called by:
+  1199 ;;		_move_pwmDC
+  1200 ;;		_main
+  1201 ;; This function uses a non-reentrant model
+  1202 ;;
+  1203                           
+  1204                           
+  1205                           ;psect for function _medicion_presion
+  1206  01CE                     _medicion_presion:	
+  1207                           
+  1208                           ;picMotores.c: 32: char numero=0;
+  1209                           
+  1210                           ;incstack = 0
+  1211                           ; Regs used in _medicion_presion: [wreg+status,2]
+  1212  01CE  1283               	bcf	3,5	;RP0=0, select bank0
+  1213  01CF  1303               	bcf	3,6	;RP1=0, select bank0
+  1214  01D0  01A3               	clrf	medicion_presion@numero
+  1215                           
+  1216                           ;picMotores.c: 33: char objeto=0;
+  1217  01D1  01A4               	clrf	medicion_presion@objeto
+  1218                           
+  1219                           ;picMotores.c: 34: ADCON0bits.GO=1;
+  1220  01D2  149F               	bsf	31,1	;volatile
+  1221  01D3                     l88:	
+  1222                           ;picMotores.c: 35: while(PIR1bits.ADIF==0){
+  1223                           
+  1224                           
+  1225                           ;picMotores.c: 36: _delay((unsigned long)((1)*(500000/4000000.0)));
+  1226  01D3  1283               	bcf	3,5	;RP0=0, select bank0
+  1227  01D4  1303               	bcf	3,6	;RP1=0, select bank0
+  1228  01D5  1F0C               	btfss	12,6	;volatile
+  1229  01D6  29D3               	goto	l88
+  1230                           
+  1231                           ;picMotores.c: 37: }
+  1232                           ;picMotores.c: 38: PIR1bits.ADIF=0;
+  1233  01D7  130C               	bcf	12,6	;volatile
+  1234                           
+  1235                           ;picMotores.c: 39: numero=ADRESH;
+  1236  01D8  081E               	movf	30,w	;volatile
+  1237  01D9  00A0               	movwf	??_medicion_presion
+  1238  01DA  0820               	movf	??_medicion_presion,w
+  1239  01DB  00A3               	movwf	medicion_presion@numero
+  1240                           
+  1241                           ;picMotores.c: 40: if (numero > (presion_zero+3)){
+  1242  01DC  082A               	movf	_presion_zero,w
+  1243  01DD  3E03               	addlw	3
+  1244  01DE  00A0               	movwf	??_medicion_presion
+  1245  01DF  3000               	movlw	0
+  1246  01E0  1803               	skipnc
+  1247  01E1  3001               	movlw	1
+  1248  01E2  00A1               	movwf	??_medicion_presion+1
+  1249  01E3  0821               	movf	??_medicion_presion+1,w
+  1250  01E4  3A80               	xorlw	128
+  1251  01E5  00A2               	movwf	??_medicion_presion+2
+  1252  01E6  3080               	movlw	128
+  1253  01E7  0222               	subwf	??_medicion_presion+2,w
+  1254  01E8  1D03               	skipz
+  1255  01E9  29EC               	goto	u665
+  1256  01EA  0823               	movf	medicion_presion@numero,w
+  1257  01EB  0220               	subwf	??_medicion_presion,w
+  1258  01EC                     u665:	
+  1259  01EC  1803               	skipnc
+  1260  01ED  29F2               	goto	l1009
+  1261                           
+  1262                           ;picMotores.c: 41: objeto = 1;
+  1263  01EE  1283               	bcf	3,5	;RP0=0, select bank0
+  1264  01EF  1303               	bcf	3,6	;RP1=0, select bank0
+  1265  01F0  01A4               	clrf	medicion_presion@objeto
+  1266  01F1  0AA4               	incf	medicion_presion@objeto,f
+  1267  01F2                     l1009:	
+  1268                           
+  1269                           ;picMotores.c: 42: }
+  1270                           ;picMotores.c: 43: return objeto;
+  1271  01F2  1283               	bcf	3,5	;RP0=0, select bank0
+  1272  01F3  1303               	bcf	3,6	;RP1=0, select bank0
+  1273  01F4  0824               	movf	medicion_presion@objeto,w
+  1274  01F5  0008               	return
+  1275  01F6                     __end_of_medicion_presion:	
+  1276                           
+  1277                           	psect	text6
+  1278  0232                     __ptext6:	
+  1279 ;; *************** function _calibracion_presion *****************
+  1280 ;; Defined at:
+  1281 ;;		line 46 in file "picMotores.c"
+  1282 ;; Parameters:    Size  Location     Type
+  1283 ;;		None
+  1284 ;; Auto vars:     Size  Location     Type
+  1285 ;;  numero          1    1[BANK0 ] unsigned char 
+  1286 ;; Return value:  Size  Location     Type
+  1287 ;;                  1    wreg      void 
+  1288 ;; Registers used:
+  1289 ;;		wreg, status,2
+  1290 ;; Tracked objects:
+  1291 ;;		On entry : 0/0
+  1292 ;;		On exit  : 0/0
+  1293 ;;		Unchanged: 0/0
+  1294 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1295 ;;      Params:         0       0       0       0       0
+  1296 ;;      Locals:         0       1       0       0       0
+  1297 ;;      Temps:          0       1       0       0       0
+  1298 ;;      Totals:         0       2       0       0       0
+  1299 ;;Total ram usage:        2 bytes
+  1300 ;; Hardware stack levels used:    1
+  1301 ;; Hardware stack levels required when called:    1
+  1302 ;; This function calls:
+  1303 ;;		Nothing
+  1304 ;; This function is called by:
+  1305 ;;		_move_pwmDC
+  1306 ;;		_main
+  1307 ;; This function uses a non-reentrant model
+  1308 ;;
+  1309                           
+  1310                           
+  1311                           ;psect for function _calibracion_presion
+  1312  0232                     _calibracion_presion:	
+  1313                           
+  1314                           ;picMotores.c: 47: char numero=0;
+  1315                           
+  1316                           ;incstack = 0
+  1317                           ; Regs used in _calibracion_presion: [wreg+status,2]
+  1318  0232  1283               	bcf	3,5	;RP0=0, select bank0
+  1319  0233  1303               	bcf	3,6	;RP1=0, select bank0
+  1320  0234  01A1               	clrf	calibracion_presion@numero
+  1321                           
+  1322                           ;picMotores.c: 48: ADCON0bits.GO=1;
+  1323  0235  149F               	bsf	31,1	;volatile
+  1324  0236                     l95:	
+  1325                           ;picMotores.c: 49: while(PIR1bits.ADIF==0){
+  1326                           
+  1327                           
+  1328                           ;picMotores.c: 50: _delay((unsigned long)((1)*(500000/4000000.0)));
+  1329  0236  1283               	bcf	3,5	;RP0=0, select bank0
+  1330  0237  1303               	bcf	3,6	;RP1=0, select bank0
+  1331  0238  1F0C               	btfss	12,6	;volatile
+  1332  0239  2A36               	goto	l95
+  1333                           
+  1334                           ;picMotores.c: 51: }
+  1335                           ;picMotores.c: 52: PIR1bits.ADIF=0;
+  1336  023A  130C               	bcf	12,6	;volatile
+  1337                           
+  1338                           ;picMotores.c: 53: numero=ADRESH;
+  1339  023B  081E               	movf	30,w	;volatile
+  1340  023C  00A0               	movwf	??_calibracion_presion
+  1341  023D  0820               	movf	??_calibracion_presion,w
+  1342  023E  00A1               	movwf	calibracion_presion@numero
+  1343                           
+  1344                           ;picMotores.c: 54: presion_zero=numero;
+  1345  023F  0821               	movf	calibracion_presion@numero,w
+  1346  0240  00A0               	movwf	??_calibracion_presion
+  1347  0241  0820               	movf	??_calibracion_presion,w
+  1348  0242  00AA               	movwf	_presion_zero
+  1349                           
+  1350                           ;picMotores.c: 55: PORTD=numero;
+  1351  0243  0821               	movf	calibracion_presion@numero,w
+  1352  0244  0088               	movwf	8	;volatile
+  1353  0245  0008               	return
+  1354  0246                     __end_of_calibracion_presion:	
+  1355                           ;picMotores.c: 56: return;
+  1356                           
+  1357                           
+  1358                           	psect	text7
+  1359  0219                     __ptext7:	
+  1360 ;; *************** function _ISR *****************
+  1361 ;; Defined at:
+  1362 ;;		line 139 in file "picMotores.c"
+  1363 ;; Parameters:    Size  Location     Type
+  1364 ;;		None
+  1365 ;; Auto vars:     Size  Location     Type
+  1366 ;;		None
+  1367 ;; Return value:  Size  Location     Type
+  1368 ;;                  1    wreg      void 
+  1369 ;; Registers used:
+  1370 ;;		wreg
+  1371 ;; Tracked objects:
+  1372 ;;		On entry : 0/0
+  1373 ;;		On exit  : 0/0
+  1374 ;;		Unchanged: 0/0
+  1375 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1376 ;;      Params:         0       0       0       0       0
+  1377 ;;      Locals:         0       0       0       0       0
+  1378 ;;      Temps:          5       0       0       0       0
+  1379 ;;      Totals:         5       0       0       0       0
+  1380 ;;Total ram usage:        5 bytes
+  1381 ;; Hardware stack levels used:    1
+  1382 ;; This function calls:
+  1383 ;;		Nothing
+  1384 ;; This function is called by:
+  1385 ;;		Interrupt level 1
+  1386 ;; This function uses a non-reentrant model
+  1387 ;;
+  1388                           
+  1389                           
+  1390                           ;psect for function _ISR
+  1391  0219                     _ISR:	
+  1392                           
+  1393                           ;picMotores.c: 140: if (PIR1bits.ADIF==1){
+  1394  0219  1F0C               	btfss	12,6	;volatile
+  1395  021A  2A27               	goto	i1l126
+  1396                           
+  1397                           ;picMotores.c: 141: PIR1bits.ADIF=0;
+  1398  021B  130C               	bcf	12,6	;volatile
+  1399                           
+  1400                           ;picMotores.c: 143: ADC=ADRESH;
+  1401  021C  081E               	movf	30,w	;volatile
+  1402  021D  00F0               	movwf	??_ISR
+  1403  021E  0870               	movf	??_ISR,w
+  1404  021F  00AB               	movwf	_ADC
+  1405                           
+  1406                           ;picMotores.c: 144: _delay((unsigned long)((2)*(500000/4000.0)));
+  1407  0220  3053               	movlw	83
+  1408  0221  00F0               	movwf	??_ISR
+  1409  0222                     u108_27:	
+  1410  0222  0BF0               	decfsz	??_ISR,f
+  1411  0223  2A22               	goto	u108_27
+  1412                           
+  1413                           ;picMotores.c: 145: ADCON0bits.GO=1;
+  1414  0224  1283               	bcf	3,5	;RP0=0, select bank0
+  1415  0225  1303               	bcf	3,6	;RP1=0, select bank0
+  1416  0226  149F               	bsf	31,1	;volatile
+  1417  0227                     i1l126:	
+  1418                           ;picMotores.c: 146: }
+  1419                           ;picMotores.c: 147: return;
+  1420                           
+  1421  0227  0874               	movf	??_ISR+4,w
+  1422  0228  00FF               	movwf	127
+  1423  0229  0873               	movf	??_ISR+3,w
+  1424  022A  008A               	movwf	10
+  1425  022B  0872               	movf	??_ISR+2,w
+  1426  022C  0084               	movwf	4
+  1427  022D  0E71               	swapf	(??_ISR+1)^(0+-128),w
+  1428  022E  0083               	movwf	3
+  1429  022F  0EFE               	swapf	126,f
+  1430  0230  0E7E               	swapf	126,w
+  1431  0231  0009               	retfie
+  1432  0232                     __end_of_ISR:	
+  1433  007E                     btemp	set	126	;btemp
+  1434  007E                     wtemp0	set	126
+  1435                           
+  1436                           	psect	intentry
+  1437  0004                     __pintentry:	
+  1438                           ;incstack = 0
+  1439                           ; Regs used in _ISR: [wreg]
+  1440                           
+  1441  0004                     interrupt_function:	
+  1442  007E                     saved_w	set	btemp
+  1443  0004  00FE               	movwf	btemp
+  1444  0005  0E03               	swapf	3,w
+  1445  0006  00F1               	movwf	??_ISR+1
+  1446  0007  0804               	movf	4,w
+  1447  0008  00F2               	movwf	??_ISR+2
+  1448  0009  080A               	movf	10,w
+  1449  000A  00F3               	movwf	??_ISR+3
+  1450  000B  1283               	bcf	3,5	;RP0=0, select bank0
+  1451  000C  1303               	bcf	3,6	;RP1=0, select bank0
+  1452  000D  087F               	movf	btemp+1,w
+  1453  000E  00F4               	movwf	??_ISR+4
+  1454  000F  120A  118A  2A19   	ljmp	_ISR
 
 
 Data Sizes:
     Strings     0
     Constant    0
     Data        2
-    BSS         4
+    BSS         6
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
     COMMON           14      5      10
-    BANK0            80      5       6
+    BANK0            80     10      13
     BANK1            80      0       0
     BANK3            96      0       0
     BANK2            96      0       0
@@ -1154,8 +1498,9 @@ Critical Paths under _ISR in COMMON
 
 Critical Paths under _main in BANK0
 
-    _main->_move_servo
+    _main->_move_pwmDC
     _move_servo->_servo
+    _move_pwmDC->_medicion_presion
 
 Critical Paths under _ISR in BANK0
 
@@ -1190,8 +1535,10 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 1     1      0      24
-                                              4 BANK0      1     1      0
+ (0) _main                                                 3     3      0     308
+                                              7 BANK0      3     3      0
+                _calibracion_presion
+                   _medicion_presion
                          _move_pwmDC
                          _move_servo
                               _servo
@@ -1207,10 +1554,18 @@ Call Graph Tables:
  (1) _servo                                                2     2      0       0
                                               0 BANK0      2     2      0
  ---------------------------------------------------------------------------------
- (1) _move_pwmDC                                           2     2      0       0
+ (1) _move_pwmDC                                           2     2      0     142
+                                              5 BANK0      2     2      0
+                _calibracion_presion
+                   _medicion_presion
+ ---------------------------------------------------------------------------------
+ (2) _medicion_presion                                     5     5      0      74
+                                              0 BANK0      5     5      0
+ ---------------------------------------------------------------------------------
+ (2) _calibracion_presion                                  2     2      0      68
                                               0 BANK0      2     2      0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 1
+ Estimated maximum stack depth 2
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
@@ -1223,7 +1578,11 @@ Call Graph Tables:
  Call Graph Graphs:
 
  _main (ROOT)
+   _calibracion_presion
+   _medicion_presion
    _move_pwmDC
+     _calibracion_presion
+     _medicion_presion
    _move_servo
      _servo
    _servo
@@ -1245,62 +1604,75 @@ BANK1               50      0       0       7        0.0%
 BITBANK1            50      0       0       6        0.0%
 SFR1                 0      0       0       2        0.0%
 BITSFR1              0      0       0       2        0.0%
-BANK0               50      5       6       5        7.5%
+BANK0               50      A       D       5       16.3%
 BITBANK0            50      0       0       4        0.0%
 SFR0                 0      0       0       1        0.0%
 BITSFR0              0      0       0       1        0.0%
 COMMON               E      5       A       1       71.4%
 BITCOMMON            E      0       0       0        0.0%
 CODE                 0      0       0       0        0.0%
-DATA                 0      0      10      12        0.0%
-ABS                  0      0      10       3        0.0%
+DATA                 0      0      17      12        0.0%
+ABS                  0      0      17       3        0.0%
 NULL                 0      0       0       0        0.0%
 STACK                0      0       0       2        0.0%
 EEDATA             100      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V1.41 build -162212810 
-Symbol Table                                                                                   Tue May 30 15:48:53 2017
+Symbol Table                                                                                   Wed May 31 18:59:27 2017
 
-             __CFG_CP$OFF 0000               _SSPSTATbits 0094                       l111 0086  
-                     l104 006F                       l118 0098                       _ADC 0025  
-                     l940 005D                       l934 0055                       l856 00C1  
-                     l938 005C                       l980 00A2                       l948 0067  
-                     l958 007A                       l888 0127                       l984 00A9  
-                     l968 008E                       l986 00AE                       _PR2 0092  
-            __CFG_CPD$OFF 0000                       _ISR 01A0                       u525 0198  
-                     u545 0166                       u807 00CC                       u817 00DB  
-                     u827 00EA                       u837 00F9                       u847 0117  
-                     u857 0138                       u867 0173                       _vel 0078  
-                     _pos 0079                       fsr0 0004              __CFG_LVP$OFF 0000  
-                    ?_ISR 0070                      i1l90 01AE              __CFG_WRT$OFF 0000  
-                    _main 0027                      _giro 0076                      btemp 007E  
-                    start 0012             __CFG_IESO$OFF 0000             __CFG_MCLRE$ON 0000  
-                   ??_ISR 0070                     ?_main 0070             __CFG_WDTE$OFF 0000  
-                   _ANSEL 0188                     _T2CON 0012                     _PORTB 0006  
-                   _PORTD 0008                     _TRISB 0086                     _TRISC 0087  
-                   _TRISD 0088                     u87_27 01A9            __CFG_FCMEN$OFF 0000  
-                   _servo 017D            __CFG_BOREN$OFF 0000                     pclath 000A  
-                   status 0003           __end_of_stepper 0103                     wtemp0 007E  
-         __initialization 0015              __end_of_main 00BB                    ??_main 0024  
-                  _ADRESH 001E                    _CCPR1L 0015                    _CCPR2L 001B  
-                  ?_servo 0070                    _ANSELH 0189                    _OSCCON 008F  
-                  _SSPCON 0014                    _SSPBUF 0013            __CFG_PWRTE$OFF 0000  
-                  _accion 0075                    _puerta 0077              __pdataCOMMON 0078  
-                  saved_w 007E                 ??_stepper 0020   __end_of__initialization 0023  
-          __pcstackCOMMON 0070             __end_of_servo 01A0                   ??_servo 0020  
-              __pbssBANK0 0025                __pmaintext 0027                __pintentry 0004  
-                 _CCP1CON 0017                   _CCP2CON 001D                   _SSPSTAT 0094  
-                 __ptext1 00BB                   __ptext2 0103                   __ptext3 017D  
-                 __ptext4 0149                   __ptext5 01A0              __size_of_ISR 0019  
-                 _stepper 00BB      end_of_initialization 0023                _move_pwmDC 0149  
-              _move_servo 0103                 _PORTBbits 0006                 _PORTCbits 0007  
-             _CCP1CONbits 0017               _CCP2CONbits 001D             __pidataCOMMON 01B9  
-     start_initialization 0015               __end_of_ISR 01B9  __CFG_FOSC$INTRC_NOCLKOUT 0000  
-             ?_move_pwmDC 0070               ?_move_servo 0070               __pbssCOMMON 0075  
-               ___latbits 0002             __pcstackBANK0 0020       __size_of_move_pwmDC 0034  
-     __size_of_move_servo 0046                  ?_stepper 0070            __size_of_servo 0023  
-       interrupt_function 0004                  _PIR1bits 000C                _ADCON0bits 001F  
-       __CFG_BOR4V$BOR40V 0000          __size_of_stepper 0048             __size_of_main 0094  
-            ??_move_pwmDC 0020              ??_move_servo 0022        __end_of_move_pwmDC 017D  
-      __end_of_move_servo 0149                  intlevel1 0000                  stepper@i 0022  
+                 __CFG_CP$OFF 0000                   _SSPSTATbits 0094                            l95 0236  
+                          l88 01D3                           l140 009A                           l149 00B4  
+                         l158 00C9                           _ADC 002B                           _PR2 0092  
+                __CFG_CPD$OFF 0000                           _ISR 0219                           u705 01AA  
+                         u665 01EC                           u685 0211                           u997 0068  
+                         _vel 002C                           _pos 0079                           fsr0 0004  
+       ??_calibracion_presion 0020                  __CFG_LVP$OFF 0000                          ?_ISR 0070  
+                        l1031 0105                          l1009 01F2                          l1045 01B6  
+                        l1047 01C9                          l1135 0087                          l1127 0072  
+                        l1161 00B1                          l1145 0092                          l1137 0088  
+                        l1067 016B                          l1155 00A5                          l1181 00D3  
+                        l1173 00C6                          l1191 00F2                          l1167 00BC  
+                        l1187 00E9                          u1007 00DE                          u1017 0110  
+                        u1027 011F                          u1037 012E                          u1047 013D  
+                        u1057 015B                          u1067 017C                          u1077 01C4  
+                __CFG_WRT$OFF 0000                          _main 0029                          _giro 0077  
+                        btemp 007E                          start 0012                 __CFG_IESO$OFF 0000  
+               __CFG_MCLRE$ON 0000                         ??_ISR 0070                         ?_main 0070  
+               __CFG_WDTE$OFF 0000                         _ANSEL 0188                         _T2CON 0012  
+                       i1l126 0227                         _PORTA 0005                         _PORTB 0006  
+                       _PORTD 0008                         _TRISA 0085                         _TRISB 0086  
+                       _TRISC 0087                         _TRISD 0088                __CFG_FCMEN$OFF 0000  
+                       _servo 01F6                __CFG_BOREN$OFF 0000                         pclath 000A  
+                       status 0003               __end_of_stepper 0147                         wtemp0 007E  
+             __initialization 0015                  __end_of_main 00FF                        ??_main 0027  
+                      _ADCON0 001F                        _ADCON1 009F      __end_of_medicion_presion 01F6  
+                      _ADRESH 001E                        _ADRESL 009E                        _CCPR1L 0015  
+                      _CCPR2L 001B                        ?_servo 0070                        _ANSELH 0189  
+                      u108_27 0222                        _OSCCON 008F                        _SSPCON 0014  
+                      _SSPBUF 0013                __CFG_PWRTE$OFF 0000                        _accion 0076  
+                      _puerta 0078                  __pdataCOMMON 0079                        saved_w 007E  
+                   ??_stepper 0020       __end_of__initialization 0025     calibracion_presion@numero 0021  
+              __pcstackCOMMON 0070                  __pidataBANK0 0247                 __end_of_servo 0219  
+                     ??_servo 0020                    __pbssBANK0 002A                    __pmaintext 0029  
+                  __pintentry 0004                       _CCP1CON 0017                       _CCP2CON 001D  
+ __end_of_calibracion_presion 0246                       _SSPSTAT 0094                     _ANSELbits 0188  
+                     __ptext1 00FF                       __ptext2 0147                       __ptext3 01F6  
+                     __ptext4 018D                       __ptext5 01CE                       __ptext6 0232  
+                     __ptext7 0219                  __size_of_ISR 0019                       _presion 0075  
+                     _stepper 00FF             ?_medicion_presion 0070          end_of_initialization 0025  
+          ??_medicion_presion 0020                    _move_pwmDC 018D                    _move_servo 0147  
+                   _PORTBbits 0006                     _PORTCbits 0007        medicion_presion@objeto 0024  
+      medicion_presion@numero 0023                   _CCP1CONbits 0017                   _CCP2CONbits 001D  
+               __pidataCOMMON 0246           start_initialization 0015                   __end_of_ISR 0232  
+    __CFG_FOSC$INTRC_NOCLKOUT 0000                   ?_move_pwmDC 0070                   ?_move_servo 0070  
+                 __pdataBANK0 002C                   __pbssCOMMON 0075                     ___latbits 0002  
+               __pcstackBANK0 0020           __size_of_move_pwmDC 0041           __size_of_move_servo 0046  
+                    ?_stepper 0070  __size_of_calibracion_presion 0014                __size_of_servo 0023  
+           interrupt_function 0004                      _PIE1bits 008C                      _PIR1bits 000C  
+   __size_of_medicion_presion 0028                    _ADCON0bits 001F             __CFG_BOR4V$BOR40V 0000  
+            __size_of_stepper 0048                 __size_of_main 00D6                  ??_move_pwmDC 0025  
+                ??_move_servo 0022                    _INTCONbits 000B            __end_of_move_pwmDC 01CE  
+          __end_of_move_servo 018D                      intlevel1 0000              _medicion_presion 01CE  
+         _calibracion_presion 0232                  _presion_zero 002A                      stepper@i 0022  
+        ?_calibracion_presion 0070  
