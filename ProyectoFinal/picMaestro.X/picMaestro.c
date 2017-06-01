@@ -142,6 +142,18 @@ void IRcontrol(){
     }
 }
 
+//OBTENER TEMPERATURA ESCLAVO 2 ACCION 2
+void e2accion2(void){
+    PORTE=0b11111101; //ESCLAVO2
+
+    SSPBUF=2;
+    __delay_ms(100);
+    
+    if (SSPSTATbits.BF==1){
+        temperatura=SSPBUF;
+    }
+    return;
+}
 
 //MENSAJES
 void check_mensajes(){
@@ -169,6 +181,9 @@ void check_mensajes(){
         //EN SEGUNDA LINEA
         LCD_t8((0b001<<7)|(0x40));
         LCD_WM("--> ");
+        
+        e2accion2();
+        
         char str_temperatura[6];
         sprintf(str_temperatura, "%d", temperatura);
         LCD_WM(str_temperatura);
@@ -332,6 +347,7 @@ void e2accion3(char color){
     __delay_ms(1);
     SSPBUF=color;
     PORTD=color;
+    return;
 }
 
 //TRANSMISIONES

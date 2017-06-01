@@ -2389,6 +2389,18 @@ T1CONbits.TMR1ON=1;
 }
 
 
+void e2accion2(void){
+PORTE=0b11111101;
+
+SSPBUF=2;
+_delay((unsigned long)((100)*(8000000/4000.0)));
+
+if (SSPSTATbits.BF==1){
+temperatura=SSPBUF;
+}
+return;
+}
+
 
 void check_mensajes(){
 if (n_mensaje==1 & dinero==0){
@@ -2415,6 +2427,9 @@ LCD_WM("Temperatura:");
 
 LCD_t8((0b001<<7)|(0x40));
 LCD_WM("--> ");
+
+e2accion2();
+
 char str_temperatura[6];
 sprintf(str_temperatura, "%d", temperatura);
 LCD_WM(str_temperatura);
@@ -2560,6 +2575,7 @@ void enviarDATA_USART(){
 enviarUSART(255);
 enviarUSART(temperatura);
 enviarUSART(tortrix);
+enviarUSART(tampicos);
 enviarUSART(dinero>>8&255);
 enviarUSART(dinero&255);
 enviarUSART(dineroT>>8&255);
@@ -2577,6 +2593,7 @@ SSPBUF=3;
 _delay((unsigned long)((1)*(8000000/4000.0)));
 SSPBUF=color;
 PORTD=color;
+return;
 }
 
 

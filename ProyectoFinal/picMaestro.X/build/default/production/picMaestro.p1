@@ -37,6 +37,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _T1CONbits `VS22 ~T0 @X0 0 e@16 ]
 "639
 [v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
+"402
+[v _PORTE `Vuc ~T0 @X0 0 e@9 ]
+"820
+[v _SSPBUF `Vuc ~T0 @X0 0 e@19 ]
+"2130
+[s S82 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S82 . BF UA R_nW S P D_nA CKE SMP ]
+"2140
+[s S83 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S83 . . R . D ]
+"2146
+[s S84 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S84 . . I2C_READ I2C_START I2C_STOP I2C_DATA ]
+"2153
+[s S85 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S85 . . nW . nA ]
+"2159
+[s S86 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S86 . . nWRITE . nADDRESS ]
+"2165
+[s S87 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S87 . . R_W . D_A ]
+"2171
+[s S88 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S88 . . READ_WRITE . DATA_ADDRESS ]
+"2129
+[u S81 `S82 1 `S83 1 `S84 1 `S85 1 `S86 1 `S87 1 `S88 1 ]
+[n S81 . . . . . . . . ]
+"2178
+[v _SSPSTATbits `VS81 ~T0 @X0 0 e@148 ]
 "194 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
 "2505 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f887.h
@@ -55,10 +85,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TXSTAbits `VS98 ~T0 @X0 0 e@152 ]
 "1103
 [v _TXREG `Vuc ~T0 @X0 0 e@25 ]
-"402
-[v _PORTE `Vuc ~T0 @X0 0 e@9 ]
-"820
-[v _SSPBUF `Vuc ~T0 @X0 0 e@19 ]
 "341
 [v _PORTD `Vuc ~T0 @X0 0 e@8 ]
 "451
@@ -2092,1110 +2118,1152 @@ Version 3.2 HI-TECH Software Intermediate Code
 "143
 [e :UE 151 ]
 }
-"147
-[v _check_mensajes `(v ~T0 @X0 1 ef ]
+"146
+[v _e2accion2 `(v ~T0 @X0 1 ef ]
 {
-[; ;picMaestro.c: 147: void check_mensajes(){
-[e :U _check_mensajes ]
+[; ;picMaestro.c: 146: void e2accion2(void){
+[e :U _e2accion2 ]
 [f ]
-[; ;picMaestro.c: 148: if (n_mensaje==1 & dinero==0){
-"148
-[e $ ! & == -> _n_mensaje `i -> 1 `i == _dinero -> 0 `i 154  ]
-{
-[; ;picMaestro.c: 149: n_mensaje=0;
+[; ;picMaestro.c: 147: PORTE=0b11111101;
+"147
+[e = _PORTE -> -> 253 `i `uc ]
+[; ;picMaestro.c: 149: SSPBUF=2;
 "149
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 151: LCD_t8(0b0000000001);
-"151
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 152: _delay((unsigned long)((2)*(8000000/4000.0)));
+[e = _SSPBUF -> -> 2 `i `uc ]
+[; ;picMaestro.c: 150: _delay((unsigned long)((100)*(8000000/4000.0)));
+"150
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 152: if (SSPSTATbits.BF==1){
 "152
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 154: LCD_t8((0b001<<7)|(0x00));
+[e $ ! == -> . . _SSPSTATbits 0 0 `i -> 1 `i 154  ]
+{
+[; ;picMaestro.c: 153: temperatura=SSPBUF;
+"153
+[e = _temperatura _SSPBUF ]
 "154
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 155: LCD_WM("Hola!!! Inserte");
-"155
-[e ( _LCD_WM (1 -> :s 1C `*uc ]
-[; ;picMaestro.c: 157: LCD_t8((0b001<<7)|(0x40));
-"157
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 158: LCD_WM("una moneda -->");
-"158
-[e ( _LCD_WM (1 -> :s 2C `*uc ]
-"159
 }
 [e :U 154 ]
-[; ;picMaestro.c: 159: }
-[; ;picMaestro.c: 160: if (n_mensaje==2 & dinero==0){
-"160
-[e $ ! & == -> _n_mensaje `i -> 2 `i == _dinero -> 0 `i 155  ]
-{
-[; ;picMaestro.c: 162: n_mensaje=0;
-"162
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 164: LCD_t8(0b0000000001);
-"164
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 165: _delay((unsigned long)((2)*(8000000/4000.0)));
-"165
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 167: LCD_t8((0b001<<7)|(0x00));
-"167
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 168: LCD_WM("Temperatura:");
-"168
-[e ( _LCD_WM (1 -> :s 3C `*uc ]
-[; ;picMaestro.c: 170: LCD_t8((0b001<<7)|(0x40));
-"170
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 171: LCD_WM("--> ");
-"171
-[e ( _LCD_WM (1 -> :s 4C `*uc ]
-"172
-[v _str_temperatura `uc ~T0 @X0 -> 6 `i a ]
-[; ;picMaestro.c: 172: char str_temperatura[6];
-[; ;picMaestro.c: 173: sprintf(str_temperatura, "%d", temperatura);
-"173
-[e ( _sprintf (1 , (. , &U _str_temperatura :s 5C -> _temperatura `i ]
-[; ;picMaestro.c: 174: LCD_WM(str_temperatura);
-"174
-[e ( _LCD_WM (1 &U _str_temperatura ]
-[; ;picMaestro.c: 175: LCD_W(0b11011111);
-"175
-[e ( _LCD_W (1 -> -> 223 `i `uc ]
-[; ;picMaestro.c: 176: LCD_W('C');
-"176
-[e ( _LCD_W (1 -> -> 67 `ui `uc ]
-"177
-}
-[e :U 155 ]
-[; ;picMaestro.c: 177: }
-[; ;picMaestro.c: 178: if (n_mensaje==1 & dinero>0){
-"178
-[e $ ! & == -> _n_mensaje `i -> 1 `i > _dinero -> 0 `i 156  ]
-{
-[; ;picMaestro.c: 179: n_mensaje=0;
-"179
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 181: LCD_t8(0b0000000001);
-"181
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 182: _delay((unsigned long)((2)*(8000000/4000.0)));
-"182
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 184: LCD_t8((0b001<<7)|(0x00));
-"184
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 185: LCD_WM("Dinero:");
-"185
-[e ( _LCD_WM (1 -> :s 6C `*uc ]
-[; ;picMaestro.c: 187: LCD_t8((0b001<<7)|(0x40));
-"187
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 188: LCD_WM("--> ");
-"188
-[e ( _LCD_WM (1 -> :s 7C `*uc ]
-"191
-[v _str_dinero `uc ~T0 @X0 -> 8 `i a ]
-"192
-[v _str_dinero2 `uc ~T0 @X0 -> 8 `i a ]
-[; ;picMaestro.c: 191: char str_dinero[8];
-[; ;picMaestro.c: 192: char str_dinero2[8];
-[; ;picMaestro.c: 193: sprintf(str_dinero, "%d", dinero);
-"193
-[e ( _sprintf (1 , (. , &U _str_dinero :s 8C _dinero ]
-[; ;picMaestro.c: 194: sprintf(str_dinero2, "%d", dinero);
-"194
-[e ( _sprintf (1 , (. , &U _str_dinero2 :s 9C _dinero ]
-"196
-[v _i `uc ~T0 @X0 1 a ]
-[; ;picMaestro.c: 196: char i;
-[; ;picMaestro.c: 197: for(i = 0; str_dinero[i] != '\0'; ++i);
-"197
-{
-[e = _i -> -> 0 `i `uc ]
-[e $U 160  ]
-[e :U 157 ]
-[e =+ _i -> -> 1 `i `uc ]
-[e :U 160 ]
-[e $ != -> *U + &U _str_dinero * -> _i `ux -> -> # *U &U _str_dinero `ui `ux `ui -> 0 `ui 157  ]
-[e :U 158 ]
-}
-[; ;picMaestro.c: 198: if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
-"198
-[e $ ! == -> _i `i -> 2 `i 161  ]
-{
-[e = *U + &U _str_dinero2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 48 `ui `uc ]
-[e = *U + &U _str_dinero2 * -> -> -> 1 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
-}
-[e :U 161 ]
-[; ;picMaestro.c: 199: if (i>2){str_dinero2[i-2]='\0';}
-"199
-[e $ ! > -> _i `i -> 2 `i 162  ]
-{
-[e = *U + &U _str_dinero2 * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
-}
-[e :U 162 ]
-[; ;picMaestro.c: 200: LCD_WM(str_dinero2);
-"200
-[e ( _LCD_WM (1 &U _str_dinero2 ]
-[; ;picMaestro.c: 202: LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
-"202
-[e ( _LCD_W (1 -> -> 46 `ui `uc ]
-[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
-[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 1 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
-[e ( _LCD_W (1 -> -> 81 `ui `uc ]
-"203
-}
-[e :U 156 ]
-[; ;picMaestro.c: 203: }
-[; ;picMaestro.c: 204: if (n_mensaje==3){
-"204
-[e $ ! == -> _n_mensaje `i -> 3 `i 163  ]
-{
-[; ;picMaestro.c: 205: n_mensaje=0;
-"205
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 206: cont=0;
-"206
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 208: LCD_t8(0b0000000001);
-"208
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 209: _delay((unsigned long)((2)*(8000000/4000.0)));
-"209
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 211: LCD_t8((0b001<<7)|(0x00));
-"211
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 212: LCD_WM("DESPACHO BEBIDA:");
-"212
-[e ( _LCD_WM (1 -> :s 10C `*uc ]
-[; ;picMaestro.c: 214: LCD_t8((0b001<<7)|(0x40));
-"214
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 215: LCD_WM("Tampico");
-"215
-[e ( _LCD_WM (1 -> :s 11C `*uc ]
-"216
-}
-[e :U 163 ]
-[; ;picMaestro.c: 216: }
-[; ;picMaestro.c: 217: if (n_mensaje==4){
-"217
-[e $ ! == -> _n_mensaje `i -> 4 `i 164  ]
-{
-[; ;picMaestro.c: 218: n_mensaje=0;
-"218
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 219: cont=0;
-"219
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 221: LCD_t8(0b0000000001);
-"221
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 222: _delay((unsigned long)((2)*(8000000/4000.0)));
-"222
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 224: LCD_t8((0b001<<7)|(0x00));
-"224
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 225: LCD_WM("DESPACHO:");
-"225
-[e ( _LCD_WM (1 -> :s 12C `*uc ]
-[; ;picMaestro.c: 227: LCD_t8((0b001<<7)|(0x40));
-"227
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 228: LCD_WM("Tortrix");
-"228
-[e ( _LCD_WM (1 -> :s 13C `*uc ]
-"229
-}
-[e :U 164 ]
-[; ;picMaestro.c: 229: }
-[; ;picMaestro.c: 230: if (n_mensaje==5){
-"230
-[e $ ! == -> _n_mensaje `i -> 5 `i 165  ]
-{
-[; ;picMaestro.c: 231: n_mensaje=0;
-"231
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 232: cont=0;
-"232
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 234: LCD_t8(0b0000000001);
-"234
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 235: _delay((unsigned long)((2)*(8000000/4000.0)));
-"235
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 237: LCD_t8((0b001<<7)|(0x00));
-"237
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 238: LCD_WM("CAMBIO DE LUCES:");
-"238
-[e ( _LCD_WM (1 -> :s 14C `*uc ]
-[; ;picMaestro.c: 240: LCD_t8((0b001<<7)|(0x40));
-"240
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 241: LCD_WM("1,2,3,4,5,6.EXIT");
-"241
-[e ( _LCD_WM (1 -> :s 15C `*uc ]
-"242
-}
-[e :U 165 ]
-[; ;picMaestro.c: 242: }
-[; ;picMaestro.c: 243: if (n_mensaje==6){
-"243
-[e $ ! == -> _n_mensaje `i -> 6 `i 166  ]
-{
-[; ;picMaestro.c: 244: n_mensaje=0;
-"244
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 245: cont=0;
-"245
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 247: LCD_t8(0b0000000001);
-"247
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 248: _delay((unsigned long)((2)*(8000000/4000.0)));
-"248
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 250: LCD_t8((0b001<<7)|(0x00));
-"250
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 251: LCD_WM("MOVER PUERTA:");
-"251
-[e ( _LCD_WM (1 -> :s 16C `*uc ]
-[; ;picMaestro.c: 253: LCD_t8((0b001<<7)|(0x40));
-"253
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 254: LCD_WM("1.OP 2.CL 6.EXIT");
-"254
-[e ( _LCD_WM (1 -> :s 17C `*uc ]
-"255
-}
-[e :U 166 ]
-[; ;picMaestro.c: 255: }
-[; ;picMaestro.c: 256: if (n_mensaje==7){
-"256
-[e $ ! == -> _n_mensaje `i -> 7 `i 167  ]
-{
-[; ;picMaestro.c: 257: n_mensaje=0;
-"257
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 258: cont=0;
-"258
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 260: LCD_t8(0b0000000001);
-"260
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 261: _delay((unsigned long)((2)*(8000000/4000.0)));
-"261
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 264: LCD_t8((0b001<<7)|(0x00));
-"264
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 265: LCD_WM("Tampicos=");
-"265
-[e ( _LCD_WM (1 -> :s 18C `*uc ]
-"266
-[v _str_int `uc ~T0 @X0 -> 8 `i a ]
-[; ;picMaestro.c: 266: char str_int[8];
-[; ;picMaestro.c: 267: sprintf(str_int, "%d", tampicos);
-"267
-[e ( _sprintf (1 , (. , &U _str_int :s 19C -> _tampicos `i ]
-[; ;picMaestro.c: 268: LCD_WM(str_int);
-"268
-[e ( _LCD_WM (1 &U _str_int ]
-[; ;picMaestro.c: 271: LCD_t8((0b001<<7)|(0x40));
-"271
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 272: LCD_WM("Tortrix=");
-"272
-[e ( _LCD_WM (1 -> :s 20C `*uc ]
-[; ;picMaestro.c: 273: char str_int[8];
-[; ;picMaestro.c: 274: sprintf(str_int, "%d", tortrix);
-"274
-[e ( _sprintf (1 , (. , &U _str_int :s 21C -> _tortrix `i ]
-[; ;picMaestro.c: 275: LCD_WM(str_int);
-"275
-[e ( _LCD_WM (1 &U _str_int ]
-"276
-}
-[e :U 167 ]
-[; ;picMaestro.c: 276: }
-[; ;picMaestro.c: 277: if (n_mensaje==8){
-"277
-[e $ ! == -> _n_mensaje `i -> 8 `i 168  ]
-{
-[; ;picMaestro.c: 278: n_mensaje=0;
-"278
-[e = _n_mensaje -> -> 0 `i `uc ]
-[; ;picMaestro.c: 279: cont=0;
-"279
-[e = _cont -> 0 `i ]
-[; ;picMaestro.c: 281: LCD_t8(0b0000000001);
-"281
-[e ( _LCD_t8 (1 -> 1 `i ]
-[; ;picMaestro.c: 282: _delay((unsigned long)((2)*(8000000/4000.0)));
-"282
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 284: LCD_t8((0b001<<7)|(0x00));
-"284
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 285: LCD_WM("DINERO MONEDERO:");
-"285
-[e ( _LCD_WM (1 -> :s 22C `*uc ]
-[; ;picMaestro.c: 287: LCD_t8((0b001<<7)|(0x40));
-"287
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 288: LCD_WM("--> ");
-"288
-[e ( _LCD_WM (1 -> :s 23C `*uc ]
-"291
-[v _str_dinero `uc ~T0 @X0 -> 8 `i a ]
-"292
-[v _str_dinero2 `uc ~T0 @X0 -> 8 `i a ]
-[; ;picMaestro.c: 291: char str_dinero[8];
-[; ;picMaestro.c: 292: char str_dinero2[8];
-[; ;picMaestro.c: 293: sprintf(str_dinero, "%d", dineroT);
-"293
-[e ( _sprintf (1 , (. , &U _str_dinero :s 24C _dineroT ]
-[; ;picMaestro.c: 294: sprintf(str_dinero2, "%d", dineroT);
-"294
-[e ( _sprintf (1 , (. , &U _str_dinero2 :s 25C _dineroT ]
-"296
-[v _i `uc ~T0 @X0 1 a ]
-[; ;picMaestro.c: 296: char i;
-[; ;picMaestro.c: 297: for(i = 0; str_dinero[i] != '\0'; ++i);
-"297
-{
-[e = _i -> -> 0 `i `uc ]
-[e $U 172  ]
-[e :U 169 ]
-[e =+ _i -> -> 1 `i `uc ]
-[e :U 172 ]
-[e $ != -> *U + &U _str_dinero * -> _i `ux -> -> # *U &U _str_dinero `ui `ux `ui -> 0 `ui 169  ]
-[e :U 170 ]
-}
-[; ;picMaestro.c: 298: if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
-"298
-[e $ ! == -> _i `i -> 2 `i 173  ]
-{
-[e = *U + &U _str_dinero2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 48 `ui `uc ]
-[e = *U + &U _str_dinero2 * -> -> -> 1 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
-}
-[e :U 173 ]
-[; ;picMaestro.c: 299: if (i>2){str_dinero2[i-2]='\0';}
-"299
-[e $ ! > -> _i `i -> 2 `i 174  ]
-{
-[e = *U + &U _str_dinero2 * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
-}
-[e :U 174 ]
-[; ;picMaestro.c: 300: LCD_WM(str_dinero2);
-"300
-[e ( _LCD_WM (1 &U _str_dinero2 ]
-[; ;picMaestro.c: 302: LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
-"302
-[e ( _LCD_W (1 -> -> 46 `ui `uc ]
-[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
-[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 1 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
-[e ( _LCD_W (1 -> -> 81 `ui `uc ]
-"303
-}
-[e :U 168 ]
-[; ;picMaestro.c: 303: }
-[; ;picMaestro.c: 305: }
-"305
+[; ;picMaestro.c: 154: }
+[; ;picMaestro.c: 155: return;
+"155
+[e $UE 153  ]
+[; ;picMaestro.c: 156: }
+"156
 [e :UE 153 ]
 }
+"159
+[v _check_mensajes `(v ~T0 @X0 1 ef ]
+{
+[; ;picMaestro.c: 159: void check_mensajes(){
+[e :U _check_mensajes ]
+[f ]
+[; ;picMaestro.c: 160: if (n_mensaje==1 & dinero==0){
+"160
+[e $ ! & == -> _n_mensaje `i -> 1 `i == _dinero -> 0 `i 156  ]
+{
+[; ;picMaestro.c: 161: n_mensaje=0;
+"161
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 163: LCD_t8(0b0000000001);
+"163
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 164: _delay((unsigned long)((2)*(8000000/4000.0)));
+"164
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 166: LCD_t8((0b001<<7)|(0x00));
+"166
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 167: LCD_WM("Hola!!! Inserte");
+"167
+[e ( _LCD_WM (1 -> :s 1C `*uc ]
+[; ;picMaestro.c: 169: LCD_t8((0b001<<7)|(0x40));
+"169
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 170: LCD_WM("una moneda -->");
+"170
+[e ( _LCD_WM (1 -> :s 2C `*uc ]
+"171
+}
+[e :U 156 ]
+[; ;picMaestro.c: 171: }
+[; ;picMaestro.c: 172: if (n_mensaje==2 & dinero==0){
+"172
+[e $ ! & == -> _n_mensaje `i -> 2 `i == _dinero -> 0 `i 157  ]
+{
+[; ;picMaestro.c: 174: n_mensaje=0;
+"174
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 176: LCD_t8(0b0000000001);
+"176
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 177: _delay((unsigned long)((2)*(8000000/4000.0)));
+"177
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 179: LCD_t8((0b001<<7)|(0x00));
+"179
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 180: LCD_WM("Temperatura:");
+"180
+[e ( _LCD_WM (1 -> :s 3C `*uc ]
+[; ;picMaestro.c: 182: LCD_t8((0b001<<7)|(0x40));
+"182
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 183: LCD_WM("--> ");
+"183
+[e ( _LCD_WM (1 -> :s 4C `*uc ]
+[; ;picMaestro.c: 185: e2accion2();
+"185
+[e ( _e2accion2 ..  ]
+"187
+[v _str_temperatura `uc ~T0 @X0 -> 6 `i a ]
+[; ;picMaestro.c: 187: char str_temperatura[6];
+[; ;picMaestro.c: 188: sprintf(str_temperatura, "%d", temperatura);
+"188
+[e ( _sprintf (1 , (. , &U _str_temperatura :s 5C -> _temperatura `i ]
+[; ;picMaestro.c: 189: LCD_WM(str_temperatura);
+"189
+[e ( _LCD_WM (1 &U _str_temperatura ]
+[; ;picMaestro.c: 190: LCD_W(0b11011111);
+"190
+[e ( _LCD_W (1 -> -> 223 `i `uc ]
+[; ;picMaestro.c: 191: LCD_W('C');
+"191
+[e ( _LCD_W (1 -> -> 67 `ui `uc ]
+"192
+}
+[e :U 157 ]
+[; ;picMaestro.c: 192: }
+[; ;picMaestro.c: 193: if (n_mensaje==1 & dinero>0){
+"193
+[e $ ! & == -> _n_mensaje `i -> 1 `i > _dinero -> 0 `i 158  ]
+{
+[; ;picMaestro.c: 194: n_mensaje=0;
+"194
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 196: LCD_t8(0b0000000001);
+"196
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 197: _delay((unsigned long)((2)*(8000000/4000.0)));
+"197
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 199: LCD_t8((0b001<<7)|(0x00));
+"199
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 200: LCD_WM("Dinero:");
+"200
+[e ( _LCD_WM (1 -> :s 6C `*uc ]
+[; ;picMaestro.c: 202: LCD_t8((0b001<<7)|(0x40));
+"202
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 203: LCD_WM("--> ");
+"203
+[e ( _LCD_WM (1 -> :s 7C `*uc ]
+"206
+[v _str_dinero `uc ~T0 @X0 -> 8 `i a ]
+"207
+[v _str_dinero2 `uc ~T0 @X0 -> 8 `i a ]
+[; ;picMaestro.c: 206: char str_dinero[8];
+[; ;picMaestro.c: 207: char str_dinero2[8];
+[; ;picMaestro.c: 208: sprintf(str_dinero, "%d", dinero);
+"208
+[e ( _sprintf (1 , (. , &U _str_dinero :s 8C _dinero ]
+[; ;picMaestro.c: 209: sprintf(str_dinero2, "%d", dinero);
+"209
+[e ( _sprintf (1 , (. , &U _str_dinero2 :s 9C _dinero ]
+"211
+[v _i `uc ~T0 @X0 1 a ]
+[; ;picMaestro.c: 211: char i;
+[; ;picMaestro.c: 212: for(i = 0; str_dinero[i] != '\0'; ++i);
+"212
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 162  ]
+[e :U 159 ]
+[e =+ _i -> -> 1 `i `uc ]
+[e :U 162 ]
+[e $ != -> *U + &U _str_dinero * -> _i `ux -> -> # *U &U _str_dinero `ui `ux `ui -> 0 `ui 159  ]
+[e :U 160 ]
+}
+[; ;picMaestro.c: 213: if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
+"213
+[e $ ! == -> _i `i -> 2 `i 163  ]
+{
+[e = *U + &U _str_dinero2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 48 `ui `uc ]
+[e = *U + &U _str_dinero2 * -> -> -> 1 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
+}
+[e :U 163 ]
+[; ;picMaestro.c: 214: if (i>2){str_dinero2[i-2]='\0';}
+"214
+[e $ ! > -> _i `i -> 2 `i 164  ]
+{
+[e = *U + &U _str_dinero2 * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
+}
+[e :U 164 ]
+[; ;picMaestro.c: 215: LCD_WM(str_dinero2);
+"215
+[e ( _LCD_WM (1 &U _str_dinero2 ]
+[; ;picMaestro.c: 217: LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
+"217
+[e ( _LCD_W (1 -> -> 46 `ui `uc ]
+[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
+[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 1 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
+[e ( _LCD_W (1 -> -> 81 `ui `uc ]
+"218
+}
+[e :U 158 ]
+[; ;picMaestro.c: 218: }
+[; ;picMaestro.c: 219: if (n_mensaje==3){
+"219
+[e $ ! == -> _n_mensaje `i -> 3 `i 165  ]
+{
+[; ;picMaestro.c: 220: n_mensaje=0;
+"220
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 221: cont=0;
+"221
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 223: LCD_t8(0b0000000001);
+"223
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 224: _delay((unsigned long)((2)*(8000000/4000.0)));
+"224
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 226: LCD_t8((0b001<<7)|(0x00));
+"226
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 227: LCD_WM("DESPACHO BEBIDA:");
+"227
+[e ( _LCD_WM (1 -> :s 10C `*uc ]
+[; ;picMaestro.c: 229: LCD_t8((0b001<<7)|(0x40));
+"229
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 230: LCD_WM("Tampico");
+"230
+[e ( _LCD_WM (1 -> :s 11C `*uc ]
+"231
+}
+[e :U 165 ]
+[; ;picMaestro.c: 231: }
+[; ;picMaestro.c: 232: if (n_mensaje==4){
+"232
+[e $ ! == -> _n_mensaje `i -> 4 `i 166  ]
+{
+[; ;picMaestro.c: 233: n_mensaje=0;
+"233
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 234: cont=0;
+"234
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 236: LCD_t8(0b0000000001);
+"236
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 237: _delay((unsigned long)((2)*(8000000/4000.0)));
+"237
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 239: LCD_t8((0b001<<7)|(0x00));
+"239
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 240: LCD_WM("DESPACHO:");
+"240
+[e ( _LCD_WM (1 -> :s 12C `*uc ]
+[; ;picMaestro.c: 242: LCD_t8((0b001<<7)|(0x40));
+"242
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 243: LCD_WM("Tortrix");
+"243
+[e ( _LCD_WM (1 -> :s 13C `*uc ]
+"244
+}
+[e :U 166 ]
+[; ;picMaestro.c: 244: }
+[; ;picMaestro.c: 245: if (n_mensaje==5){
+"245
+[e $ ! == -> _n_mensaje `i -> 5 `i 167  ]
+{
+[; ;picMaestro.c: 246: n_mensaje=0;
+"246
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 247: cont=0;
+"247
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 249: LCD_t8(0b0000000001);
+"249
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 250: _delay((unsigned long)((2)*(8000000/4000.0)));
+"250
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 252: LCD_t8((0b001<<7)|(0x00));
+"252
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 253: LCD_WM("CAMBIO DE LUCES:");
+"253
+[e ( _LCD_WM (1 -> :s 14C `*uc ]
+[; ;picMaestro.c: 255: LCD_t8((0b001<<7)|(0x40));
+"255
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 256: LCD_WM("1,2,3,4,5,6.EXIT");
+"256
+[e ( _LCD_WM (1 -> :s 15C `*uc ]
+"257
+}
+[e :U 167 ]
+[; ;picMaestro.c: 257: }
+[; ;picMaestro.c: 258: if (n_mensaje==6){
+"258
+[e $ ! == -> _n_mensaje `i -> 6 `i 168  ]
+{
+[; ;picMaestro.c: 259: n_mensaje=0;
+"259
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 260: cont=0;
+"260
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 262: LCD_t8(0b0000000001);
+"262
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 263: _delay((unsigned long)((2)*(8000000/4000.0)));
+"263
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 265: LCD_t8((0b001<<7)|(0x00));
+"265
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 266: LCD_WM("MOVER PUERTA:");
+"266
+[e ( _LCD_WM (1 -> :s 16C `*uc ]
+[; ;picMaestro.c: 268: LCD_t8((0b001<<7)|(0x40));
+"268
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 269: LCD_WM("1.OP 2.CL 6.EXIT");
+"269
+[e ( _LCD_WM (1 -> :s 17C `*uc ]
+"270
+}
+[e :U 168 ]
+[; ;picMaestro.c: 270: }
+[; ;picMaestro.c: 271: if (n_mensaje==7){
+"271
+[e $ ! == -> _n_mensaje `i -> 7 `i 169  ]
+{
+[; ;picMaestro.c: 272: n_mensaje=0;
+"272
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 273: cont=0;
+"273
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 275: LCD_t8(0b0000000001);
+"275
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 276: _delay((unsigned long)((2)*(8000000/4000.0)));
+"276
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 279: LCD_t8((0b001<<7)|(0x00));
+"279
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 280: LCD_WM("Tampicos=");
+"280
+[e ( _LCD_WM (1 -> :s 18C `*uc ]
+"281
+[v _str_int `uc ~T0 @X0 -> 8 `i a ]
+[; ;picMaestro.c: 281: char str_int[8];
+[; ;picMaestro.c: 282: sprintf(str_int, "%d", tampicos);
+"282
+[e ( _sprintf (1 , (. , &U _str_int :s 19C -> _tampicos `i ]
+[; ;picMaestro.c: 283: LCD_WM(str_int);
+"283
+[e ( _LCD_WM (1 &U _str_int ]
+[; ;picMaestro.c: 286: LCD_t8((0b001<<7)|(0x40));
+"286
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 287: LCD_WM("Tortrix=");
+"287
+[e ( _LCD_WM (1 -> :s 20C `*uc ]
+[; ;picMaestro.c: 288: char str_int[8];
+[; ;picMaestro.c: 289: sprintf(str_int, "%d", tortrix);
+"289
+[e ( _sprintf (1 , (. , &U _str_int :s 21C -> _tortrix `i ]
+[; ;picMaestro.c: 290: LCD_WM(str_int);
+"290
+[e ( _LCD_WM (1 &U _str_int ]
+"291
+}
+[e :U 169 ]
+[; ;picMaestro.c: 291: }
+[; ;picMaestro.c: 292: if (n_mensaje==8){
+"292
+[e $ ! == -> _n_mensaje `i -> 8 `i 170  ]
+{
+[; ;picMaestro.c: 293: n_mensaje=0;
+"293
+[e = _n_mensaje -> -> 0 `i `uc ]
+[; ;picMaestro.c: 294: cont=0;
+"294
+[e = _cont -> 0 `i ]
+[; ;picMaestro.c: 296: LCD_t8(0b0000000001);
+"296
+[e ( _LCD_t8 (1 -> 1 `i ]
+[; ;picMaestro.c: 297: _delay((unsigned long)((2)*(8000000/4000.0)));
+"297
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;picMaestro.c: 299: LCD_t8((0b001<<7)|(0x00));
+"299
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 300: LCD_WM("DINERO MONEDERO:");
+"300
+[e ( _LCD_WM (1 -> :s 22C `*uc ]
+[; ;picMaestro.c: 302: LCD_t8((0b001<<7)|(0x40));
+"302
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 303: LCD_WM("--> ");
+"303
+[e ( _LCD_WM (1 -> :s 23C `*uc ]
+"306
+[v _str_dinero `uc ~T0 @X0 -> 8 `i a ]
 "307
+[v _str_dinero2 `uc ~T0 @X0 -> 8 `i a ]
+[; ;picMaestro.c: 306: char str_dinero[8];
+[; ;picMaestro.c: 307: char str_dinero2[8];
+[; ;picMaestro.c: 308: sprintf(str_dinero, "%d", dineroT);
+"308
+[e ( _sprintf (1 , (. , &U _str_dinero :s 24C _dineroT ]
+[; ;picMaestro.c: 309: sprintf(str_dinero2, "%d", dineroT);
+"309
+[e ( _sprintf (1 , (. , &U _str_dinero2 :s 25C _dineroT ]
+"311
+[v _i `uc ~T0 @X0 1 a ]
+[; ;picMaestro.c: 311: char i;
+[; ;picMaestro.c: 312: for(i = 0; str_dinero[i] != '\0'; ++i);
+"312
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 174  ]
+[e :U 171 ]
+[e =+ _i -> -> 1 `i `uc ]
+[e :U 174 ]
+[e $ != -> *U + &U _str_dinero * -> _i `ux -> -> # *U &U _str_dinero `ui `ux `ui -> 0 `ui 171  ]
+[e :U 172 ]
+}
+[; ;picMaestro.c: 313: if (i==2){str_dinero2[0]='0';str_dinero2[1]='\0';}
+"313
+[e $ ! == -> _i `i -> 2 `i 175  ]
+{
+[e = *U + &U _str_dinero2 * -> -> -> 0 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 48 `ui `uc ]
+[e = *U + &U _str_dinero2 * -> -> -> 1 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
+}
+[e :U 175 ]
+[; ;picMaestro.c: 314: if (i>2){str_dinero2[i-2]='\0';}
+"314
+[e $ ! > -> _i `i -> 2 `i 176  ]
+{
+[e = *U + &U _str_dinero2 * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero2 `ui `ux -> -> 0 `ui `uc ]
+}
+[e :U 176 ]
+[; ;picMaestro.c: 315: LCD_WM(str_dinero2);
+"315
+[e ( _LCD_WM (1 &U _str_dinero2 ]
+[; ;picMaestro.c: 317: LCD_W('.');LCD_W(str_dinero[i-2]);LCD_W(str_dinero[i-1]);LCD_W('Q');
+"317
+[e ( _LCD_W (1 -> -> 46 `ui `uc ]
+[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 2 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
+[e ( _LCD_W (1 *U + &U _str_dinero * -> -> - -> _i `i -> 1 `i `ui `ux -> -> # *U &U _str_dinero `ui `ux ]
+[e ( _LCD_W (1 -> -> 81 `ui `uc ]
+"318
+}
+[e :U 170 ]
+[; ;picMaestro.c: 318: }
+[; ;picMaestro.c: 320: }
+"320
+[e :UE 155 ]
+}
+"322
 [v _enviarUSART `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;picMaestro.c: 307: void enviarUSART(char dato){
+[; ;picMaestro.c: 322: void enviarUSART(char dato){
 [e :U _enviarUSART ]
 [v _dato `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;picMaestro.c: 308: while (TXSTAbits.TRMT==0);
-"308
-[e $U 176  ]
-[e :U 177 ]
-[e :U 176 ]
-[e $ == -> . . _TXSTAbits 0 1 `i -> 0 `i 177  ]
+[; ;picMaestro.c: 323: while (TXSTAbits.TRMT==0);
+"323
+[e $U 178  ]
+[e :U 179 ]
 [e :U 178 ]
-[; ;picMaestro.c: 309: TXREG = dato;
-"309
+[e $ == -> . . _TXSTAbits 0 1 `i -> 0 `i 179  ]
+[e :U 180 ]
+[; ;picMaestro.c: 324: TXREG = dato;
+"324
 [e = _TXREG _dato ]
-[; ;picMaestro.c: 310: return;
-"310
-[e $UE 175  ]
-[; ;picMaestro.c: 311: }
-"311
-[e :UE 175 ]
+[; ;picMaestro.c: 325: return;
+"325
+[e $UE 177  ]
+[; ;picMaestro.c: 326: }
+"326
+[e :UE 177 ]
 }
-"313
+"328
 [v _enviarDATA_USART `(v ~T0 @X0 1 ef ]
 {
-[; ;picMaestro.c: 313: void enviarDATA_USART(){
+[; ;picMaestro.c: 328: void enviarDATA_USART(){
 [e :U _enviarDATA_USART ]
 [f ]
-[; ;picMaestro.c: 314: enviarUSART(255);
-"314
+[; ;picMaestro.c: 329: enviarUSART(255);
+"329
 [e ( _enviarUSART (1 -> -> 255 `i `uc ]
-[; ;picMaestro.c: 315: enviarUSART(temperatura);
-"315
+[; ;picMaestro.c: 330: enviarUSART(temperatura);
+"330
 [e ( _enviarUSART (1 _temperatura ]
-[; ;picMaestro.c: 316: enviarUSART(tortrix);
-"316
+[; ;picMaestro.c: 331: enviarUSART(tortrix);
+"331
 [e ( _enviarUSART (1 _tortrix ]
-[; ;picMaestro.c: 317: enviarUSART(dinero>>8&255);
-"317
+[; ;picMaestro.c: 332: enviarUSART(tampicos);
+"332
+[e ( _enviarUSART (1 _tampicos ]
+[; ;picMaestro.c: 333: enviarUSART(dinero>>8&255);
+"333
 [e ( _enviarUSART (1 -> & >> _dinero -> 8 `i -> 255 `i `uc ]
-[; ;picMaestro.c: 318: enviarUSART(dinero&255);
-"318
+[; ;picMaestro.c: 334: enviarUSART(dinero&255);
+"334
 [e ( _enviarUSART (1 -> & _dinero -> 255 `i `uc ]
-[; ;picMaestro.c: 319: enviarUSART(dineroT>>8&255);
-"319
+[; ;picMaestro.c: 335: enviarUSART(dineroT>>8&255);
+"335
 [e ( _enviarUSART (1 -> & >> _dineroT -> 8 `i -> 255 `i `uc ]
-[; ;picMaestro.c: 320: enviarUSART(dineroT&255);
-"320
+[; ;picMaestro.c: 336: enviarUSART(dineroT&255);
+"336
 [e ( _enviarUSART (1 -> & _dineroT -> 255 `i `uc ]
-[; ;picMaestro.c: 321: enviarUSART('a');
-"321
+[; ;picMaestro.c: 337: enviarUSART('a');
+"337
 [e ( _enviarUSART (1 -> -> 97 `ui `uc ]
-[; ;picMaestro.c: 322: return;
-"322
-[e $UE 179  ]
-[; ;picMaestro.c: 323: }
-"323
-[e :UE 179 ]
+[; ;picMaestro.c: 338: return;
+"338
+[e $UE 181  ]
+[; ;picMaestro.c: 339: }
+"339
+[e :UE 181 ]
 }
-"326
+"342
 [v _e2accion3 `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;picMaestro.c: 326: void e2accion3(char color){
+[; ;picMaestro.c: 342: void e2accion3(char color){
 [e :U _e2accion3 ]
 [v _color `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;picMaestro.c: 327: PORTE=0b11111101;
-"327
+[; ;picMaestro.c: 343: PORTE=0b11111101;
+"343
 [e = _PORTE -> -> 253 `i `uc ]
-[; ;picMaestro.c: 328: color+=2;
-"328
+[; ;picMaestro.c: 344: color+=2;
+"344
 [e =+ _color -> -> 2 `i `uc ]
-[; ;picMaestro.c: 330: SSPBUF=3;
-"330
+[; ;picMaestro.c: 346: SSPBUF=3;
+"346
 [e = _SSPBUF -> -> 3 `i `uc ]
-[; ;picMaestro.c: 331: _delay((unsigned long)((1)*(8000000/4000.0)));
-"331
+[; ;picMaestro.c: 347: _delay((unsigned long)((1)*(8000000/4000.0)));
+"347
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-[; ;picMaestro.c: 332: SSPBUF=color;
-"332
+[; ;picMaestro.c: 348: SSPBUF=color;
+"348
 [e = _SSPBUF _color ]
-[; ;picMaestro.c: 333: PORTD=color;
-"333
+[; ;picMaestro.c: 349: PORTD=color;
+"349
 [e = _PORTD _color ]
-[; ;picMaestro.c: 334: }
-"334
-[e :UE 180 ]
+[; ;picMaestro.c: 350: return;
+"350
+[e $UE 182  ]
+[; ;picMaestro.c: 351: }
+"351
+[e :UE 182 ]
 }
-"337
+"354
 [v _check_transmisiones `(v ~T0 @X0 1 ef ]
 {
-[; ;picMaestro.c: 337: void check_transmisiones(){
+[; ;picMaestro.c: 354: void check_transmisiones(){
 [e :U _check_transmisiones ]
 [f ]
-[; ;picMaestro.c: 339: if (noControl==1|accionUSART==1){
-"339
-[e $ ! | == _noControl -> 1 `i == -> _accionUSART `i -> 1 `i 182  ]
-{
-[; ;picMaestro.c: 340: n_mensaje=5;
-"340
-[e = _n_mensaje -> -> 5 `i `uc ]
-[; ;picMaestro.c: 341: check_mensajes();
-"341
-[e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 342: noControl=0;
-"342
-[e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 343: accionUSART=0;
-"343
-[e = _accionUSART -> -> 0 `i `uc ]
-[; ;picMaestro.c: 344: while (noControl!=6&accionUSART!=6){
-"344
-[e $U 183  ]
-[e :U 184 ]
-{
-[; ;picMaestro.c: 345: IRcontrol();
-"345
-[e ( _IRcontrol ..  ]
-[; ;picMaestro.c: 346: if (noControl!=0&noControl!=6){
-"346
-[e $ ! & != _noControl -> 0 `i != _noControl -> 6 `i 186  ]
-{
-[; ;picMaestro.c: 347: e2accion3(noControl);
-"347
-[e ( _e2accion3 (1 -> _noControl `uc ]
-[; ;picMaestro.c: 348: LCD_t8((0b001<<7)|(0x00));
-"348
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 349: LCD_W(0x30+noControl);
-"349
-[e ( _LCD_W (1 -> + -> 48 `i _noControl `uc ]
-[; ;picMaestro.c: 350: noControl=0;
-"350
-[e = _noControl -> 0 `i ]
-"351
-}
-[e :U 186 ]
-[; ;picMaestro.c: 351: }
-[; ;picMaestro.c: 352: if (accionUSART!=0&accionUSART!=6){
-"352
-[e $ ! & != -> _accionUSART `i -> 0 `i != -> _accionUSART `i -> 6 `i 187  ]
-{
-[; ;picMaestro.c: 353: e2accion3(accionUSART);
-"353
-[e ( _e2accion3 (1 _accionUSART ]
-[; ;picMaestro.c: 354: accionUSART=0;
-"354
-[e = _accionUSART -> -> 0 `i `uc ]
-"355
-}
-[e :U 187 ]
+[; ;picMaestro.c: 356: if (noControl==1|accionUSART==1){
 "356
-}
-[e :U 183 ]
-"344
-[e $ & != _noControl -> 6 `i != -> _accionUSART `i -> 6 `i 184  ]
-[e :U 185 ]
-[; ;picMaestro.c: 355: }
-[; ;picMaestro.c: 356: }
-[; ;picMaestro.c: 357: accionUSART=0;
-"357
-[e = _accionUSART -> -> 0 `i `uc ]
-[; ;picMaestro.c: 358: noControl=0;
-"358
-[e = _noControl -> 0 `i ]
-"359
-}
-[e :U 182 ]
-[; ;picMaestro.c: 359: }
-[; ;picMaestro.c: 361: if (noControl==2|accionUSART==2){
-"361
-[e $ ! | == _noControl -> 2 `i == -> _accionUSART `i -> 2 `i 188  ]
+[e $ ! | == _noControl -> 1 `i == -> _accionUSART `i -> 1 `i 184  ]
 {
-[; ;picMaestro.c: 362: n_mensaje=3;
-"362
-[e = _n_mensaje -> -> 3 `i `uc ]
-[; ;picMaestro.c: 363: check_mensajes();
-"363
+[; ;picMaestro.c: 357: n_mensaje=5;
+"357
+[e = _n_mensaje -> -> 5 `i `uc ]
+[; ;picMaestro.c: 358: check_mensajes();
+"358
 [e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 364: PORTE=0b11111110;
-"364
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 365: SSPBUF=1;
-"365
-[e = _SSPBUF -> -> 1 `i `uc ]
-[; ;picMaestro.c: 366: noControl=0;
-"366
+[; ;picMaestro.c: 359: noControl=0;
+"359
 [e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 367: accionUSART=0;
-"367
+[; ;picMaestro.c: 360: accionUSART=0;
+"360
 [e = _accionUSART -> -> 0 `i `uc ]
+[; ;picMaestro.c: 361: while (noControl!=6&accionUSART!=6){
+"361
+[e $U 185  ]
+[e :U 186 ]
+{
+[; ;picMaestro.c: 362: IRcontrol();
+"362
+[e ( _IRcontrol ..  ]
+[; ;picMaestro.c: 363: if (noControl!=0&noControl!=6){
+"363
+[e $ ! & != _noControl -> 0 `i != _noControl -> 6 `i 188  ]
+{
+[; ;picMaestro.c: 364: e2accion3(noControl);
+"364
+[e ( _e2accion3 (1 -> _noControl `uc ]
+[; ;picMaestro.c: 365: LCD_t8((0b001<<7)|(0x00));
+"365
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 366: LCD_W(0x30+noControl);
+"366
+[e ( _LCD_W (1 -> + -> 48 `i _noControl `uc ]
+[; ;picMaestro.c: 367: noControl=0;
+"367
+[e = _noControl -> 0 `i ]
 "368
 }
 [e :U 188 ]
 [; ;picMaestro.c: 368: }
-[; ;picMaestro.c: 370: if (noControl==3|accionUSART==3){
-"370
-[e $ ! | == _noControl -> 3 `i == -> _accionUSART `i -> 3 `i 189  ]
+[; ;picMaestro.c: 369: if (accionUSART!=0&accionUSART!=6){
+"369
+[e $ ! & != -> _accionUSART `i -> 0 `i != -> _accionUSART `i -> 6 `i 189  ]
 {
-[; ;picMaestro.c: 371: n_mensaje=4;
+[; ;picMaestro.c: 370: e2accion3(accionUSART);
+"370
+[e ( _e2accion3 (1 _accionUSART ]
+[; ;picMaestro.c: 371: accionUSART=0;
 "371
-[e = _n_mensaje -> -> 4 `i `uc ]
-[; ;picMaestro.c: 372: check_mensajes();
+[e = _accionUSART -> -> 0 `i `uc ]
 "372
-[e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 373: PORTE=0b11111110;
+}
+[e :U 189 ]
 "373
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 374: SSPBUF=2;
+}
+[e :U 185 ]
+"361
+[e $ & != _noControl -> 6 `i != -> _accionUSART `i -> 6 `i 186  ]
+[e :U 187 ]
+[; ;picMaestro.c: 372: }
+[; ;picMaestro.c: 373: }
+[; ;picMaestro.c: 374: accionUSART=0;
 "374
-[e = _SSPBUF -> -> 2 `i `uc ]
+[e = _accionUSART -> -> 0 `i `uc ]
 [; ;picMaestro.c: 375: noControl=0;
 "375
 [e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 376: accionUSART=0;
 "376
-[e = _accionUSART -> -> 0 `i `uc ]
-"377
 }
-[e :U 189 ]
-[; ;picMaestro.c: 377: }
-[; ;picMaestro.c: 379: if (noControl==4|accionUSART==4){
+[e :U 184 ]
+[; ;picMaestro.c: 376: }
+[; ;picMaestro.c: 378: if (noControl==2|accionUSART==2){
+"378
+[e $ ! | == _noControl -> 2 `i == -> _accionUSART `i -> 2 `i 190  ]
+{
+[; ;picMaestro.c: 379: n_mensaje=3;
 "379
-[e $ ! | == _noControl -> 4 `i == -> _accionUSART `i -> 4 `i 190  ]
-{
-[; ;picMaestro.c: 380: n_mensaje=6;
+[e = _n_mensaje -> -> 3 `i `uc ]
+[; ;picMaestro.c: 380: check_mensajes();
 "380
-[e = _n_mensaje -> -> 6 `i `uc ]
-[; ;picMaestro.c: 381: check_mensajes();
-"381
 [e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 382: noControl=0;
+[; ;picMaestro.c: 381: PORTE=0b11111110;
+"381
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 382: SSPBUF=1;
 "382
-[e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 383: accionUSART=0;
+[e = _SSPBUF -> -> 1 `i `uc ]
+[; ;picMaestro.c: 383: noControl=0;
 "383
-[e = _accionUSART -> -> 0 `i `uc ]
-[; ;picMaestro.c: 384: while (noControl!=6&accionUSART!=6){
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 384: accionUSART=0;
 "384
-[e $U 191  ]
-[e :U 192 ]
-{
-[; ;picMaestro.c: 385: IRcontrol();
+[e = _accionUSART -> -> 0 `i `uc ]
 "385
-[e ( _IRcontrol ..  ]
-[; ;picMaestro.c: 387: if (noControl==1|accionUSART==1){
-"387
-[e $ ! | == _noControl -> 1 `i == -> _accionUSART `i -> 1 `i 194  ]
-{
-[; ;picMaestro.c: 388: PORTE=0b11111110;
-"388
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 389: SSPBUF=3;
-"389
-[e = _SSPBUF -> -> 3 `i `uc ]
-[; ;picMaestro.c: 390: noControl=0;
-"390
-[e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 391: accionUSART=0;
-"391
-[e = _accionUSART -> -> 0 `i `uc ]
-"392
-}
-[e :U 194 ]
-[; ;picMaestro.c: 392: }
-[; ;picMaestro.c: 394: if (noControl==2|accionUSART==2){
-"394
-[e $ ! | == _noControl -> 2 `i == -> _accionUSART `i -> 2 `i 195  ]
-{
-[; ;picMaestro.c: 395: PORTE=0b11111110;
-"395
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 396: SSPBUF=4;
-"396
-[e = _SSPBUF -> -> 4 `i `uc ]
-[; ;picMaestro.c: 397: noControl=0;
-"397
-[e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 398: accionUSART=0;
-"398
-[e = _accionUSART -> -> 0 `i `uc ]
-"399
-}
-[e :U 195 ]
-"400
-}
-[e :U 191 ]
-"384
-[e $ & != _noControl -> 6 `i != -> _accionUSART `i -> 6 `i 192  ]
-[e :U 193 ]
-[; ;picMaestro.c: 399: }
-[; ;picMaestro.c: 400: }
-[; ;picMaestro.c: 401: noControl=0;
-"401
-[e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 402: accionUSART=0;
-"402
-[e = _accionUSART -> -> 0 `i `uc ]
-"403
 }
 [e :U 190 ]
-[; ;picMaestro.c: 403: }
-[; ;picMaestro.c: 406: if (noControl==5|accionUSART==5){
-"406
-[e $ ! | == _noControl -> 5 `i == -> _accionUSART `i -> 5 `i 196  ]
+[; ;picMaestro.c: 385: }
+[; ;picMaestro.c: 387: if (noControl==3|accionUSART==3){
+"387
+[e $ ! | == _noControl -> 3 `i == -> _accionUSART `i -> 3 `i 191  ]
 {
-[; ;picMaestro.c: 407: n_mensaje=7;
-"407
-[e = _n_mensaje -> -> 7 `i `uc ]
-[; ;picMaestro.c: 408: check_mensajes();
-"408
+[; ;picMaestro.c: 388: n_mensaje=4;
+"388
+[e = _n_mensaje -> -> 4 `i `uc ]
+[; ;picMaestro.c: 389: check_mensajes();
+"389
 [e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 409: noControl=0;
-"409
+[; ;picMaestro.c: 390: PORTE=0b11111110;
+"390
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 391: SSPBUF=2;
+"391
+[e = _SSPBUF -> -> 2 `i `uc ]
+[; ;picMaestro.c: 392: noControl=0;
+"392
 [e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 410: accionUSART=0;
-"410
+[; ;picMaestro.c: 393: accionUSART=0;
+"393
 [e = _accionUSART -> -> 0 `i `uc ]
-"411
+"394
+}
+[e :U 191 ]
+[; ;picMaestro.c: 394: }
+[; ;picMaestro.c: 396: if (noControl==4|accionUSART==4){
+"396
+[e $ ! | == _noControl -> 4 `i == -> _accionUSART `i -> 4 `i 192  ]
+{
+[; ;picMaestro.c: 397: n_mensaje=6;
+"397
+[e = _n_mensaje -> -> 6 `i `uc ]
+[; ;picMaestro.c: 398: check_mensajes();
+"398
+[e ( _check_mensajes ..  ]
+[; ;picMaestro.c: 399: noControl=0;
+"399
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 400: accionUSART=0;
+"400
+[e = _accionUSART -> -> 0 `i `uc ]
+[; ;picMaestro.c: 401: while (noControl!=6&accionUSART!=6){
+"401
+[e $U 193  ]
+[e :U 194 ]
+{
+[; ;picMaestro.c: 402: IRcontrol();
+"402
+[e ( _IRcontrol ..  ]
+[; ;picMaestro.c: 404: if (noControl==1|accionUSART==1){
+"404
+[e $ ! | == _noControl -> 1 `i == -> _accionUSART `i -> 1 `i 196  ]
+{
+[; ;picMaestro.c: 405: PORTE=0b11111110;
+"405
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 406: SSPBUF=3;
+"406
+[e = _SSPBUF -> -> 3 `i `uc ]
+[; ;picMaestro.c: 407: noControl=0;
+"407
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 408: accionUSART=0;
+"408
+[e = _accionUSART -> -> 0 `i `uc ]
+"409
 }
 [e :U 196 ]
-[; ;picMaestro.c: 411: }
-[; ;picMaestro.c: 414: if (noControl==6|accionUSART==6){
-"414
-[e $ ! | == _noControl -> 6 `i == -> _accionUSART `i -> 6 `i 197  ]
+[; ;picMaestro.c: 409: }
+[; ;picMaestro.c: 411: if (noControl==2|accionUSART==2){
+"411
+[e $ ! | == _noControl -> 2 `i == -> _accionUSART `i -> 2 `i 197  ]
 {
-[; ;picMaestro.c: 415: n_mensaje=8;
-"415
-[e = _n_mensaje -> -> 8 `i `uc ]
-[; ;picMaestro.c: 416: check_mensajes();
-"416
-[e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 417: noControl=0;
-"417
+[; ;picMaestro.c: 412: PORTE=0b11111110;
+"412
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 413: SSPBUF=4;
+"413
+[e = _SSPBUF -> -> 4 `i `uc ]
+[; ;picMaestro.c: 414: noControl=0;
+"414
 [e = _noControl -> 0 `i ]
-[; ;picMaestro.c: 418: accionUSART=0;
-"418
+[; ;picMaestro.c: 415: accionUSART=0;
+"415
 [e = _accionUSART -> -> 0 `i `uc ]
-"419
+"416
 }
 [e :U 197 ]
-[; ;picMaestro.c: 419: }
-[; ;picMaestro.c: 420: }
-"420
-[e :UE 181 ]
+"417
 }
-[v F1980 `(v ~T0 @X0 1 tf ]
+[e :U 193 ]
+"401
+[e $ & != _noControl -> 6 `i != -> _accionUSART `i -> 6 `i 194  ]
+[e :U 195 ]
+[; ;picMaestro.c: 416: }
+[; ;picMaestro.c: 417: }
+[; ;picMaestro.c: 418: noControl=0;
+"418
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 419: accionUSART=0;
+"419
+[e = _accionUSART -> -> 0 `i `uc ]
+"420
+}
+[e :U 192 ]
+[; ;picMaestro.c: 420: }
+[; ;picMaestro.c: 423: if (noControl==5|accionUSART==5){
 "423
-[v _ISR `IF1980 ~T0 @X0 1 e ]
+[e $ ! | == _noControl -> 5 `i == -> _accionUSART `i -> 5 `i 198  ]
 {
-[; ;picMaestro.c: 423: void interrupt ISR(){
+[; ;picMaestro.c: 424: n_mensaje=7;
+"424
+[e = _n_mensaje -> -> 7 `i `uc ]
+[; ;picMaestro.c: 425: check_mensajes();
+"425
+[e ( _check_mensajes ..  ]
+[; ;picMaestro.c: 426: noControl=0;
+"426
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 427: accionUSART=0;
+"427
+[e = _accionUSART -> -> 0 `i `uc ]
+"428
+}
+[e :U 198 ]
+[; ;picMaestro.c: 428: }
+[; ;picMaestro.c: 431: if (noControl==6|accionUSART==6){
+"431
+[e $ ! | == _noControl -> 6 `i == -> _accionUSART `i -> 6 `i 199  ]
+{
+[; ;picMaestro.c: 432: n_mensaje=8;
+"432
+[e = _n_mensaje -> -> 8 `i `uc ]
+[; ;picMaestro.c: 433: check_mensajes();
+"433
+[e ( _check_mensajes ..  ]
+[; ;picMaestro.c: 434: noControl=0;
+"434
+[e = _noControl -> 0 `i ]
+[; ;picMaestro.c: 435: accionUSART=0;
+"435
+[e = _accionUSART -> -> 0 `i `uc ]
+"436
+}
+[e :U 199 ]
+[; ;picMaestro.c: 436: }
+[; ;picMaestro.c: 437: }
+"437
+[e :UE 183 ]
+}
+[v F1983 `(v ~T0 @X0 1 tf ]
+"440
+[v _ISR `IF1983 ~T0 @X0 1 e ]
+{
+[; ;picMaestro.c: 440: void interrupt ISR(){
 [e :U _ISR ]
 [f ]
-[; ;picMaestro.c: 424: if (INTCONbits.RBIF==1){
-"424
-[e $ ! == -> . . _INTCONbits 0 0 `i -> 1 `i 199  ]
+[; ;picMaestro.c: 441: if (INTCONbits.RBIF==1){
+"441
+[e $ ! == -> . . _INTCONbits 0 0 `i -> 1 `i 201  ]
 {
-[; ;picMaestro.c: 426: if (PORTBbits.RB0==0){dinero+=25;dineroT+=25;n_mensaje=1;}
-"426
-[e $ ! == -> . . _PORTBbits 0 0 `i -> 0 `i 200  ]
+[; ;picMaestro.c: 443: if (PORTBbits.RB0==0){dinero+=25;dineroT+=25;n_mensaje=1;}
+"443
+[e $ ! == -> . . _PORTBbits 0 0 `i -> 0 `i 202  ]
 {
 [e =+ _dinero -> 25 `i ]
 [e =+ _dineroT -> 25 `i ]
 [e = _n_mensaje -> -> 1 `i `uc ]
 }
-[e :U 200 ]
-[; ;picMaestro.c: 427: if (PORTBbits.RB1==0){dinero+=50;dineroT+=50;n_mensaje=1;}
-"427
-[e $ ! == -> . . _PORTBbits 0 1 `i -> 0 `i 201  ]
+[e :U 202 ]
+[; ;picMaestro.c: 444: if (PORTBbits.RB1==0){dinero+=50;dineroT+=50;n_mensaje=1;}
+"444
+[e $ ! == -> . . _PORTBbits 0 1 `i -> 0 `i 203  ]
 {
 [e =+ _dinero -> 50 `i ]
 [e =+ _dineroT -> 50 `i ]
 [e = _n_mensaje -> -> 1 `i `uc ]
 }
-[e :U 201 ]
-[; ;picMaestro.c: 428: if (PORTBbits.RB2==0){dinero+=100;dineroT+=100;n_mensaje=1;}
-"428
-[e $ ! == -> . . _PORTBbits 0 2 `i -> 0 `i 202  ]
+[e :U 203 ]
+[; ;picMaestro.c: 445: if (PORTBbits.RB2==0){dinero+=100;dineroT+=100;n_mensaje=1;}
+"445
+[e $ ! == -> . . _PORTBbits 0 2 `i -> 0 `i 204  ]
 {
 [e =+ _dinero -> 100 `i ]
 [e =+ _dineroT -> 100 `i ]
 [e = _n_mensaje -> -> 1 `i `uc ]
 }
-[e :U 202 ]
-[; ;picMaestro.c: 431: if (PORTBbits.RB3==0&dinero>=350){
-"431
-[e $ ! & == -> . . _PORTBbits 0 3 `i -> 0 `i >= _dinero -> 350 `i 203  ]
-{
-[; ;picMaestro.c: 432: tampicos+=1;
-"432
-[e =+ _tampicos -> -> 1 `i `uc ]
-[; ;picMaestro.c: 433: dinero-=350;
-"433
-[e =- _dinero -> 350 `i ]
-[; ;picMaestro.c: 434: PORTE=0b11111110;
-"434
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 435: n_mensaje=3;
-"435
-[e = _n_mensaje -> -> 3 `i `uc ]
-[; ;picMaestro.c: 436: SSPBUF=1;
-"436
-[e = _SSPBUF -> -> 1 `i `uc ]
-[; ;picMaestro.c: 437: PORTD=1;
-"437
-[e = _PORTD -> -> 1 `i `uc ]
-[; ;picMaestro.c: 438: _delay((unsigned long)((500)*(8000000/4000.0)));
-"438
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"439
-}
-[e :U 203 ]
-[; ;picMaestro.c: 439: }
-[; ;picMaestro.c: 441: if (PORTBbits.RB4==0&dinero>=200){
-"441
-[e $ ! & == -> . . _PORTBbits 0 4 `i -> 0 `i >= _dinero -> 200 `i 204  ]
-{
-[; ;picMaestro.c: 442: tortrix+=1;
-"442
-[e =+ _tortrix -> -> 1 `i `uc ]
-[; ;picMaestro.c: 443: dinero-=200;
-"443
-[e =- _dinero -> 200 `i ]
-[; ;picMaestro.c: 444: PORTE=0b11111110;
-"444
-[e = _PORTE -> -> 254 `i `uc ]
-[; ;picMaestro.c: 445: n_mensaje=4;
-"445
-[e = _n_mensaje -> -> 4 `i `uc ]
-[; ;picMaestro.c: 446: SSPBUF=2;
-"446
-[e = _SSPBUF -> -> 2 `i `uc ]
-[; ;picMaestro.c: 447: PORTD=2;
-"447
-[e = _PORTD -> -> 2 `i `uc ]
-[; ;picMaestro.c: 448: _delay((unsigned long)((500)*(8000000/4000.0)));
-"448
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"449
-}
 [e :U 204 ]
-[; ;picMaestro.c: 449: }
-[; ;picMaestro.c: 450: INTCONbits.RBIF=0;
-"450
-[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-"451
-}
-[e :U 199 ]
-[; ;picMaestro.c: 451: }
-[; ;picMaestro.c: 454: if(PIR1bits.RCIF == 1){
-"454
-[e $ ! == -> . . _PIR1bits 0 5 `i -> 1 `i 205  ]
+[; ;picMaestro.c: 448: if (PORTBbits.RB3==0&dinero>=350){
+"448
+[e $ ! & == -> . . _PORTBbits 0 3 `i -> 0 `i >= _dinero -> 350 `i 205  ]
 {
-[; ;picMaestro.c: 455: accionUSART = RCREG;
+[; ;picMaestro.c: 449: tampicos+=1;
+"449
+[e =+ _tampicos -> -> 1 `i `uc ]
+[; ;picMaestro.c: 450: dinero-=350;
+"450
+[e =- _dinero -> 350 `i ]
+[; ;picMaestro.c: 451: PORTE=0b11111110;
+"451
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 452: n_mensaje=3;
+"452
+[e = _n_mensaje -> -> 3 `i `uc ]
+[; ;picMaestro.c: 453: SSPBUF=1;
+"453
+[e = _SSPBUF -> -> 1 `i `uc ]
+[; ;picMaestro.c: 454: PORTD=1;
+"454
+[e = _PORTD -> -> 1 `i `uc ]
+[; ;picMaestro.c: 455: _delay((unsigned long)((500)*(8000000/4000.0)));
 "455
-[e = _accionUSART _RCREG ]
-[; ;picMaestro.c: 457: PIR1bits.RCIF = 0;
-"457
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-"458
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+"456
 }
 [e :U 205 ]
-[; ;picMaestro.c: 458: }
-[; ;picMaestro.c: 461: if (PIR1bits.TMR2IF == 1){
+[; ;picMaestro.c: 456: }
+[; ;picMaestro.c: 458: if (PORTBbits.RB4==0&dinero>=200){
+"458
+[e $ ! & == -> . . _PORTBbits 0 4 `i -> 0 `i >= _dinero -> 200 `i 206  ]
+{
+[; ;picMaestro.c: 459: tortrix+=1;
+"459
+[e =+ _tortrix -> -> 1 `i `uc ]
+[; ;picMaestro.c: 460: dinero-=200;
+"460
+[e =- _dinero -> 200 `i ]
+[; ;picMaestro.c: 461: PORTE=0b11111110;
 "461
-[e $ ! == -> . . _PIR1bits 0 1 `i -> 1 `i 206  ]
-{
-[; ;picMaestro.c: 462: PIR1bits.TMR2IF =0;
+[e = _PORTE -> -> 254 `i `uc ]
+[; ;picMaestro.c: 462: n_mensaje=4;
 "462
-[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 463: cont2++;
+[e = _n_mensaje -> -> 4 `i `uc ]
+[; ;picMaestro.c: 463: SSPBUF=2;
 "463
-[e ++ _cont2 -> 1 `i ]
-[; ;picMaestro.c: 464: cont++;
+[e = _SSPBUF -> -> 2 `i `uc ]
+[; ;picMaestro.c: 464: PORTD=2;
 "464
-[e ++ _cont -> 1 `i ]
-[; ;picMaestro.c: 465: if (cont==500){
+[e = _PORTD -> -> 2 `i `uc ]
+[; ;picMaestro.c: 465: _delay((unsigned long)((500)*(8000000/4000.0)));
 "465
-[e $ ! == _cont -> 500 `i 207  ]
-{
-[; ;picMaestro.c: 466: n_mensaje=1;
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 "466
-[e = _n_mensaje -> -> 1 `i `uc ]
-"467
-}
-[e :U 207 ]
-[; ;picMaestro.c: 467: }
-[; ;picMaestro.c: 468: if (cont==1000){
-"468
-[e $ ! == _cont -> 1000 `i 208  ]
-{
-[; ;picMaestro.c: 469: n_mensaje=2;
-"469
-[e = _n_mensaje -> -> 2 `i `uc ]
-[; ;picMaestro.c: 470: cont=0;
-"470
-[e = _cont -> 0 `i ]
-"471
-}
-[e :U 208 ]
-[; ;picMaestro.c: 471: }
-[; ;picMaestro.c: 472: if (cont2==50){
-"472
-[e $ ! == _cont2 -> 50 `i 209  ]
-{
-[; ;picMaestro.c: 473: cont2=0;
-"473
-[e = _cont2 -> 0 `i ]
-[; ;picMaestro.c: 474: enviarDATA_USART();
-"474
-[e ( _enviarDATA_USART ..  ]
-"475
-}
-[e :U 209 ]
-"476
 }
 [e :U 206 ]
-[; ;picMaestro.c: 475: }
-[; ;picMaestro.c: 476: }
-[; ;picMaestro.c: 477: return;
-"477
-[e $UE 198  ]
-[; ;picMaestro.c: 478: }
-"478
-[e :UE 198 ]
-}
-"480
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[; ;picMaestro.c: 480: void main(void) {
-[e :U _main ]
-[f ]
-[; ;picMaestro.c: 482: OSCCON = 0b01111100;
-"482
-[e = _OSCCON -> -> 124 `i `uc ]
-[; ;picMaestro.c: 485: ANSEL=0;
-"485
-[e = _ANSEL -> -> 0 `i `uc ]
-[; ;picMaestro.c: 486: ANSELH=0;
-"486
-[e = _ANSELH -> -> 0 `i `uc ]
-[; ;picMaestro.c: 489: TRISA=0b11000000;
-"489
-[e = _TRISA -> -> 192 `i `uc ]
-[; ;picMaestro.c: 490: TRISB=0b11111111;
-"490
-[e = _TRISB -> -> 255 `i `uc ]
-[; ;picMaestro.c: 491: TRISC=0b11010111;
-"491
-[e = _TRISC -> -> 215 `i `uc ]
-[; ;picMaestro.c: 492: TRISD=0b00000000;
-"492
-[e = _TRISD -> -> 0 `i `uc ]
-[; ;picMaestro.c: 493: TRISE=0b00000000;
-"493
-[e = _TRISE -> -> 0 `i `uc ]
-[; ;picMaestro.c: 495: PORTD=0;
-"495
-[e = _PORTD -> -> 0 `i `uc ]
-[; ;picMaestro.c: 496: PORTE=0b11111111;
-"496
-[e = _PORTE -> -> 255 `i `uc ]
-[; ;picMaestro.c: 498: LCD_init();
-"498
-[e ( _LCD_init ..  ]
-[; ;picMaestro.c: 500: LCD_t8((0b001<<7)|(0x00));
-"500
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
-[; ;picMaestro.c: 501: LCD_WM("Bienvenido!!!");
-"501
-[e ( _LCD_WM (1 -> :s 26C `*uc ]
-[; ;picMaestro.c: 503: LCD_t8((0b001<<7)|(0x40));
-"503
-[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
-[; ;picMaestro.c: 504: LCD_WM("Cmamut");
-"504
-[e ( _LCD_WM (1 -> :s 27C `*uc ]
-[; ;picMaestro.c: 507: IOCB=0b00011111;
-"507
-[e = _IOCB -> -> 31 `i `uc ]
-[; ;picMaestro.c: 508: WPUB=0b00011111;
-"508
-[e = _WPUB -> -> 31 `i `uc ]
-[; ;picMaestro.c: 509: INTCONbits.RBIF=0;
-"509
+[; ;picMaestro.c: 466: }
+[; ;picMaestro.c: 467: INTCONbits.RBIF=0;
+"467
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 510: INTCONbits.RBIE=1;
-"510
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 511: OPTION_REGbits.nRBPU=0;
-"511
-[e = . . _OPTION_REGbits 0 5 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 513: TMR1L=0;
-"513
-[e = _TMR1L -> -> 0 `i `uc ]
-[; ;picMaestro.c: 514: TMR1H=0;
-"514
-[e = _TMR1H -> -> 0 `i `uc ]
-[; ;picMaestro.c: 515: T1CON= 0B00000111;
-"515
-[e = _T1CON -> -> 7 `i `uc ]
-[; ;picMaestro.c: 517: PR2=155;
-"517
-[e = _PR2 -> -> 155 `i `uc ]
-[; ;picMaestro.c: 518: T2CON = 0b01111111;
-"518
-[e = _T2CON -> -> 127 `i `uc ]
-[; ;picMaestro.c: 519: PIR1bits.TMR2IF = 0;
-"519
-[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 520: PIE1bits.TMR2IE = 1;
-"520
-[e = . . _PIE1bits 0 1 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 523: SSPSTAT=0b01000000;
-"523
-[e = _SSPSTAT -> -> 64 `i `uc ]
-[; ;picMaestro.c: 525: SSPCON=0b00110010;
-"525
-[e = _SSPCON -> -> 50 `i `uc ]
-[; ;picMaestro.c: 528: TXSTAbits.SYNC = 0;
-"528
-[e = . . _TXSTAbits 0 4 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 529: TXSTAbits.BRGH = 0;
-"529
-[e = . . _TXSTAbits 0 2 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 530: TXSTAbits.TXEN = 1;
-"530
-[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 532: BAUDCTLbits.BRG16 = 0;
-"532
-[e = . . _BAUDCTLbits 0 3 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 533: SPBRG = 12;
-"533
-[e = _SPBRG -> -> 12 `i `uc ]
-[; ;picMaestro.c: 534: SPBRGH = 0;
-"534
-[e = _SPBRGH -> -> 0 `i `uc ]
-[; ;picMaestro.c: 536: RCSTAbits.SPEN = 1;
-"536
-[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 537: RCSTAbits.RX9 = 0;
-"537
-[e = . . _RCSTAbits 0 6 -> -> 0 `i `uc ]
-[; ;picMaestro.c: 538: RCSTAbits.CREN = 1;
-"538
-[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 541: INTCONbits.PEIE=1;
-"541
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 542: INTCONbits.GIE=1;
-"542
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;picMaestro.c: 543: INTCONbits.PEIE=1;
-"543
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-"545
-[v _dato `uc ~T0 @X0 1 a ]
-[; ;picMaestro.c: 545: char dato=0;
-[e = _dato -> -> 0 `i `uc ]
-[; ;picMaestro.c: 546: while(1){
-"546
-[e :U 212 ]
+"468
+}
+[e :U 201 ]
+[; ;picMaestro.c: 468: }
+[; ;picMaestro.c: 471: if(PIR1bits.RCIF == 1){
+"471
+[e $ ! == -> . . _PIR1bits 0 5 `i -> 1 `i 207  ]
 {
-[; ;picMaestro.c: 547: check_mensajes();
-"547
-[e ( _check_mensajes ..  ]
-[; ;picMaestro.c: 548: IRcontrol();
-"548
-[e ( _IRcontrol ..  ]
-[; ;picMaestro.c: 549: check_transmisiones();
-"549
-[e ( _check_transmisiones ..  ]
-"550
+[; ;picMaestro.c: 472: accionUSART = RCREG;
+"472
+[e = _accionUSART _RCREG ]
+[; ;picMaestro.c: 474: PIR1bits.RCIF = 0;
+"474
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
+"475
+}
+[e :U 207 ]
+[; ;picMaestro.c: 475: }
+[; ;picMaestro.c: 478: if (PIR1bits.TMR2IF == 1){
+"478
+[e $ ! == -> . . _PIR1bits 0 1 `i -> 1 `i 208  ]
+{
+[; ;picMaestro.c: 479: PIR1bits.TMR2IF =0;
+"479
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 480: cont2++;
+"480
+[e ++ _cont2 -> 1 `i ]
+[; ;picMaestro.c: 481: cont++;
+"481
+[e ++ _cont -> 1 `i ]
+[; ;picMaestro.c: 482: if (cont==500){
+"482
+[e $ ! == _cont -> 500 `i 209  ]
+{
+[; ;picMaestro.c: 483: n_mensaje=1;
+"483
+[e = _n_mensaje -> -> 1 `i `uc ]
+"484
+}
+[e :U 209 ]
+[; ;picMaestro.c: 484: }
+[; ;picMaestro.c: 485: if (cont==1000){
+"485
+[e $ ! == _cont -> 1000 `i 210  ]
+{
+[; ;picMaestro.c: 486: n_mensaje=2;
+"486
+[e = _n_mensaje -> -> 2 `i `uc ]
+[; ;picMaestro.c: 487: cont=0;
+"487
+[e = _cont -> 0 `i ]
+"488
+}
+[e :U 210 ]
+[; ;picMaestro.c: 488: }
+[; ;picMaestro.c: 489: if (cont2==50){
+"489
+[e $ ! == _cont2 -> 50 `i 211  ]
+{
+[; ;picMaestro.c: 490: cont2=0;
+"490
+[e = _cont2 -> 0 `i ]
+[; ;picMaestro.c: 491: enviarDATA_USART();
+"491
+[e ( _enviarDATA_USART ..  ]
+"492
 }
 [e :U 211 ]
+"493
+}
+[e :U 208 ]
+[; ;picMaestro.c: 492: }
+[; ;picMaestro.c: 493: }
+[; ;picMaestro.c: 494: return;
+"494
+[e $UE 200  ]
+[; ;picMaestro.c: 495: }
+"495
+[e :UE 200 ]
+}
+"497
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[; ;picMaestro.c: 497: void main(void) {
+[e :U _main ]
+[f ]
+[; ;picMaestro.c: 499: OSCCON = 0b01111100;
+"499
+[e = _OSCCON -> -> 124 `i `uc ]
+[; ;picMaestro.c: 502: ANSEL=0;
+"502
+[e = _ANSEL -> -> 0 `i `uc ]
+[; ;picMaestro.c: 503: ANSELH=0;
+"503
+[e = _ANSELH -> -> 0 `i `uc ]
+[; ;picMaestro.c: 506: TRISA=0b11000000;
+"506
+[e = _TRISA -> -> 192 `i `uc ]
+[; ;picMaestro.c: 507: TRISB=0b11111111;
+"507
+[e = _TRISB -> -> 255 `i `uc ]
+[; ;picMaestro.c: 508: TRISC=0b11010111;
+"508
+[e = _TRISC -> -> 215 `i `uc ]
+[; ;picMaestro.c: 509: TRISD=0b00000000;
+"509
+[e = _TRISD -> -> 0 `i `uc ]
+[; ;picMaestro.c: 510: TRISE=0b00000000;
+"510
+[e = _TRISE -> -> 0 `i `uc ]
+[; ;picMaestro.c: 512: PORTD=0;
+"512
+[e = _PORTD -> -> 0 `i `uc ]
+[; ;picMaestro.c: 513: PORTE=0b11111111;
+"513
+[e = _PORTE -> -> 255 `i `uc ]
+[; ;picMaestro.c: 515: LCD_init();
+"515
+[e ( _LCD_init ..  ]
+[; ;picMaestro.c: 517: LCD_t8((0b001<<7)|(0x00));
+"517
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 0 `i ]
+[; ;picMaestro.c: 518: LCD_WM("Bienvenido!!!");
+"518
+[e ( _LCD_WM (1 -> :s 26C `*uc ]
+[; ;picMaestro.c: 520: LCD_t8((0b001<<7)|(0x40));
+"520
+[e ( _LCD_t8 (1 | << -> 1 `i -> 7 `i -> 64 `i ]
+[; ;picMaestro.c: 521: LCD_WM("Cmamut");
+"521
+[e ( _LCD_WM (1 -> :s 27C `*uc ]
+[; ;picMaestro.c: 524: IOCB=0b00011111;
+"524
+[e = _IOCB -> -> 31 `i `uc ]
+[; ;picMaestro.c: 525: WPUB=0b00011111;
+"525
+[e = _WPUB -> -> 31 `i `uc ]
+[; ;picMaestro.c: 526: INTCONbits.RBIF=0;
+"526
+[e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 527: INTCONbits.RBIE=1;
+"527
+[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 528: OPTION_REGbits.nRBPU=0;
+"528
+[e = . . _OPTION_REGbits 0 5 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 530: TMR1L=0;
+"530
+[e = _TMR1L -> -> 0 `i `uc ]
+[; ;picMaestro.c: 531: TMR1H=0;
+"531
+[e = _TMR1H -> -> 0 `i `uc ]
+[; ;picMaestro.c: 532: T1CON= 0B00000111;
+"532
+[e = _T1CON -> -> 7 `i `uc ]
+[; ;picMaestro.c: 534: PR2=155;
+"534
+[e = _PR2 -> -> 155 `i `uc ]
+[; ;picMaestro.c: 535: T2CON = 0b01111111;
+"535
+[e = _T2CON -> -> 127 `i `uc ]
+[; ;picMaestro.c: 536: PIR1bits.TMR2IF = 0;
+"536
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 537: PIE1bits.TMR2IE = 1;
+"537
+[e = . . _PIE1bits 0 1 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 540: SSPSTAT=0b01000000;
+"540
+[e = _SSPSTAT -> -> 64 `i `uc ]
+[; ;picMaestro.c: 542: SSPCON=0b00110010;
+"542
+[e = _SSPCON -> -> 50 `i `uc ]
+[; ;picMaestro.c: 545: TXSTAbits.SYNC = 0;
+"545
+[e = . . _TXSTAbits 0 4 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 546: TXSTAbits.BRGH = 0;
 "546
-[e $U 212  ]
-[e :U 213 ]
-[; ;picMaestro.c: 550: }
-[; ;picMaestro.c: 551: }
+[e = . . _TXSTAbits 0 2 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 547: TXSTAbits.TXEN = 1;
+"547
+[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 549: BAUDCTLbits.BRG16 = 0;
+"549
+[e = . . _BAUDCTLbits 0 3 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 550: SPBRG = 12;
+"550
+[e = _SPBRG -> -> 12 `i `uc ]
+[; ;picMaestro.c: 551: SPBRGH = 0;
 "551
-[e :UE 210 ]
+[e = _SPBRGH -> -> 0 `i `uc ]
+[; ;picMaestro.c: 553: RCSTAbits.SPEN = 1;
+"553
+[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 554: RCSTAbits.RX9 = 0;
+"554
+[e = . . _RCSTAbits 0 6 -> -> 0 `i `uc ]
+[; ;picMaestro.c: 555: RCSTAbits.CREN = 1;
+"555
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 558: INTCONbits.PEIE=1;
+"558
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 559: INTCONbits.GIE=1;
+"559
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+[; ;picMaestro.c: 560: INTCONbits.PEIE=1;
+"560
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+"562
+[v _dato `uc ~T0 @X0 1 a ]
+[; ;picMaestro.c: 562: char dato=0;
+[e = _dato -> -> 0 `i `uc ]
+[; ;picMaestro.c: 563: while(1){
+"563
+[e :U 214 ]
+{
+[; ;picMaestro.c: 564: check_mensajes();
+"564
+[e ( _check_mensajes ..  ]
+[; ;picMaestro.c: 565: IRcontrol();
+"565
+[e ( _IRcontrol ..  ]
+[; ;picMaestro.c: 566: check_transmisiones();
+"566
+[e ( _check_transmisiones ..  ]
+"567
+}
+[e :U 213 ]
+"563
+[e $U 214  ]
+[e :U 215 ]
+[; ;picMaestro.c: 567: }
+[; ;picMaestro.c: 568: }
+"568
+[e :UE 212 ]
 }
 [p f _sprintf 8388736 ]
 [a 13C 84 111 114 116 114 105 120 0 ]
