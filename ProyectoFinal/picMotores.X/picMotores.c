@@ -202,29 +202,29 @@ void main(void) {
         presion = medicion_presion();
         
         //MOVER STEPPER
-        if (PORTBbits.RB4==1|accion==1){
-            while (PORTBbits.RB4==1){
+        if (accion==1){
+            /*while (PORTBbits.RB4==1){
             PORTBbits.RB4==1;
-            }
+            }*/
             stepper();
             if (accion==1){accion=0;}
         }
         //MOVER MOTOR DC
-        if (PORTBbits.RB7==1|accion==2){
-            while (PORTBbits.RB7==1){}
+        if (accion==2){
+            //while (PORTBbits.RB7==1){}
             move_pwmDC();
             if (accion==2){accion=0;}
         }
         //CERRAR PUERTA
-        if (PORTBbits.RB5==1| (accion==4&pos==20)|(presion!=1)){
-            while (PORTBbits.RB5==1){}
+        if ((accion==4&pos==20)|(presion!=1)){
+            //while (PORTBbits.RB5==1){}
             __delay_ms(6000); //recogieron el producto, espera 6 seg.
             giro=1;
             if (accion==3){accion=0;}
         }
         //ABRRIR PUERTA
-        if (PORTBbits.RB6==1|(accion==3&pos==77)|(presion==1)){
-            while (PORTBbits.RB6==1){}
+        if ((accion==3&pos==77)|(presion==1)){
+            //while (PORTBbits.RB6==1){}
             giro=2;
             if (accion==3){accion=0;}
         }
